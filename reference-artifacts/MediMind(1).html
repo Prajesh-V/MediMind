@@ -1,0 +1,3338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medi Mind | AI-Assisted Personalized Medication & Healthcare Companion</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Yu Gothic UI","Yu Gothic",Meiryo,Arial,sans-serif}
+body{
+  background:
+    radial-gradient(circle at 8% 8%, rgba(9,135,119,.10) 0, rgba(9,135,119,0) 30%),
+    radial-gradient(circle at 92% 88%, rgba(11,148,131,.08) 0, rgba(11,148,131,0) 34%),
+    linear-gradient(135deg,#f7fcfb 0%,#f3f9f8 45%,#f7fafc 100%);
+  color:#17212b;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* LOGIN */
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 10% 20%,#dff6f0 0,transparent 30%),radial-gradient(circle at 90% 80%,#dcecff 0,transparent 30%),#f5f8fb;padding:25px}
+.login-container{width:100%;max-width:1100px;min-height:680px;display:grid;grid-template-columns:1.05fr .95fr;background:white;border-radius:28px;overflow:hidden;box-shadow:0 25px 70px rgba(24,54,74,.13)}
+.login-left{padding:55px;background:linear-gradient(145deg,#087f70,#0c9b89);color:white;position:relative;overflow:hidden}
+.login-left:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;border:50px solid rgba(255,255,255,.08);right:-100px;bottom:-80px}
+.logo{font-size:30px;font-weight:800;letter-spacing:-1px}.logo span{color:#b9fff2}
+.tagline{margin-top:6px;opacity:.9;font-size:14px}
+.hero{margin-top:105px;position:relative;z-index:2}.hero h1{font-size:43px;line-height:1.08;margin-bottom:20px}.hero p{font-size:16px;line-height:1.7;opacity:.9;max-width:455px}
+.ai-badge{display:inline-flex;margin-top:30px;padding:10px 16px;border-radius:30px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);font-size:13px}
+.login-right{padding:48px;display:flex;flex-direction:column;justify-content:center}.login-right h2{font-size:30px;margin-bottom:8px}.login-subtitle{color:#70808d;margin-bottom:22px}
+.language-box{margin-bottom:20px}.language-box label{display:block;font-size:13px;font-weight:650;margin-bottom:7px}
+.language-box select{width:100%;padding:13px;border:1px solid #dbe4e9;border-radius:12px;background:#fbfcfd}
+.role-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.role{border:1px solid #dce5ea;padding:17px;border-radius:14px;cursor:pointer;text-align:center;background:#fff;transition:.2s}
+.role.active{border-color:#0a927f;background:#eafaf7;color:#087f70}.role-icon{font-size:27px;margin-bottom:7px}.role strong{display:block;font-size:14px}.role small{color:#82909b;font-size:11px}
+.field{margin-bottom:15px}.field label{display:block;font-size:13px;font-weight:650;margin-bottom:7px}.field input,.field textarea,.field select{width:100%;padding:13px 14px;border:1px solid #dbe4e9;border-radius:12px;outline:none;background:#fbfcfd}.field input:focus,.field textarea:focus,.field select:focus{border-color:#0a927f;box-shadow:0 0 0 3px rgba(10,146,127,.1)}
+.primary-btn{width:100%;border:none;padding:14px;border-radius:12px;color:#fff;background:#087f70;cursor:pointer;font-weight:700;transition:.2s}.primary-btn:hover{background:#066e61;transform:translateY(-1px)}
+.secondary-btn{border:1px solid #dbe5e9;padding:11px 15px;border-radius:10px;background:white;color:#40515d;font-weight:650}.danger-btn{border:1px solid #ffd2d2;background:#fff4f4;color:#b13a3a;padding:10px 13px;border-radius:10px}
+.demo-note{margin-top:14px;text-align:center;font-size:12px;color:#87949d}
+
+/* APP */
+.app{display:none;min-height:100vh}.sidebar{width:250px;background:#fff;border-right:1px solid #e7edf1;position:fixed;top:0;bottom:0;left:0;padding:27px 17px;z-index:10;overflow-y:auto}
+.sidebar-logo{padding:0 15px 28px}.nav-item{padding:12px 15px;border-radius:11px;margin-bottom:5px;color:#63727d;cursor:pointer;font-size:14px}.nav-item.active,.nav-item:hover{background:#e9f8f5;color:#087f70;font-weight:650}
+.sidebar-role{margin:18px 5px;padding:12px;border-radius:12px;background:#f4faf9;font-size:12px;color:#5f716f}.sidebar-role b{display:block;color:#087f70;margin-bottom:3px}
+.logout{position:absolute;bottom:20px;left:17px;right:17px;padding:11px;border:1px solid #e2e9ec;background:white;border-radius:10px;cursor:pointer;color:#65737d}
+.main{margin-left:250px;padding:32px;background:transparent}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:15px}.welcome h1{font-size:28px}.welcome p{color:#778690;margin-top:5px}.top-actions{display:flex;align-items:center;gap:10px}.top-actions select{padding:9px;border:1px solid #dbe5e9;border-radius:10px;background:#fff}
+.profile{display:flex;gap:10px;align-items:center}.avatar{width:43px;height:43px;border-radius:50%;background:#d8f3ed;display:flex;align-items:center;justify-content:center;color:#087f70;font-weight:700}
+.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px}.stat{background:white;border-radius:17px;padding:21px;border:1px solid #e8eef2}.stat-icon{font-size:24px;margin-bottom:10px}.stat-number{font-size:26px;font-weight:750}.stat-label{color:#7b8993;font-size:13px;margin-top:4px}
+.section-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px}.card{background:white;border:1px solid #e8eef2;border-radius:19px;padding:23px;margin-bottom:20px}.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px;gap:10px}.card-header h2{font-size:18px}.card-header span{font-size:12px;color:#087f70}
+.upload-box{border:2px dashed #b9dcd6;border-radius:16px;padding:28px;text-align:center;background:#f8fdfc}.upload-icon{font-size:38px;margin-bottom:8px}.upload-box p{color:#73828c;font-size:13px;margin:8px 0 17px}.upload-btn{display:inline-block;padding:10px 17px;background:#087f70;color:white;border-radius:10px;cursor:pointer;font-size:13px;font-weight:650}#prescriptionFile{display:none}
+.medication{padding:14px;border:1px solid #e5ecef;border-radius:13px;margin-bottom:9px;display:flex;justify-content:space-between;gap:10px}.medication strong{font-size:14px}.medication small{color:#82909b;display:block;margin-top:4px}.pill{padding:6px 10px;border-radius:20px;font-size:11px;background:#eaf8f5;color:#087f70;height:fit-content}
+.interaction{border-radius:14px;padding:15px;margin-bottom:11px;border-left:4px solid}
+.food-checker{background:linear-gradient(135deg,#f7fdfc,#f2f8ff);border:1px solid #d9ece8;border-radius:17px;padding:20px;margin-bottom:20px}
+.food-checker-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:15px}
+.food-checker-title h3{font-size:17px}.food-checker-title p{font-size:12px;color:#72818a;margin-top:5px;line-height:1.5}
+.food-input-row{display:grid;grid-template-columns:1fr auto auto;gap:9px}
+.food-input-row input{padding:13px;border:1px solid #dbe5e9;border-radius:11px;background:#fff}
+.scan-btn{border:1px solid #b9dcd6;padding:11px 14px;border-radius:10px;background:#fff;color:#087f70;font-weight:700}
+.check-result{margin-top:16px}
+.check-result .result-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.result-med{padding:12px;border:1px solid #e3eaed;border-radius:12px;background:#fff;margin-top:9px}
+.result-med strong{font-size:13px}.result-med p{font-size:12px;color:#697984;line-height:1.5;margin-top:5px}
+.administration-tip{margin-top:9px;padding:10px 12px;border-radius:10px;background:#f0f8ff;border:1px solid #d9eafb;color:#405c70;font-size:11px;line-height:1.5}
+.tip-icon{font-size:13px;margin-right:4px}
+.interaction.high{background:#fff0f0;border-color:#c83b3b}.interaction.moderate{background:#fff8e8;border-color:#e8a62d}.interaction.low{background:#edf9f6;border-color:#15977f}.interaction h3{font-size:14px;margin-bottom:5px}.interaction p{font-size:12px;color:#667680;line-height:1.5}.alternative{margin-top:8px;font-size:12px;font-weight:650;color:#087f70}
+.schedule-item{display:flex;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid #edf1f3}.time{font-weight:700;width:68px;font-size:13px}.schedule-info{flex:1}.schedule-info strong{font-size:13px}.schedule-info small{display:block;color:#84919a;margin-top:4px}.taken{width:18px;height:18px;accent-color:#087f70}
+.badge{display:inline-flex;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:700}.badge.high{background:#ffe9e9;color:#b62e2e}.badge.moderate{background:#fff2cf;color:#986300}.badge.low{background:#e6f8f1;color:#087f70}.badge.neutral{background:#eef2f5;color:#667680}
+.progress{height:9px;background:#edf1f3;border-radius:20px;overflow:hidden}.progress span{display:block;height:100%;background:#087f70;border-radius:20px}
+.alert{padding:13px;border-radius:12px;margin-bottom:9px;font-size:12px}.alert.high{background:#fff0f0;border:1px solid #ffd3d3}.alert.moderate{background:#fff8e8;border:1px solid #ffe6a7}.alert.low{background:#edf9f6;border:1px solid #cceee4}
+.risk-wrap{display:flex;align-items:center;gap:18px}.risk-circle{width:105px;height:105px;border-radius:50%;background:conic-gradient(#e8a62d 0 62%,#edf1f3 62%);display:grid;place-items:center;position:relative;flex:none}.risk-circle:after{content:"";position:absolute;width:80px;height:80px;border-radius:50%;background:#fff}.risk-circle b{position:relative;z-index:1;font-size:24px;color:#986300}
+.food-board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.food-tile{padding:14px;border:1px solid #e5ecef;border-radius:13px;background:#fff}.food-tile strong{font-size:13px}.food-tile small{display:block;color:#82909b;margin:5px 0 9px;font-size:11px}
+.chat{height:440px;display:flex;flex-direction:column}.chat-messages{flex:1;overflow:auto;padding:4px}.bubble{max-width:82%;padding:10px 12px;border-radius:14px;margin:7px 0;font-size:12px;line-height:1.5}.bot{background:#eef8f6;color:#33443f}.user{background:#087f70;color:#fff;margin-left:auto}.chat-form{display:flex;gap:8px;margin-top:10px}.chat-form input{flex:1;padding:11px;border:1px solid #dbe5e9;border-radius:10px}.chat-form button{width:auto;padding:11px 16px}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{padding:11px 9px;border-bottom:1px solid #edf1f3;text-align:left;font-size:12px;white-space:nowrap}th{color:#7b8993;font-weight:650}
+.timeline{position:relative;margin-left:8px}.event{border-left:2px solid #dce8e5;padding:0 0 18px 18px;position:relative}.event:before{content:"";width:10px;height:10px;border-radius:50%;background:#087f70;position:absolute;left:-6px;top:3px}
+.insight{background:#f2f8ff;border:1px solid #dcecff;border-radius:14px;padding:16px;margin-bottom:11px}.insight b{font-size:13px}.insight p{font-size:12px;color:#697986;margin-top:5px;line-height:1.5}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.full{grid-column:1/-1}
+.modal{display:none;position:fixed;inset:0;background:#10212b88;z-index:30;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-card{background:#fff;border-radius:18px;padding:23px;width:min(650px,100%);max-height:90vh;overflow:auto}
+.toast{display:none;position:fixed;right:22px;bottom:22px;background:#17212b;color:#fff;padding:12px 16px;border-radius:10px;z-index:40;font-size:13px}.toast.show{display:block}
+.empty{padding:28px;text-align:center;color:#7d8a93;border:1px dashed #d9e3e6;border-radius:14px}
+@media(max-width:950px){.login-container{grid-template-columns:1fr}.login-left{display:none}.grid{grid-template-columns:repeat(2,1fr)}.section-grid{grid-template-columns:1fr}.food-board{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.sidebar{display:none}.main{margin-left:0;padding:18px}.grid{grid-template-columns:1fr}.topbar{align-items:flex-start}.form-grid{grid-template-columns:1fr}.food-board{grid-template-columns:1fr}.role-selector{grid-template-columns:1fr}.top-actions{flex-wrap:wrap}.login-right{padding:30px 22px}}
+
+
+
+
+
+.top-monitoring-grid{
+ display:grid;
+ grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ gap:22px;
+ margin-bottom:22px;
+ align-items:stretch;
+}
+.top-monitoring-grid .monitoring-card{
+ margin-bottom:0;
+ height:100%;
+}
+@media(max-width:950px){
+ .top-monitoring-grid{
+  grid-template-columns:1fr;
+ }
+}
+
+
+.timeline-severity-grid{
+ display:grid;
+ grid-template-columns:minmax(0,1.35fr) minmax(340px,.65fr);
+ gap:22px;
+ align-items:start;
+ margin-bottom:22px;
+}
+.timeline-severity-grid .side-panel-card{
+ margin-bottom:0;
+ height:100%;
+}
+.timeline-severity-grid .interaction:last-child{
+ margin-bottom:0;
+}
+@media(max-width:1100px){
+ .timeline-severity-grid{
+  grid-template-columns:1fr;
+ }
+}
+
+/* TIME-AWARE MEDICATION / FOOD MONITORING */
+.timeline-board{background:#fbfdfd;border:1px solid #e2eceb;border-radius:16px;padding:18px}
+.time-window{margin-bottom:16px}.window-title{display:flex;justify-content:space-between;margin-bottom:8px}.window-title strong{font-size:13px}.window-title span{font-size:11px;color:#7b8993}
+.event-row{display:grid;grid-template-columns:78px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid #edf1f3}.event-row:first-of-type{border-top:0}.event-time{font-size:12px;font-weight:750;color:#087f70}.event-main strong{font-size:12px}.event-main small{display:block;color:#7c8992;margin-top:3px;font-size:11px}
+.window-note{padding:9px 11px;border-radius:10px;background:#f0f8ff;border:1px solid #dcecff;color:#526c7c;font-size:11px;line-height:1.45;margin-top:8px}
+.pharm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pharm-card{border:1px solid #e3eaed;border-radius:12px;padding:12px;background:#fff}.pharm-card strong{font-size:12px}.pharm-card small{display:block;color:#7b8993;margin-top:4px;font-size:10px}
+.food-record-box{border:1px solid #e1e9ec;border-radius:15px;padding:17px;background:#fff}.food-record-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.food-record-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.photo-input{display:none}.time-chip{display:inline-flex;padding:5px 8px;border-radius:20px;background:#eef7f5;color:#087f70;font-size:10px;font-weight:700}.causal-note{font-size:11px;color:#6e7e88;line-height:1.5;margin-top:8px}
+@media(max-width:950px){.pharm-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.pharm-grid{grid-template-columns:1fr}.event-row{grid-template-columns:60px 1fr}.event-row .badge{display:none}}
+
+
+/* ACTUAL DOSING CALENDAR */
+.dosing-calendar{margin:0 auto;max-width:1120px}
+.calendar-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:nowrap;min-width:0;overflow:visible}
+.calendar-month{display:flex;align-items:center;gap:8px}
+.calendar-month h3{font-size:17px;min-width:150px;text-align:center}
+.calendar-nav{width:34px;height:34px;border:1px solid #dbe5e9;background:#fff;border-radius:9px;font-weight:700;color:#52636d}
+.calendar-nav:hover{border-color:#087f70;color:#087f70}
+.calendar-legend{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:nowrap;white-space:nowrap;flex-shrink:0;overflow:visible}
+.cal-key{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 9px;border-radius:18px;font-size:9px;font-weight:700;white-space:nowrap;line-height:1;height:24px;box-sizing:border-box}
+.cal-key.taken{background:#e6f8f1;color:#087f70}.cal-key.missed{background:#ffe9e9;color:#b62e2e}.cal-key.late{background:#fff2cf;color:#986300}.cal-key.scheduled{background:#eef2f5;color:#667680}
+.calendar-scroll{width:100%;overflow-x:auto}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(118px,1fr));border:1px solid #e2e9ec;border-radius:13px;overflow:hidden;background:#fff}
+.calendar-day-name{background:#f6f9fa;color:#74838d;font-size:9px;font-weight:750;text-transform:uppercase;padding:8px 6px;border-right:1px solid #e7edef;border-bottom:1px solid #e2e9ec;text-align:center}
+.calendar-cell{min-height:132px;padding:7px;border-right:1px solid #e7edef;border-bottom:1px solid #e7edef;background:#fff;overflow:hidden}
+.calendar-cell:nth-child(7n){border-right:0}
+.calendar-cell.other-month{background:#fafbfc;color:#b5c0c6}
+.calendar-cell.today{background:#f4fbf9}
+.calendar-date{font-size:10px;font-weight:750;margin-bottom:6px;color:#52636d;white-space:nowrap}
+.calendar-cell.today .calendar-date{color:#087f70}
+.calendar-dose{display:grid;grid-template-columns:6px minmax(0,1fr);align-items:center;column-gap:5px;height:24px;padding:3px 5px;border-radius:6px;margin-bottom:3px;font-size:8px;line-height:1.05;border:1px solid transparent;overflow:hidden}
+.calendar-dose strong{display:block;font-size:8px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.05}
+.calendar-dose small{display:block;font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:inherit;opacity:.9;line-height:1.05;margin-top:1px}
+.calendar-dose.taken{background:#e6f8f1;border-color:#c7eee2;color:#087f70}.calendar-dose.missed{background:#ffe9e9;border-color:#ffd0d0;color:#b62e2e}.calendar-dose.late{background:#fff2cf;border-color:#ffe3a0;color:#986300}.calendar-dose.scheduled{background:#f1f4f6;border-color:#e0e6e9;color:#667680}
+.dose-dot{width:6px;height:6px;border-radius:50%;background:currentColor;display:block}
+.calendar-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px auto 0;max-width:1120px}
+.calendar-summary-card{border:1px solid #e4eaed;border-radius:10px;padding:10px 12px;background:#fff}
+.calendar-summary-card span{display:block;font-size:9px;color:#7a8992;margin-bottom:3px}.calendar-summary-card strong{font-size:18px}
+.calendar-summary-card.taken strong{color:#087f70}.calendar-summary-card.missed strong{color:#b62e2e}.calendar-summary-card.late strong{color:#986300}
+.calendar-detail{margin:11px auto 0;max-width:1120px;padding:10px 12px;border:1px solid #e2e9ec;border-radius:10px;background:#f9fbfc;font-size:10px;color:#61727c;line-height:1.45}
+@media(max-width:850px){.calendar-toolbar{flex-wrap:wrap}.calendar-legend{justify-content:flex-start;flex-shrink:1}.cal-key{height:23px}.calendar-summary{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.calendar-grid{grid-template-columns:repeat(7,118px)}.calendar-cell{min-height:125px}.calendar-month h3{min-width:130px;font-size:15px}}
+
+.drug-adherence-section{max-width:1120px;margin:16px auto 0}
+.drug-adherence-table-wrap{overflow-x:auto;border:1px solid #e2e9ec;border-radius:12px;background:#fff}
+.drug-adherence-table{width:100%;border-collapse:collapse;min-width:760px}
+.drug-adherence-table th{background:#f6f9fa;color:#71808a;font-size:9px;text-transform:uppercase;letter-spacing:.04em;font-weight:750;padding:10px 12px;text-align:left;border-bottom:1px solid #e2e9ec}
+.drug-adherence-table td{padding:11px 12px;font-size:11px;border-bottom:1px solid #edf1f3;color:#53656f;vertical-align:middle}
+.drug-adherence-table tr:last-child td{border-bottom:0}
+.drug-adherence-table td:first-child{font-weight:750;color:#263942}
+.drug-adherence-table .count-taken{color:#087f70;font-weight:750}
+.drug-adherence-table .count-missed{color:#b62e2e;font-weight:750}
+.drug-adherence-table .count-late{color:#986300;font-weight:750}
+.adherence-bar{width:120px;height:7px;background:#edf1f3;border-radius:10px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:7px}
+.adherence-fill{height:100%;background:#087f70;border-radius:10px}
+.adherence-percent{font-weight:750;color:#087f70}
+.adherence-note{margin-top:10px;padding:10px 12px;border:1px solid #e2e9ec;border-radius:10px;background:#f9fbfc;font-size:10px;color:#687983;line-height:1.45}
+
+
+
+/* IMPROVED PATIENT PROFILE DATA */
+.patient-profile-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:22px;align-items:stretch}.patient-profile-grid>.card{height:100%}.patient-data-panel{display:flex;flex-direction:column}.patient-data-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:14px}.patient-data-tile{border:1px solid #e2eaed;border-radius:14px;padding:13px;background:linear-gradient(145deg,#fff,#f8fcfb);min-height:92px;transition:.2s}.patient-data-tile:hover{border-color:#b9dcd6;transform:translateY(-1px)}.patient-data-tile-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.patient-data-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#e8f7f4;color:#087f70;font-size:15px}.patient-data-label{color:#71818b;font-size:11px;font-weight:650;margin-top:9px}.patient-data-value{color:#263942;font-size:18px;font-weight:800;margin-top:2px}.patient-data-sub{color:#7a8992;font-size:10px;margin-top:2px;line-height:1.35}.patient-data-section{border:1px solid #e2eaed;border-radius:14px;padding:14px;background:#fff;margin-bottom:11px}.patient-data-section:last-child{margin-bottom:0}.patient-data-section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.patient-data-section-head strong{font-size:13px;color:#263942}.patient-data-link{border:0;background:transparent;color:#087f70;font-size:11px;font-weight:750;padding:2px 0;cursor:pointer}.patient-data-list{display:flex;flex-direction:column;gap:7px}.patient-data-list-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 9px;border-radius:9px;background:#f7fafb}.patient-data-list-row strong{font-size:11px;color:#30434c}.patient-data-list-row small{display:block;color:#7b8992;font-size:10px;margin-top:2px}.patient-data-status{flex:none;padding:4px 8px;border-radius:15px;background:#e6f8f1;color:#087f70;font-size:9px;font-weight:750}.patient-data-status.warn{background:#fff2cf;color:#986300}.patient-data-alert{display:flex;gap:9px;align-items:flex-start;padding:10px;border-radius:10px;background:#fff8e8;border:1px solid #ffe6a7;color:#6e5a2d;font-size:10px;line-height:1.45}.patient-data-alert b{display:block;color:#7c5b12;font-size:11px;margin-bottom:2px}@media(max-width:950px){.patient-profile-grid{grid-template-columns:1fr}}@media(max-width:600px){.patient-data-summary{grid-template-columns:1fr 1fr}}body.dark-theme .patient-data-tile,body.dark-theme .patient-data-section{background:linear-gradient(145deg,#151f24,#111b20);border-color:#2b3e46}body.dark-theme .patient-data-icon{background:#143a35;color:#69d5c2}body.dark-theme .patient-data-label,body.dark-theme .patient-data-sub{color:#8d9ea7}body.dark-theme .patient-data-value,body.dark-theme .patient-data-section-head strong,body.dark-theme .patient-data-list-row strong{color:#e9f0f2}body.dark-theme .patient-data-link{color:#69d5c2}body.dark-theme .patient-data-list-row{background:#10191e}body.dark-theme .patient-data-list-row small{color:#8d9ea7}body.dark-theme .patient-data-status{background:#143a35;color:#69d5c2}body.dark-theme .patient-data-status.warn{background:#3b301b;color:#f0bc52}body.dark-theme .patient-data-alert{background:#332b19;border-color:#695522;color:#c9b77d}body.dark-theme .patient-data-alert b{color:#f0c45e}
+
+/* ================= DARK THEME ================= */
+body.dark-theme{
+  background:
+    radial-gradient(circle at 7% 10%, rgba(11,148,131,.15) 0, rgba(11,148,131,0) 31%),
+    radial-gradient(circle at 92% 88%, rgba(9,135,119,.11) 0, rgba(9,135,119,0) 35%),
+    linear-gradient(135deg,#0b1718 0%,#0d191b 48%,#0d1418 100%);
+  color:#e7eef1;
+}
+body.dark-theme .login-page{
+ background:radial-gradient(circle at 10% 20%,#123a36 0,transparent 30%),
+ radial-gradient(circle at 90% 80%,#132b43 0,transparent 30%),#0d1418
+}
+body.dark-theme .login-container{background:#151e23;box-shadow:0 25px 70px rgba(0,0,0,.45)}
+body.dark-theme .login-right{background:#151e23}
+body.dark-theme .login-right h2{color:#f1f6f7}
+body.dark-theme .login-subtitle,
+body.dark-theme .demo-note{color:#91a1aa}
+body.dark-theme .language-box select,
+body.dark-theme .field input,
+body.dark-theme .field textarea,
+body.dark-theme .field select{background:#10181d;color:#e7eef1;border-color:#304049}
+body.dark-theme .role{background:#10181d;border-color:#304049;color:#dce5e8}
+body.dark-theme .role small{color:#8ea0aa}
+body.dark-theme .role.active{background:#123d37;border-color:#19a88f;color:#65d8c2}
+
+body.dark-theme .sidebar{background:#111a1f;border-color:#26343b}
+body.dark-theme .sidebar-logo .tagline{color:#91a1aa}
+body.dark-theme .sidebar-role{background:#142b29;color:#aab9bd}
+body.dark-theme .sidebar-role b{color:#58cbb7}
+body.dark-theme .nav-item{color:#91a0a9}
+body.dark-theme .nav-item.active,
+body.dark-theme .nav-item:hover{background:#123b36;color:#62d3bf}
+body.dark-theme .logout{background:#151f24;border-color:#304049;color:#9eabb2}
+body.dark-theme .main{background:transparent}
+body.dark-theme .welcome h1{color:#eef4f5}
+body.dark-theme .welcome p{color:#91a1aa}
+body.dark-theme .top-actions select{background:#151f24;color:#e7eef1;border-color:#304049}
+body.dark-theme .profile small{color:#8798a1!important}
+body.dark-theme .avatar{background:#16433d;color:#68d8c3}
+
+body.dark-theme .stat,
+body.dark-theme .card,
+body.dark-theme .medication,
+body.dark-theme .food-tile,
+body.dark-theme .result-med,
+body.dark-theme .pharm-card,
+body.dark-theme .food-record-box,
+body.dark-theme .drug-adherence-table-wrap,
+body.dark-theme .calendar-summary-card,
+body.dark-theme .calendar-cell,
+body.dark-theme .modal-card{background:#151f24;border-color:#2b3941;color:#e2eaed}
+body.dark-theme .stat-label,
+body.dark-theme .medication small,
+body.dark-theme th,
+body.dark-theme .card-header span,
+body.dark-theme .calendar-date,
+body.dark-theme .calendar-day-name,
+body.dark-theme .drug-adherence-table td,
+body.dark-theme .adherence-note,
+body.dark-theme .calendar-detail{color:#91a2ab}
+body.dark-theme .card-header h2,
+body.dark-theme .medication strong,
+body.dark-theme .drug-adherence-table td:first-child{color:#e9f0f2}
+
+body.dark-theme .upload-box{background:#102421;border-color:#28685f}
+body.dark-theme .food-checker{background:linear-gradient(135deg,#102421,#101d29);border-color:#28564f}
+body.dark-theme .food-input-row input,
+body.dark-theme .chat-form input{background:#10181d;color:#e7eef1;border-color:#304049}
+body.dark-theme .scan-btn,
+body.dark-theme .secondary-btn{background:#151f24;color:#b5c3c8;border-color:#35454d}
+body.dark-theme .secondary-btn:hover{border-color:#58cbb7;color:#68d8c3}
+body.dark-theme .administration-tip{background:#10222e;border-color:#24485d;color:#a9c2d0}
+body.dark-theme .schedule-item,
+body.dark-theme th,
+body.dark-theme td{border-color:#29373e}
+body.dark-theme .timeline-board{background:#10191e;border-color:#293940}
+body.dark-theme .event-row{border-color:#29373e}
+body.dark-theme .event-main small,
+body.dark-theme .window-title span,
+body.dark-theme .causal-note,
+body.dark-theme .pharm-card small{color:#8d9ea7}
+body.dark-theme .window-note{background:#10222e;border-color:#24485d;color:#a9c0cb}
+body.dark-theme .time-chip{background:#143a35;color:#69d5c2}
+body.dark-theme .chat-messages{background:#10191e;border-radius:12px}
+body.dark-theme .bubble.bot{background:#19302e;color:#d7e7e4}
+body.dark-theme .bubble.user{background:#087f70;color:#fff}
+body.dark-theme .alert.high{background:#321d20;border-color:#66343a}
+body.dark-theme .alert.moderate{background:#332b19;border-color:#695522}
+body.dark-theme .alert.low{background:#16332e;border-color:#285b50}
+body.dark-theme .interaction.high{background:#321d20;border-color:#9d4148}
+body.dark-theme .interaction.moderate{background:#332b19;border-color:#9a7222}
+body.dark-theme .interaction.low{background:#16332e;border-color:#28705f}
+body.dark-theme .insight{background:#102431;border-color:#24475b}
+body.dark-theme .risk-circle:after{background:#151f24}
+body.dark-theme .risk-circle b{color:#f0bc52}
+body.dark-theme .calendar-day-name{background:#10191e}
+body.dark-theme .calendar-cell.other-month{background:#11181c;color:#596970}
+body.dark-theme .calendar-cell.today{background:#12302d}
+body.dark-theme .calendar-nav{background:#151f24;color:#aebcc2;border-color:#304049}
+body.dark-theme .calendar-dose.taken{background:#143b35;border-color:#28675b}
+body.dark-theme .calendar-dose.missed{background:#3a2024;border-color:#704047}
+body.dark-theme .calendar-dose.late{background:#3b301b;border-color:#715b26}
+body.dark-theme .calendar-dose.scheduled{background:#202a2f;border-color:#35434a}
+body.dark-theme .drug-adherence-table th{background:#10191e;color:#91a2ab}
+body.dark-theme .progress{background:#26343b}
+body.dark-theme .empty{border-color:#304049;color:#8798a1}
+body.dark-theme .modal{background:rgba(0,0,0,.72)}
+body.dark-theme .toast{background:#e8f0f2;color:#152126}
+body.dark-theme .danger-btn{background:#321d20;border-color:#67353b;color:#ff9fa5}
+
+
+/* ===== Medication & food notification settings ===== */
+.preference-setting{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:15px 16px;
+  border:1px solid #e2e9ec;
+  border-radius:14px;
+  background:#fbfcfd;
+  margin-bottom:10px;
+}
+.preference-setting-copy{
+  min-width:0;
+}
+.preference-setting-copy strong{
+  display:block;
+  font-size:14px;
+  font-weight:750;
+  color:#263942;
+}
+.preference-setting-copy p{
+  font-size:11px;
+  color:#7a8992;
+  margin-top:4px;
+  line-height:1.45;
+}
+.preference-setting-icon{
+  display:inline-grid;
+  place-items:center;
+  width:27px;
+  height:27px;
+  margin-right:8px;
+  border-radius:8px;
+  background:#e8f7f4;
+  color:#087f70;
+  font-size:14px;
+  vertical-align:middle;
+}
+.preference-switch{
+  position:relative;
+  width:48px;
+  height:27px;
+  flex:none;
+}
+.preference-switch input{
+  opacity:0;
+  width:0;
+  height:0;
+}
+.preference-slider{
+  position:absolute;
+  inset:0;
+  background:#d8e1e5;
+  border-radius:30px;
+  cursor:pointer;
+  transition:.2s;
+}
+.preference-slider:before{
+  content:"";
+  position:absolute;
+  width:21px;
+  height:21px;
+  left:3px;
+  top:3px;
+  background:#fff;
+  border-radius:50%;
+  transition:.2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.18);
+}
+.preference-switch input:checked + .preference-slider{
+  background:#087f70;
+}
+.preference-switch input:checked + .preference-slider:before{
+  transform:translateX(21px);
+}
+.settings-group-title{
+  margin:22px 0 10px;
+  font-size:15px;
+  font-weight:800;
+  color:#20343e;
+}
+.settings-group-title:first-of-type{
+  margin-top:20px;
+}
+body.dark-theme .preference-setting{
+  background:#10191e;
+  border-color:#304049;
+}
+body.dark-theme .preference-setting-copy strong{
+  color:#e9f0f2;
+}
+body.dark-theme .preference-setting-copy p{
+  color:#8d9ea7;
+}
+body.dark-theme .preference-setting-icon{
+  background:#143a35;
+  color:#69d5c2;
+}
+body.dark-theme .preference-slider{
+  background:#34434a;
+}
+body.dark-theme .preference-switch input:checked + .preference-slider{
+  background:#159b88;
+}
+body.dark-theme .settings-group-title{
+  color:#e9f0f2;
+}
+
+/* Settings theme control */
+.theme-setting{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px 16px;border:1px solid #e2e9ec;border-radius:14px;background:#fbfcfd;margin-bottom:14px}
+.theme-setting-copy strong{display:block;font-size:14px}
+.theme-setting-copy p{font-size:11px;color:#7a8992;margin-top:4px;line-height:1.45}
+.theme-switch{position:relative;width:48px;height:27px;flex:none}
+.theme-switch input{opacity:0;width:0;height:0}
+.theme-slider{position:absolute;inset:0;background:#d8e1e5;border-radius:30px;cursor:pointer;transition:.2s}
+.theme-slider:before{content:"";position:absolute;width:21px;height:21px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.theme-switch input:checked + .theme-slider{background:#087f70}
+.theme-switch input:checked + .theme-slider:before{transform:translateX(21px)}
+.theme-setting-icon{font-size:22px;margin-right:8px}
+body.dark-theme .theme-setting{background:#10191e;border-color:#304049}
+body.dark-theme .theme-setting-copy p{color:#8d9ea7}
+
+
+/* Refined dark-mode context boxes */
+body.dark-theme .calendar-detail,
+body.dark-theme .adherence-note{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#111d22 0%,#0e181d 100%);
+  border:1px solid #2d4149;
+  border-radius:12px;
+  color:#aebdc4;
+  box-shadow:0 4px 14px rgba(0,0,0,.16);
+}
+
+body.dark-theme .calendar-detail{
+  margin-top:12px;
+  padding:12px 15px 12px 43px;
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  line-height:1.5;
+}
+
+body.dark-theme .calendar-detail:before{
+  content:"i";
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#153d39;
+  border:1px solid #287a6c;
+  color:#6fe0ca;
+  font-size:12px;
+  font-weight:800;
+}
+
+body.dark-theme .calendar-detail:after,
+body.dark-theme .adherence-note:after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:12px;
+  bottom:12px;
+  width:3px;
+  border-radius:0 4px 4px 0;
+  background:#159b88;
+}
+
+body.dark-theme .calendar-detail strong,
+body.dark-theme .adherence-note strong{
+  color:#eef7f7;
+  font-weight:750;
+}
+
+body.dark-theme .adherence-note{
+  margin-top:11px;
+  padding:13px 15px 13px 43px;
+  min-height:58px;
+  line-height:1.55;
+}
+
+body.dark-theme .adherence-note:before{
+  content:"✓";
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:22px;
+  height:22px;
+  border-radius:7px;
+  display:grid;
+  place-items:center;
+  background:#153d39;
+  border:1px solid #287a6c;
+  color:#6fe0ca;
+  font-size:12px;
+  font-weight:800;
+}
+
+body.dark-theme .adherence-note small{
+  color:#91a3aa;
+}
+
+body.dark-theme .calendar-detail:hover,
+body.dark-theme .adherence-note:hover{
+  border-color:#3b5a63;
+  background:linear-gradient(135deg,#142329 0%,#101c21 100%);
+}
+
+/* Improve the light theme slightly too, so both modes feel intentional. */
+.calendar-detail,
+.adherence-note{
+  transition:background .2s,border-color .2s,box-shadow .2s;
+}
+
+@media(max-width:600px){
+  body.dark-theme .calendar-detail,
+  body.dark-theme .adherence-note{
+    padding-left:41px;
+  }
+}
+
+
+/* =========================================================
+   MEDIMIND INTERNAL UI BACKGROUND
+   Inspired by the supplied teal hero image, but softened
+   so the content cards remain the visual focus.
+   ========================================================= */
+
+/* Light mode: very pale teal canvas instead of flat gray */
+body:not(.dark-theme) .app{
+  background:
+    radial-gradient(950px 600px at 4% 0%, rgba(9,135,119,.16), transparent 62%),
+    radial-gradient(850px 560px at 98% 100%, rgba(11,148,131,.115), transparent 64%),
+    linear-gradient(135deg,#f0faf7 0%,#f5fbfa 46%,#f2f8f8 100%);
+}
+
+body:not(.dark-theme) .main{
+  background:
+    radial-gradient(780px 480px at 18% 4%, rgba(9,135,119,.075), transparent 68%),
+    radial-gradient(700px 500px at 96% 92%, rgba(11,148,131,.055), transparent 72%),
+    transparent;
+}
+
+body:not(.dark-theme) .sidebar{
+  background:rgba(250,253,252,.94);
+  border-right-color:#dfece9;
+}
+
+body:not(.dark-theme) .topbar{
+  background:rgba(243,250,248,.45);
+}
+
+/* Dark mode: deep green-tinted canvas, not a black/gray void */
+body.dark-theme .app{
+  background:
+    radial-gradient(850px 560px at 7% 0%, rgba(9,135,119,.15), transparent 63%),
+    radial-gradient(720px 500px at 98% 100%, rgba(11,148,131,.09), transparent 66%),
+    #0b1718;
+}
+
+body.dark-theme .main{
+  background:
+    radial-gradient(680px 430px at 18% 5%, rgba(9,135,119,.075), transparent 68%),
+    radial-gradient(650px 460px at 92% 88%, rgba(11,148,131,.045), transparent 72%),
+    transparent;
+}
+
+body.dark-theme .sidebar{
+  background:
+    linear-gradient(180deg, rgba(14,35,34,.97), rgba(13,28,30,.97)),
+    #101a1d;
+  border-right-color:#24403d;
+}
+
+body.dark-theme .topbar{
+  background:rgba(11,23,24,.38);
+}
+
+/* Give the page edge a very subtle teal depth without tinting cards */
+body:not(.dark-theme) .page,
+body.dark-theme .page{
+  position:relative;
+}
+
+body:not(.dark-theme) .page:before,
+body.dark-theme .page:before{
+  content:"";
+  position:absolute;
+  width:460px;
+  height:460px;
+  border-radius:50%;
+  pointer-events:none;
+  right:-180px;
+  top:-120px;
+  opacity:.58;
+  background:radial-gradient(circle, rgba(9,135,119,.075), transparent 68%);
+  z-index:0;
+}
+
+body.dark-theme .page:before{
+  opacity:.7;
+  background:radial-gradient(circle, rgba(9,135,119,.085), transparent 68%);
+}
+
+body:not(.dark-theme) .page > *,
+body.dark-theme .page > *{
+  position:relative;
+  z-index:1;
+}
+
+
+/* Soft branded background for the internal application */
+.app{background:transparent}
+body:not(.dark-theme) .sidebar{background:rgba(255,255,255,.88);backdrop-filter:blur(10px)}
+body:not(.dark-theme) .main{background:transparent}
+body.dark-theme .sidebar{background:rgba(14,27,30,.92);backdrop-filter:blur(10px)}
+
+
+/* =========================================================
+   HEALTHCARE PROFESSIONAL DASHBOARD - REFINED UI
+   ========================================================= */
+.pro-dashboard{
+  position:relative;
+  padding:0;
+}
+.pro-dashboard-shell{
+  background:rgba(255,255,255,.93);
+  border:1px solid #dfe9ec;
+  border-radius:20px;
+  padding:28px 28px 24px;
+  box-shadow:0 12px 34px rgba(28,68,76,.07);
+  overflow:hidden;
+}
+.pro-dashboard-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:22px;
+}
+.pro-dashboard-brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.pro-dashboard-icon{
+  width:52px;height:52px;border-radius:15px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,#eefaf7,#e1f5f0);
+  border:1px solid #cfe9e3;
+  color:#08a18c;
+  font-size:25px;
+  font-weight:800;
+}
+.pro-dashboard-title h2{
+  color:#203340;
+  font-size:23px;
+  line-height:1.15;
+  letter-spacing:-.02em;
+}
+.pro-dashboard-title p{
+  color:#667b8a;
+  font-size:13px;
+  margin-top:6px;
+}
+.pro-overview{
+  color:#087f70;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.pro-overview:hover{text-decoration:underline}
+
+.pro-kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+  margin-bottom:17px;
+}
+.pro-kpi{
+  min-height:112px;
+  border:1px solid #dfe8ec;
+  border-radius:15px;
+  padding:19px 18px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:linear-gradient(135deg,#ffffff,#f9fcfc);
+}
+.pro-kpi-icon{
+  width:58px;height:58px;border-radius:50%;
+  display:grid;place-items:center;
+  flex:none;
+  font-size:24px;
+  font-weight:800;
+}
+.pro-kpi-icon.people{background:#e4f7f3;color:#09a087}
+.pro-kpi-icon.adherence{background:#e2f6f1;color:#07977f}
+.pro-kpi-icon.alerts{background:#fff0e3;color:#f07c20}
+.pro-kpi-icon.meds{background:#f0e9ff;color:#7950df}
+.pro-kpi-label{
+  color:#42566a;
+  font-size:13px;
+  font-weight:700;
+}
+.pro-kpi-value{
+  display:block;
+  margin-top:5px;
+  color:#23394a;
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+.pro-kpi-value.teal{color:#08a387}
+.pro-kpi-value.orange{color:#ef7d17}
+.pro-kpi-value.purple{color:#7650d9}
+.pro-kpi-note{
+  display:block;
+  margin-top:4px;
+  color:#738699;
+  font-size:11px;
+}
+
+.pro-patient-table-wrap{
+  overflow-x:auto;
+  border:1px solid #dfe8ec;
+  border-radius:14px;
+  background:#fff;
+}
+.pro-patient-table{
+  width:100%;
+  min-width:900px;
+  border-collapse:separate;
+  border-spacing:0;
+}
+.pro-patient-table th{
+  padding:12px 18px;
+  background:#fbfcfd;
+  border-bottom:1px solid #dfe8ec;
+  color:#40566a;
+  font-size:12px;
+  font-weight:750;
+  text-align:left;
+  white-space:nowrap;
+}
+.pro-patient-table td{
+  padding:12px 18px;
+  border-bottom:1px solid #e8eef1;
+  color:#263d4e;
+  font-size:12px;
+  vertical-align:middle;
+}
+.pro-patient-table tbody tr:last-child td{border-bottom:0}
+.pro-patient-table tbody tr:hover td{background:#f8fcfb}
+.pro-patient{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:175px;
+}
+.pro-avatar{
+  width:39px;height:39px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#dff5ef;
+  color:#07987f;
+  font-size:11px;
+  font-weight:800;
+  flex:none;
+}
+.pro-avatar.warn{
+  background:#fff0e4;color:#ed7a1c;
+}
+.pro-patient-name strong{
+  display:block;
+  color:#23394a;
+  font-size:13px;
+  margin-bottom:3px;
+}
+.pro-patient-name small{
+  color:#6d8090;
+  font-size:11px;
+}
+.pro-med-count{font-size:12px;color:#31495a}
+.pro-adherence-value{
+  font-weight:800;
+  color:#08a381;
+  font-size:12px;
+}
+.pro-adherence-value.warn{color:#f08018}
+.pro-progress-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:190px;
+}
+.pro-progress{
+  width:150px;
+  height:9px;
+  background:#edf2f4;
+  border-radius:20px;
+  overflow:hidden;
+}
+.pro-progress span{
+  display:block;height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#0eaf91,#08a985);
+}
+.pro-progress.warn span{
+  background:linear-gradient(90deg,#f6a21b,#f38a10);
+}
+.pro-progress-percent{
+  color:#2d4355;
+  font-size:12px;
+  font-weight:750;
+}
+.pro-events{
+  font-weight:750;
+  white-space:nowrap;
+}
+.pro-events.high{color:#ef7c16}
+.pro-events.none{color:#099c78}
+.pro-status{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 11px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.pro-status.good,.pro-status.excellent{
+  background:#e4f7ef;
+  color:#07986f;
+}
+.pro-status.review{
+  background:#fff0e4;
+  color:#ee7517;
+}
+.pro-updated{
+  color:#526a7c;
+  font-size:11px;
+  white-space:nowrap;
+}
+.pro-action{
+  border:0;background:transparent;
+  color:#6e8392;font-size:20px;
+  padding:2px 5px;cursor:pointer;
+}
+.pro-action:hover{color:#087f70}
+
+.pro-insights-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:18px;
+}
+.pro-insight-card{
+  background:rgba(255,255,255,.88);
+  border:1px solid #dfe8ec;
+  border-radius:15px;
+  padding:18px;
+}
+.pro-insight-card .card-header{margin-bottom:12px}
+.pro-insight-card .insight{margin-bottom:8px}
+.pro-insight-card .insight:last-child{margin-bottom:0}
+
+/* Dark dashboard */
+body.dark-theme .pro-dashboard-shell{
+  background:linear-gradient(145deg,rgba(11,27,32,.97),rgba(13,31,35,.97));
+  border-color:#29424a;
+  box-shadow:0 14px 36px rgba(0,0,0,.25);
+}
+body.dark-theme .pro-dashboard-icon{
+  background:linear-gradient(145deg,#123a37,#102d2e);
+  border-color:#28645b;
+  color:#3ee0c2;
+}
+body.dark-theme .pro-dashboard-title h2{color:#f0f6f7}
+body.dark-theme .pro-dashboard-title p{color:#91a6b1}
+body.dark-theme .pro-overview{color:#37d4bb}
+body.dark-theme .pro-kpi{
+  background:linear-gradient(145deg,#14272d,#122329);
+  border-color:#294149;
+}
+body.dark-theme .pro-kpi-label{color:#b7c8cf}
+body.dark-theme .pro-kpi-value{color:#edf4f5}
+body.dark-theme .pro-kpi-value.teal{color:#3bd4b9}
+body.dark-theme .pro-kpi-value.orange{color:#ff9a2c}
+body.dark-theme .pro-kpi-value.purple{color:#a782ff}
+body.dark-theme .pro-kpi-note{color:#8da2ad}
+body.dark-theme .pro-kpi-icon.people,
+body.dark-theme .pro-kpi-icon.adherence{
+  background:#123f3b;color:#39d9bd;
+}
+body.dark-theme .pro-kpi-icon.alerts{
+  background:#3a2b1b;color:#ff9824;
+}
+body.dark-theme .pro-kpi-icon.meds{
+  background:#2b2146;color:#a17dff;
+}
+body.dark-theme .pro-patient-table-wrap{
+  background:#111f24;
+  border-color:#2b4149;
+}
+body.dark-theme .pro-patient-table th{
+  background:#102027;
+  color:#b9c9d0;
+  border-color:#2b4149;
+}
+body.dark-theme .pro-patient-table td{
+  color:#c5d2d7;
+  border-color:#283c43;
+}
+body.dark-theme .pro-patient-table tbody tr:hover td{background:#162a30}
+body.dark-theme .pro-patient-name strong{color:#eef5f6}
+body.dark-theme .pro-patient-name small,
+body.dark-theme .pro-updated{color:#8ea3ad}
+body.dark-theme .pro-med-count{color:#c2d0d5}
+body.dark-theme .pro-avatar{background:#123f3a;color:#52ddc2}
+body.dark-theme .pro-avatar.warn{background:#49321d;color:#ff9c35}
+body.dark-theme .pro-progress{background:#293d45}
+body.dark-theme .pro-progress-percent{color:#d6e1e4}
+body.dark-theme .pro-status.good,
+body.dark-theme .pro-status.excellent{
+  background:#123d36;color:#4fe0bd;
+}
+body.dark-theme .pro-status.review{
+  background:#4a301b;color:#ff9b31;
+}
+body.dark-theme .pro-insight-card{
+  background:rgba(17,31,36,.94);
+  border-color:#2b4149;
+}
+body.dark-theme .pro-action{color:#8ba0aa}
+body.dark-theme .pro-action:hover{color:#45dac0}
+
+@media(max-width:1100px){
+  .pro-kpi-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:850px){
+  .pro-dashboard-shell{padding:20px}
+  .pro-insights-row{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+  .pro-kpi-grid{grid-template-columns:1fr}
+  .pro-dashboard-head{align-items:flex-start}
+  .pro-dashboard-title h2{font-size:20px}
+  .pro-dashboard-icon{width:46px;height:46px}
+}
+
+
+/* =========================================================
+   YU GOTHIC UI + ADHERENCE READABILITY REFINEMENT
+   ========================================================= */
+button,input,textarea,select,
+body{
+  font-family:"Yu Gothic UI","Yu Gothic",Meiryo,Arial,sans-serif;
+}
+
+body{
+  font-size:15px;
+  line-height:1.5;
+}
+
+.nav-item{font-size:14px;line-height:1.45}
+.sidebar-role{font-size:12px;line-height:1.45}
+.sidebar-role b{font-size:13px}
+.welcome h1{font-size:28px}
+.welcome p{font-size:14px;line-height:1.5}
+
+.card-header h2{font-size:18px}
+.card-header span{font-size:12px}
+.stat-number{font-size:27px}
+.stat-label{font-size:13px}
+.medication strong{font-size:14px}
+.medication small{font-size:12px}
+.interaction h3{font-size:14px}
+.interaction p,.alternative{font-size:12px;line-height:1.55}
+th,td{font-size:13px}
+th{font-size:12px}
+
+/* Healthcare professional dosing calendar */
+.calendar-month h3{font-size:18px}
+.calendar-date{font-size:11px}
+.cal-key{font-size:10px}
+.calendar-detail{font-size:11px;line-height:1.55}
+
+/* Individual medication adherence */
+.drug-adherence-section .card{
+  padding:20px;
+}
+.drug-adherence-section .card-header h2{
+  font-size:18px;
+}
+.drug-adherence-section .card-header span{
+  font-size:12px;
+}
+.drug-adherence-table-wrap{
+  overflow-x:auto;
+  border:1px solid #dce6ea;
+  border-radius:12px;
+}
+.drug-adherence-table{
+  min-width:900px;
+  table-layout:auto;
+}
+.drug-adherence-table th{
+  padding:12px 13px;
+  font-size:11px;
+  line-height:1.25;
+  color:#617581;
+  white-space:nowrap;
+}
+.drug-adherence-table td{
+  padding:13px;
+  font-size:13px;
+  line-height:1.35;
+  color:#425661;
+}
+.drug-adherence-table td:first-child{
+  font-size:14px;
+  color:#243944;
+}
+.drug-adherence-table td small{
+  font-size:12px;
+  color:#71838d;
+}
+.drug-adherence-table .count-taken,
+.drug-adherence-table .count-missed,
+.drug-adherence-table .count-late{
+  font-size:13px;
+}
+
+/* A proper, readable adherence meter */
+.drug-adherence-table td:last-child{
+  min-width:205px;
+}
+.adherence-meter{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  min-width:185px;
+}
+.adherence-bar{
+  position:relative;
+  flex:1 1 auto;
+  width:auto;
+  min-width:110px;
+  max-width:150px;
+  height:10px;
+  margin:0;
+  background:#e5ecef;
+  border-radius:999px;
+  overflow:hidden;
+  vertical-align:middle;
+  box-shadow:inset 0 0 0 1px rgba(70,90,100,.06);
+}
+.adherence-fill{
+  display:block;
+  height:100%;
+  min-width:3px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#079b82,#12b895);
+  transition:width .25s ease;
+}
+.adherence-percent{
+  flex:0 0 42px;
+  font-size:13px;
+  font-weight:800;
+  color:#087f70;
+  text-align:left;
+}
+
+/* If the existing markup does not contain .adherence-meter,
+   make the old inline bar behave like the same meter. */
+.drug-adherence-table td:last-child > .adherence-bar{
+  display:inline-block;
+  width:calc(100% - 52px);
+  max-width:150px;
+  min-width:105px;
+  margin-right:8px;
+  vertical-align:middle;
+}
+.drug-adherence-table td:last-child > .adherence-percent{
+  display:inline-block;
+  width:42px;
+  vertical-align:middle;
+}
+
+/* More readable explanation box */
+.adherence-note{
+  margin-top:12px;
+  padding:12px 14px;
+  font-size:11px;
+  line-height:1.6;
+}
+.adherence-note strong{
+  font-size:12px;
+}
+
+/* Dark mode adherence meter */
+body.dark-theme .drug-adherence-table-wrap{
+  background:#111f24;
+  border-color:#304750;
+}
+body.dark-theme .drug-adherence-table th{
+  background:#101b20;
+  color:#a9bbc3;
+  border-color:#2c4149;
+}
+body.dark-theme .drug-adherence-table td{
+  color:#c7d3d8;
+  border-color:#293d44;
+}
+body.dark-theme .drug-adherence-table td:first-child{
+  color:#f0f5f6;
+}
+body.dark-theme .drug-adherence-table td small{
+  color:#9aadb5;
+}
+body.dark-theme .adherence-bar{
+  background:#2a3b42;
+  box-shadow:inset 0 0 0 1px rgba(160,190,200,.08);
+}
+body.dark-theme .adherence-fill{
+  background:linear-gradient(90deg,#20c7aa,#42e0c2);
+}
+body.dark-theme .adherence-percent{
+  color:#49ddc1;
+}
+body.dark-theme .adherence-note{
+  background:linear-gradient(135deg,#111d22,#0f191e);
+  border-color:#304750;
+  color:#aebfc6;
+}
+body.dark-theme .adherence-note strong{
+  color:#eef6f7;
+}
+
+/* Professional dashboard readability */
+.pro-dashboard-title h2{font-size:24px}
+.pro-dashboard-title p{font-size:14px;line-height:1.5}
+.pro-kpi-label{font-size:14px}
+.pro-kpi-value{font-size:27px}
+.pro-kpi-note{font-size:12px}
+.pro-patient-table th{font-size:13px}
+.pro-patient-table td{font-size:13px}
+.pro-patient-name strong{font-size:14px}
+.pro-patient-name small{font-size:12px}
+.pro-progress-percent{font-size:13px}
+.pro-updated{font-size:12px}
+.pro-status{font-size:11px}
+
+/* Mobile: keep the meter visible instead of crushing it */
+@media(max-width:700px){
+  .drug-adherence-table{
+    min-width:850px;
+  }
+  .adherence-bar{
+    min-width:100px;
+  }
+}
+
+
+/* ===== Clinical Drug-Food Interaction Timeline ===== */
+.interaction-intro{font-size:12px;color:#71808a;line-height:1.55;margin:-4px 0 16px}
+.interaction-timeline-item{position:relative;display:grid;grid-template-columns:90px 42px minmax(0,1fr) auto;gap:14px;padding:18px 0;border-bottom:1px solid #e8eeee}
+.interaction-timeline-item:last-child{border-bottom:0}
+.interaction-time-column{padding-top:3px;color:#087f70}.interaction-time-column strong{display:block;font-size:15px}.interaction-time-column small{display:block;font-size:10px;color:#7b8992;margin-top:3px}
+.interaction-link-column{display:flex;flex-direction:column;align-items:center;position:relative}.interaction-node{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1px solid #dce8e5;background:#f2faf8;font-size:15px;z-index:1}.interaction-connector{width:2px;flex:1;min-height:16px;background:#c9ddd8;margin:3px 0}.drug-node{background:#edf7f5}
+.interaction-detail-column{min-width:0}.interaction-pair{display:flex;gap:8px;align-items:center;font-size:14px}.interaction-pair span{color:#84929a;font-weight:700}.interaction-meta{font-size:11px;color:#7b8992;margin-top:5px}.interaction-grid-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}.interaction-grid-details>div{background:#f6faf9;border:1px solid #e2eceb;border-radius:8px;padding:8px}.interaction-grid-details span{display:block;text-transform:uppercase;font-size:8px;letter-spacing:.04em;color:#84929a;margin-bottom:3px}.interaction-grid-details strong{font-size:11px;color:#334951;line-height:1.35}.interaction-recommendation{margin-top:10px;padding:9px 10px;border-left:3px solid #087f70;background:#f1f8f6;border-radius:0 8px 8px 0;font-size:11px;color:#53656d;line-height:1.5}.interaction-evidence{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:9px;font-size:10px;color:#7b8992}.interaction-evidence a{color:#087f70;font-weight:700;text-decoration:none}.interaction-evidence a:hover{text-decoration:underline}.evidence-badge{padding:3px 7px;border-radius:10px;background:#e4f5f0;color:#087f70;font-weight:800}.interaction-severity-badge{align-self:start;padding:6px 9px;border-radius:16px;font-size:9px;font-weight:800}.interaction-severity-badge.high{background:#ffe8e8;color:#b52f37}.interaction-severity-badge.moderate{background:#fff0d0;color:#946000}.interaction-severity-badge.low{background:#e4f6ef;color:#087f70}
+.interaction-empty{display:flex;align-items:center;gap:12px;padding:22px 4px;color:#6f7e86}.empty-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#e4f6ef;color:#087f70;font-weight:800}.interaction-empty strong{font-size:13px;color:#30444c}.interaction-empty p{font-size:11px;margin-top:3px}.interaction-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.interaction-summary-grid>div{padding:12px;border:1px solid #e2eceb;border-radius:10px;background:#f7faf9}.interaction-summary-grid strong{display:block;font-size:20px;color:#087f70}.interaction-summary-grid span{font-size:10px;color:#7b8992}
+body.dark-theme .interaction-intro{color:#91a2ab}.dark-theme .interaction-timeline-item{border-color:#293940}.dark-theme .interaction-node{background:#142b29;border-color:#31554f}.dark-theme .interaction-connector{background:#31554f}.dark-theme .interaction-time-column{color:#68d8c3}.dark-theme .interaction-time-column small,.dark-theme .interaction-meta,.dark-theme .interaction-evidence{color:#91a2ab}.dark-theme .interaction-grid-details>div{background:#142127;border-color:#2c3d44}.dark-theme .interaction-grid-details strong{color:#dbe6e9}.dark-theme .interaction-recommendation{background:#122a27;color:#b7c8ca;border-color:#159b88}.dark-theme .evidence-badge{background:#143b35;color:#68d8c3}.dark-theme .interaction-evidence a{color:#68d8c3}.dark-theme .interaction-summary-grid>div{background:#142127;border-color:#2c3d44}.dark-theme .interaction-summary-grid span{color:#91a2ab}.dark-theme .interaction-empty{color:#91a2ab}.dark-theme .interaction-empty strong{color:#e4edef}.dark-theme .empty-icon{background:#143b35;color:#68d8c3}
+@media(max-width:800px){.interaction-timeline-item{grid-template-columns:70px 34px minmax(0,1fr)}.interaction-severity-badge{grid-column:3;justify-self:start}.interaction-grid-details{grid-template-columns:1fr}.interaction-summary-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+/* ===== Sidebar readability enhancement ===== */
+.sidebar{
+  font-size:15px;
+}
+
+.sidebar .brand,
+.sidebar .logo{
+  font-weight:800;
+}
+
+.sidebar .tagline{
+  font-size:14px;
+  line-height:1.45;
+}
+
+.sidebar .sidebar-role,
+.sidebar .role-label{
+  font-size:14px;
+  line-height:1.45;
+  font-weight:700;
+}
+
+.sidebar .sidebar-role small,
+.sidebar .role-label small{
+  font-size:12px;
+  font-weight:500;
+}
+
+.sidebar .nav-item{
+  font-size:15px;
+  font-weight:650;
+  line-height:1.45;
+  letter-spacing:.005em;
+}
+
+.sidebar .nav-item span{
+  font-weight:650;
+}
+
+.sidebar .nav-item.active{
+  font-weight:750;
+}
+
+.sidebar .nav-item small,
+.sidebar .nav-item .subtext{
+  font-size:13px;
+  font-weight:550;
+  line-height:1.4;
+}
+
+.sidebar .settings,
+.sidebar .logout,
+.sidebar button{
+  font-size:14px;
+  font-weight:650;
+}
+
+.sidebar .logout{
+  letter-spacing:.01em;
+}
+
+/* Improve muted sidebar text without making it harsh */
+body:not(.dark-theme) .sidebar{
+  color:#43545b;
+}
+
+body:not(.dark-theme) .sidebar .nav-item{
+  color:#4b5c63;
+}
+
+body:not(.dark-theme) .sidebar .nav-item.active{
+  color:#087f70;
+}
+
+body.dark-theme .sidebar{
+  color:#c2cdd1;
+}
+
+body.dark-theme .sidebar .nav-item{
+  color:#b7c3c7;
+}
+
+body.dark-theme .sidebar .nav-item.active{
+  color:#68d8c3;
+}
+
+/* Slightly larger sidebar overall, while preserving the existing layout */
+@media(min-width:901px){
+  .sidebar .nav-item{
+    min-height:42px;
+  }
+}
+
+
+/* ===== Global readability scale ===== */
+html{
+  font-size:17px;
+}
+
+body{
+  font-size:16px;
+  line-height:1.5;
+}
+
+/* Navigation / sidebar */
+.sidebar{
+  font-size:16px;
+}
+.sidebar .nav-item{
+  font-size:16px;
+  line-height:1.5;
+}
+.sidebar .sidebar-role,
+.sidebar .role-label{
+  font-size:15px;
+}
+.sidebar .tagline{
+  font-size:15px;
+}
+.sidebar .nav-item small,
+.sidebar .nav-item .subtext{
+  font-size:14px;
+}
+.sidebar .settings,
+.sidebar .logout,
+.sidebar button{
+  font-size:15px;
+}
+
+/* Main headings */
+h1{font-size:32px}
+h2{font-size:23px}
+h3{font-size:19px}
+h4{font-size:17px}
+
+.welcome h1{font-size:32px}
+.welcome p{font-size:15px}
+.card-header h2{font-size:20px}
+.card-header span{font-size:14px}
+
+/* Dashboard / KPI */
+.stat-number{font-size:30px}
+.stat-label{font-size:15px}
+.pro-dashboard-title h2{font-size:26px}
+.pro-dashboard-title p{font-size:15px}
+.pro-overview{font-size:15px}
+.pro-kpi-label{font-size:15px}
+.pro-kpi-value{font-size:29px}
+.pro-kpi-note{font-size:13px}
+
+/* Patient and medication information */
+.medication strong{font-size:16px}
+.medication small{font-size:14px}
+.pill,.badge{font-size:13px}
+.patient-name strong{font-size:15px}
+.patient-name small{font-size:13px}
+.med-count{font-size:14px}
+
+/* Tables */
+th{font-size:13px}
+td{font-size:14px}
+.pro-patient-table th{font-size:13px}
+.pro-patient-table td{font-size:14px}
+.pro-patient-name strong{font-size:15px}
+.pro-patient-name small{font-size:13px}
+.pro-med-count{font-size:14px}
+.pro-adherence-value{font-size:14px}
+.pro-progress-percent{font-size:14px}
+.pro-events{font-size:14px}
+.pro-status{font-size:12px}
+.pro-updated{font-size:13px}
+
+/* Medication adherence */
+.drug-adherence-table th{font-size:11px}
+.drug-adherence-table td{font-size:13px}
+.calendar-detail,.adherence-note{font-size:13px}
+.adherence-note{font-size:13px}
+
+/* Forms */
+.field label,
+.language-box label{font-size:15px}
+.field input,
+.field textarea,
+.field select,
+.language-box select{font-size:15px}
+.demo-note{font-size:14px}
+
+/* Food / interaction areas */
+.food-checker-title h3{font-size:20px}
+.food-checker-title p{font-size:14px}
+.food-input-row input{font-size:15px}
+.scan-btn,.secondary-btn,.primary-btn{font-size:14px}
+.interaction h3{font-size:17px}
+.interaction p,.alternative{font-size:14px}
+.alert{font-size:14px}
+.risk-circle b{font-size:27px}
+.food-tile strong{font-size:15px}
+.food-tile small{font-size:13px}
+
+/* Chat */
+.chat{font-size:14px}
+.bubble{font-size:14px;line-height:1.6}
+.chat-form input{font-size:15px}
+
+/* Timeline */
+.timeline-board{font-size:14px}
+.window-title strong{font-size:15px}
+.window-title span{font-size:13px}
+.event-row{font-size:14px}
+.event-time{font-size:14px}
+.event-main strong{font-size:14px}
+.event-main small{font-size:13px}
+.window-note,.causal-note{font-size:13px}
+
+/* Calendar */
+.calendar-date{font-size:12px}
+.calendar-dose strong{font-size:10px}
+.calendar-dose small{font-size:9px}
+.cal-key{font-size:11px}
+
+/* Login */
+.login-right h2{font-size:33px}
+.login-subtitle{font-size:16px}
+.role strong{font-size:16px}
+.role small{font-size:13px}
+.logo{font-size:33px}
+.tagline{font-size:16px}
+.hero h1{font-size:48px}
+.hero p{font-size:18px;line-height:1.7}
+.ai-badge{font-size:15px}
+
+/* Better dark-mode readability */
+body.dark-theme .sidebar .nav-item,
+body.dark-theme td,
+body.dark-theme .drug-adherence-table td{
+  color:#d0dadd;
+}
+
+
+
+/* ===== Main-content font scaling control =====
+   Scales text only. The fixed left navigation/sidebar is deliberately excluded. */
+.font-scale-setting{
+  padding:16px 16px 14px;
+  border:1px solid #e2e9ec;
+  border-radius:14px;
+  background:#fbfcfd;
+  margin-bottom:14px;
+}
+.font-scale-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+}
+.font-scale-copy{min-width:0}
+.font-scale-copy strong{
+  display:block;
+  font-size:15px;
+  font-weight:800;
+  color:#263942;
+}
+.font-scale-copy p{
+  font-size:12px;
+  color:#7a8992;
+  margin-top:5px;
+  line-height:1.5;
+}
+.font-scale-value{
+  flex:none;
+  min-width:58px;
+  padding:6px 9px;
+  border-radius:9px;
+  background:#e8f8f4;
+  color:#087f70;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
+}
+.font-scale-control{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:15px;
+}
+.font-scale-control input[type="range"]{
+  flex:1;
+  min-width:0;
+  height:8px;
+  accent-color:#087f70;
+  cursor:pointer;
+}
+.font-scale-min,.font-scale-max{
+  color:#526771;
+  font-weight:800;
+  line-height:1;
+}
+.font-scale-min{font-size:14px}
+.font-scale-max{font-size:21px;display:inline-flex;align-items:flex-end}
+.font-scale-max span{font-size:15px;margin-left:1px}
+.font-scale-ticks{
+  display:flex;
+  justify-content:space-between;
+  padding:0 29px;
+  margin-top:5px;
+  color:#8a989f;
+  font-size:10px;
+}
+.font-scale-status{
+  margin-top:9px;
+  font-size:11px;
+  color:#71818a;
+}
+body.dark-theme .font-scale-setting{
+  background:#10191e;
+  border-color:#304049;
+}
+body.dark-theme .font-scale-copy strong{color:#e9f0f2}
+body.dark-theme .font-scale-copy p,
+body.dark-theme .font-scale-status,
+body.dark-theme .font-scale-ticks{color:#8d9ea7}
+body.dark-theme .font-scale-value{
+  background:#123d37;
+  color:#68d8c3;
+}
+body.dark-theme .font-scale-min,
+body.dark-theme .font-scale-max{color:#c1ced3}
+
+/* =========================================================
+   TIME-AWARE FOOD INTAKE - MEAL PERIOD SELECT
+   Keeps Morning / Afternoon / Evening visually consistent
+   with the time input and other MediMind controls.
+   ========================================================= */
+
+.meal-period-select{
+  width:100%;
+  height:46px;
+  min-height:46px;
+  padding:0 42px 0 14px;
+  border:1px solid #dbe5e9;
+  border-radius:11px;
+  outline:none;
+  background-color:#fff;
+  color:#253943;
+  font-family:"Yu Gothic UI","Yu Gothic",Meiryo,Arial,sans-serif;
+  font-size:15px;
+  font-weight:600;
+  line-height:46px;
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+  transition:border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #6d7f88 50%),
+    linear-gradient(135deg, #6d7f88 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 20px,
+    calc(100% - 12px) 20px;
+  background-size:6px 6px,6px 6px;
+  background-repeat:no-repeat;
+}
+
+.meal-period-select:hover{
+  border-color:#a8cbc4;
+  background-color:#fbfefd;
+}
+
+.meal-period-select:focus{
+  border-color:#0a927f;
+  box-shadow:0 0 0 3px rgba(10,146,127,.10);
+}
+
+.meal-period-select option{
+  background:#fff;
+  color:#253943;
+  font-family:"Yu Gothic UI","Yu Gothic",Meiryo,Arial,sans-serif;
+  font-size:15px;
+  font-weight:600;
+}
+
+/* Keep the whole second row aligned with the time field and button */
+.food-input-row .meal-period-select{
+  align-self:stretch;
+}
+
+/* Dark mode */
+body.dark-theme .meal-period-select{
+  background-color:#10181d;
+  color:#e7eef1;
+  border-color:#304049;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #9bb0b8 50%),
+    linear-gradient(135deg, #9bb0b8 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 20px,
+    calc(100% - 12px) 20px;
+  background-size:6px 6px,6px 6px;
+  background-repeat:no-repeat;
+}
+
+body.dark-theme .meal-period-select:hover{
+  border-color:#42756c;
+  background-color:#142126;
+}
+
+body.dark-theme .meal-period-select:focus{
+  border-color:#2ac1a7;
+  box-shadow:0 0 0 3px rgba(42,193,167,.13);
+}
+
+body.dark-theme .meal-period-select option{
+  background:#10181d;
+  color:#e7eef1;
+}
+
+/* Make the time + meal-period controls the same visual height */
+#foodTime,
+#mealPeriod{
+  height:46px;
+  min-height:46px;
+}
+
+/* Responsive: stack the controls cleanly instead of producing
+   awkwardly compressed fields on narrow screens. */
+@media(max-width:700px){
+  .food-input-row[style*="grid-template-columns:1fr 1fr auto"]{
+    grid-template-columns:1fr !important;
+  }
+
+  .meal-period-select{
+    width:100%;
+  }
+}
+
+
+/* =========================================================
+   SYMPTOMS & SAFETY REPORTS
+   Patient reporting ↔ Professional review
+   ========================================================= */
+
+/* Simplified patient Symptoms & Safety tab */
+.ss-simple{max-width:980px;margin:0 auto}
+.ss-simple-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:16px}
+.ss-simple-title{display:flex;align-items:center;gap:11px}
+.ss-simple-title h2{font-size:21px;color:#253b45}
+.ss-simple-title p{font-size:12px;color:#71808a;margin-top:3px}
+.ss-simple-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#e8f7f4;font-size:19px}
+.ss-report-btn{width:auto;padding:10px 14px;font-size:11px;white-space:nowrap}
+.ss-quick{display:grid;grid-template-columns:150px 150px 1fr;gap:10px;margin-bottom:16px}
+.ss-quick-item,.ss-quick-note{border:1px solid #e2eaed;border-radius:12px;background:#fff;padding:11px 13px;display:flex;align-items:center;gap:9px}
+.ss-quick-item>span{font-size:17px}
+.ss-quick-item b{display:block;font-size:16px;color:#273d47}
+.ss-quick-item small{display:block;font-size:9px;color:#7a8992;margin-top:1px}
+.ss-quick-note{background:#f5faf9;color:#63757d;font-size:10px;line-height:1.4}
+.ss-quick-note>span{font-size:14px}
+.ss-section{background:#fff;border:1px solid #e2eaed;border-radius:15px;padding:16px}
+.ss-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.ss-section-head h3{font-size:14px;color:#304751}
+.ss-section-head span{font-size:9px;color:#87959d}
+.ss-report-row{display:flex;align-items:center;gap:10px;padding:11px 2px;border-top:1px solid #edf1f3}
+.ss-report-symbol{font-size:15px;width:26px;text-align:center}
+.ss-report-main{flex:1;min-width:0}
+.ss-report-main b{display:block;font-size:11px;color:#354b55}
+.ss-report-main small{display:block;font-size:9px;color:#7c8b93;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ss-report-row .badge{flex:none}
+.ss-empty{display:flex;align-items:center;justify-content:center;gap:9px;padding:25px 10px;color:#7b8992}
+.ss-empty>span{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#e7f7f1;color:#087f70;font-weight:800}
+.ss-empty b{font-size:11px;color:#4a6069}
+.ss-empty p{font-size:9px;margin-top:2px}
+.ss-help{display:flex;gap:9px;margin-top:12px;padding:11px 13px;border:1px solid #dfeaec;border-radius:11px;background:#f8fafb;color:#6d7d85;font-size:10px;line-height:1.45}
+.ss-help>span{font-size:13px}
+.ss-help b{display:block;color:#465b64;font-size:10px;margin-bottom:2px}
+@media(max-width:700px){
+ .ss-simple-head{align-items:flex-start;flex-direction:column}
+ .ss-report-btn{width:100%}
+ .ss-quick{grid-template-columns:1fr 1fr}
+ .ss-quick-note{grid-column:1/-1}
+}
+body.dark-theme .ss-simple-title h2{color:#edf4f5}
+body.dark-theme .ss-simple-title p,
+body.dark-theme .ss-section-head span,
+body.dark-theme .ss-report-main small,
+body.dark-theme .ss-empty,
+body.dark-theme .ss-help{color:#91a2ab}
+body.dark-theme .ss-simple-icon{background:#143a35}
+body.dark-theme .ss-quick-item,
+body.dark-theme .ss-quick-note,
+body.dark-theme .ss-section{background:#151f24;border-color:#2b3941}
+body.dark-theme .ss-quick-item b,
+body.dark-theme .ss-section-head h3,
+body.dark-theme .ss-report-main b{color:#e5edef}
+body.dark-theme .ss-quick-note,
+body.dark-theme .ss-help{background:#10191e;border-color:#2b3941}
+body.dark-theme .ss-help b{color:#dce7ea}
+body.dark-theme .ss-report-row{border-color:#29373e}
+body.dark-theme .ss-empty>span{background:#143a35;color:#69d5c2}
+
+.safety-report-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.safety-report-card{
+  border:1px solid #e0e9ec;
+  border-radius:15px;
+  background:#fbfdfd;
+  padding:16px;
+  margin:0;
+}
+.safety-report-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:13px;
+}
+.safety-report-head strong{display:block;font-size:15px;color:#263942}
+.safety-report-head span:not(.badge){display:block;font-size:11px;color:#7b8993;margin-top:3px}
+.safety-context{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.safety-context>div{
+  padding:10px;
+  border:1px solid #e5ecef;
+  border-radius:10px;
+  background:#fff;
+}
+.safety-context span{
+  display:block;
+  font-size:10px;
+  color:#7b8993;
+  margin-bottom:3px;
+}
+.safety-context strong{
+  display:block;
+  font-size:12px;
+  color:#334851;
+}
+.safety-context small{
+  display:block;
+  color:#839099;
+  font-size:10px;
+  margin-top:3px;
+}
+.safety-description{
+  margin-top:11px;
+  padding:10px 11px;
+  border-radius:10px;
+  background:#f2f7f7;
+  color:#5f717a;
+  font-size:11px;
+  line-height:1.5;
+}
+.safety-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+}
+.safety-status small{font-size:10px;color:#7b8993}
+.safety-workflow,.safety-review-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.safety-workflow>div{
+  padding:14px;
+  border:1px solid #e3eaed;
+  border-radius:12px;
+  background:#f8fbfb;
+}
+.safety-workflow b{display:block;font-size:12px;color:#087f70;margin-bottom:5px}
+.safety-workflow span{font-size:11px;color:#71808a;line-height:1.45}
+.safety-prof-table th{font-size:11px}
+.safety-prof-table td{font-size:11px;vertical-align:top}
+.safety-prof-table td strong{display:block;color:#2c4049}
+.safety-prof-table td small{display:block;color:#7b8993;font-size:10px;line-height:1.4;margin-top:3px}
+.safety-prof-table .secondary-btn{padding:7px 10px;font-size:11px}
+
+body.dark-theme .safety-report-card{
+  background:#111f24;
+  border-color:#2d4149;
+}
+body.dark-theme .safety-report-head strong{color:#eef4f5}
+body.dark-theme .safety-report-head span:not(.badge){color:#91a2ab}
+body.dark-theme .safety-context>div{
+  background:#14252a;
+  border-color:#2d4149;
+}
+body.dark-theme .safety-context span,
+body.dark-theme .safety-context small{color:#8fa1a9}
+body.dark-theme .safety-context strong{color:#dce7ea}
+body.dark-theme .safety-description{
+  background:#16282d;
+  color:#a9bbc2;
+}
+body.dark-theme .safety-status small{color:#8fa1a9}
+body.dark-theme .safety-workflow>div{
+  background:#132328;
+  border-color:#2d4149;
+}
+body.dark-theme .safety-workflow span{color:#9aadb5}
+body.dark-theme .safety-prof-table td strong{color:#e5edef}
+body.dark-theme .safety-prof-table td small{color:#8fa1a9}
+
+@media(max-width:900px){
+ .safety-report-grid{grid-template-columns:1fr}
+ .safety-workflow,.safety-review-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+ .safety-context{grid-template-columns:1fr}
+ .safety-workflow,.safety-review-grid{grid-template-columns:1fr}
+}
+
+
+
+@media(max-width:950px){
+  .guidance-grid{grid-template-columns:1fr}
+  .guidance-context{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){.guidance-context{grid-template-columns:1fr}}
+
+body.dark-theme .guidance-hero{
+  background:linear-gradient(135deg,#102825,#101d29);border-color:#28534c
+}
+body.dark-theme .guidance-hero h2{color:#eef5f6}
+body.dark-theme .guidance-hero p{color:#93a6ae}
+body.dark-theme .guidance-context div,
+body.dark-theme .guidance-card{
+  background:#151f24;border-color:#2b3f47
+}
+body.dark-theme .guidance-context span{color:#8fa1aa}
+body.dark-theme .guidance-context strong,
+body.dark-theme .guidance-card h3{color:#e9f1f3}
+body.dark-theme .guidance-icon{background:#143a35;color:#69d5c2}
+body.dark-theme .guidance-card .guidance-status{background:#202d33;color:#9eafb7}
+body.dark-theme .guidance-card p{color:#9aabb3}
+body.dark-theme .guidance-recommendation{
+  background:#12302c;border-color:#28584f;color:#b8d3ce
+}
+body.dark-theme .guidance-source{border-color:#2b3a41;color:#8fa1aa}
+body.dark-theme .guidance-source a{color:#65d6c2}
+body.dark-theme .guidance-warning{
+  background:#342b19;border-color:#6b5525;color:#e2c47a
+}
+body.dark-theme .guidance-table th,
+body.dark-theme .guidance-table td{border-color:#29383f}
+body.dark-theme .guidance-table th{color:#91a2ab}
+body.dark-theme .guidance-table td{color:#c3d0d5}
+body.dark-theme .guidance-evidence{background:#143a35;color:#69d5c2}
+body.dark-theme .guidance-ai-note{background:#102430;border-color:#29475b;color:#a8bdc8}
+body.dark-theme .guidance-ai-note b{color:#d2e4ec}
+
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section class="login-page" id="loginPage">
+<div class="login-container">
+  <div class="login-left">
+    <div class="logo">Medi<span>Mind</span></div>
+    <div class="tagline">AI-Assisted Personalized Medication & Healthcare Companion</div>
+    <div class="hero">
+      <h1>Smarter medication.<br>Safer decisions.</h1>
+      <p>A personalized healthcare companion that connects prescriptions, medication schedules, food intake, drug-food interactions, adherence and professional monitoring.</p>
+      <div class="ai-badge">✦ AI-Assisted Medication Intelligence</div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <h2>Welcome to MediMind</h2>
+    <p class="login-subtitle">Select your account type to continue</p>
+
+    <div class="language-box">
+      <label>🌐 App Language</label>
+      <select id="loginLanguage" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="ta">தமிழ்</option>
+        <option value="te">తెలుగు</option>
+        <option value="ml">മലയാളം</option>
+      </select>
+    </div>
+
+    <div class="role-selector">
+      <div class="role active" onclick="selectRole('patient',this)">
+        <div class="role-icon">👤</div><strong>Patient</strong><small>Personal medication companion</small>
+      </div>
+      <div class="role" onclick="selectRole('professional',this)">
+        <div class="role-icon">🩺</div><strong>Healthcare Professional</strong><small>Medication monitoring dashboard</small>
+      </div>
+    </div>
+
+    <div class="field"><label>Email / Mobile Number</label><input id="loginId" placeholder="Enter email or mobile"></div>
+    <div class="field"><label>Password</label><input id="loginPassword" type="password" placeholder="Enter password"></div>
+    <button class="primary-btn" onclick="login()">Continue to MediMind</button>
+    <p class="demo-note">Prototype demonstration • No real patient data required</p>
+  </div>
+</div>
+</section>
+
+<!-- APP -->
+<section class="app" id="app">
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo" style="color:#087f70">Medi<span style="color:#1aa78f">Mind</span></div>
+    <div class="tagline">AI Healthcare Companion</div>
+  </div>
+  <div class="sidebar-role"><b id="sideRole">Patient</b><span id="sideRoleText">Personal medication workspace</span></div>
+  <nav id="nav"></nav>
+  <button class="logout" onclick="logout()">Log out</button>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="welcome"><h1 id="welcomeTitle">Good morning, Patient</h1><p id="welcomeSub">Your personalized medication overview</p></div>
+    <div class="top-actions">
+      <select id="appLanguage" onchange="setLanguage(this.value)">
+        <option value="en">English</option><option value="hi">हिन्दी</option><option value="kn">ಕನ್ನಡ</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="ml">മലയാളം</option>
+      </select>
+      <div class="profile"><div><strong id="profileName">Patient</strong><small style="display:block;color:#84919a">MediMind profile</small></div><div class="avatar" id="avatar">P</div></div>
+    </div>
+  </div>
+
+  <div id="pages"></div>
+</main>
+</section>
+
+<div class="modal" id="modal"><div class="modal-card" id="modalContent"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+let selectedRole="patient";
+let lang=localStorage.getItem("medimindLanguage")||"en";
+let darkTheme=localStorage.getItem("medimindTheme")==="dark";
+let fontScale=Math.min(140,Math.max(100,Number(localStorage.getItem("medimindFontScale")||100)));
+let medicationReminders=localStorage.getItem("medimindMedicationReminders")!=="off";
+let reminderSound=localStorage.getItem("medimindReminderSound")!=="off";
+let reminderVibration=localStorage.getItem("medimindReminderVibration")!=="off";
+let foodInteractionAlerts=localStorage.getItem("medimindFoodInteractionAlerts")!=="off";
+let currentPage="home";
+
+const state={
+ patient:{name:"Ananya Sharma",age:46,sex:"Female",conditions:"Hypertension; Type 2 Diabetes",allergies:"None recorded"},
+ meds:[
+  {name:"Metformin",dose:"500 mg",time:"08:00 AM",frequency:"Twice daily",food:"With meals",adminTip:"Take with meals as prescribed. Follow the exact dose and timing from the prescription.",taken:28,total:30},
+  {name:"Metformin",dose:"500 mg",time:"08:00 PM",frequency:"Twice daily",food:"With meals",adminTip:"Take with the evening meal as prescribed. Do not double a missed dose unless instructed.",taken:28,total:30},
+  {name:"Amlodipine",dose:"5 mg",time:"08:00 AM",frequency:"Once daily",food:"With or without food",adminTip:"Take at approximately the same time each day, with or without food.",taken:29,total:30},
+  {name:"Warfarin",dose:"5 mg",time:"08:00 PM",frequency:"Once daily",food:"Consistent vitamin K intake",adminTip:"Take at the prescribed time and keep vitamin-K-rich food intake consistent. Do not change the dose without professional advice.",taken:25,total:30}
+ ],
+ foods:[
+  {food:"Idli + sambar",time:"08:30 AM",meal:"Morning",date:"24 Aug",note:"Recorded 30 min after morning medicines",status:"No relevant interaction flagged"},
+  {food:"Spinach curry + rice",time:"01:15 PM",meal:"Afternoon",date:"24 Aug",note:"Vitamin-K-rich food; compared with relevant anticoagulant exposure",status:"Review dietary consistency"},
+  {food:"Green tea",time:"06:30 PM",meal:"Evening",date:"23 Aug",note:"Recorded before evening Warfarin dose",status:"Review exposure pattern"},
+  {food:"Grapefruit",time:"08:30 AM",meal:"Morning",date:"21 Aug",note:"Compared with medicines active around morning intake",status:"No high-priority alert in demo"}
+ ],
+ safetyReports:[
+  {
+    id:"SR-2408-01",
+    date:"24 Aug 2026",
+    time:"09:15 AM",
+    symptom:"Nausea",
+    severity:"Mild",
+    medicine:"Metformin 500 mg",
+    medicineTime:"08:00 AM",
+    food:"Idli + sambar",
+    foodTime:"08:30 AM",
+    duration:"45 minutes",
+    repeated:"No",
+    description:"Mild nausea after the morning dose.",
+    status:"Needs review"
+  },
+  {
+    id:"SR-2408-02",
+    date:"23 Aug 2026",
+    time:"08:40 PM",
+    symptom:"Dizziness",
+    severity:"Moderate",
+    medicine:"Amlodipine 5 mg",
+    medicineTime:"08:00 AM",
+    food:"None recorded",
+    foodTime:"—",
+    duration:"20 minutes",
+    repeated:"Yes",
+    description:"Similar dizziness reported on two previous days.",
+    status:"Under review"
+  }
+],
+alerts:[
+  {severity:"high",text:"Repeated Warfarin + spinach exposure detected in the food timeline."},
+  {severity:"moderate",text:"Green tea recorded near the evening Warfarin dose."},
+  {severity:"low",text:"No critical adherence alert recorded today."}
+ ]
+};
+
+const tr={
+en:{home:"Home",profile:"Patient Profile",meds:"Medication Management",prescription:"Prescription History",food:"Food & Interactions",adr:"Symptoms & Safety Reports",settings:"Settings",monitor:"Medication Monitoring",interactions:"Food & Interaction Monitoring",insights:"AI Clinical Insights",dashboard:"Dashboard",dosing:"Dosing Calendar",logout:"Log out",guidance:"Food & Administration Guidance"},
+hi:{home:"होम",profile:"मरीज़ प्रोफ़ाइल",meds:"दवा प्रबंधन",prescription:"प्रिस्क्रिप्शन इतिहास",food:"भोजन और इंटरैक्शन",adr:"लक्षण और सुरक्षा रिपोर्ट",settings:"सेटिंग्स",monitor:"दवा निगरानी",interactions:"भोजन और इंटरैक्शन निगरानी",insights:"AI क्लिनिकल अंतर्दृष्टि",dashboard:"डैशबोर्ड",dosing:"दवा कैलेंडर",logout:"लॉग आउट",guidance:"भोजन और प्रशासन मार्गदर्शन"},
+kn:{home:"ಮುಖಪುಟ",profile:"ರೋಗಿ ಪ್ರೊಫೈಲ್",meds:"ಔಷಧಿ ನಿರ್ವಹಣೆ",prescription:"ಪ್ರಿಸ್ಕ್ರಿಪ್ಷನ್ ಇತಿಹಾಸ",food:"ಆಹಾರ ಮತ್ತು ಇಂಟರಾಕ್ಷನ್",adr:"ಲಕ್ಷಣಗಳು ಮತ್ತು ಸುರಕ್ಷತಾ ವರದಿಗಳು",settings:"ಸೆಟ್ಟಿಂಗ್‌ಗಳು",monitor:"ಔಷಧಿ ಮೇಲ್ವಿಚಾರಣೆ",interactions:"ಆಹಾರ ಮತ್ತು ಇಂಟರಾಕ್ಷನ್ ಮೇಲ್ವಿಚಾರಣೆ",insights:"AI ಕ್ಲಿನಿಕಲ್ ಒಳನೋಟಗಳು",dashboard:"ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",dosing:"ಡೋಸಿಂಗ್ ಕ್ಯಾಲೆಂಡರ್",logout:"ಲಾಗ್ ಔಟ್",guidance:"ಆಹಾರ ಮತ್ತು ಔಷಧಿ ಸೇವನೆ ಮಾರ್ಗದರ್ಶನ"},
+ta:{home:"முகப்பு",profile:"நோயாளர் சுயவிவரம்",meds:"மருந்து மேலாண்மை",prescription:"மருந்துச்சீட்டு வரலாறு",food:"உணவு மற்றும் தொடர்புகள்",adr:"அறிகுறிகள் மற்றும் பாதுகாப்பு அறிக்கைகள்",settings:"அமைப்புகள்",monitor:"மருந்து கண்காணிப்பு",interactions:"உணவு மற்றும் தொடர்பு கண்காணிப்பு",insights:"AI மருத்துவ தகவல்கள்",dashboard:"டாஷ்போர்டு",dosing:"மருந்து காலண்டர்",logout:"வெளியேறு",guidance:"உணவு மற்றும் மருந்து எடுத்துக்கொள்ளும் வழிகாட்டுதல்"},
+te:{home:"హోమ్",profile:"రోగి ప్రొఫైల్",meds:"మందుల నిర్వహణ",prescription:"ప్రిస్క్రిప్షన్ చరిత్ర",food:"ఆహారం మరియు పరస్పర చర్యలు",adr:"లక్షణాలు మరియు భద్రతా నివేదికలు",settings:"సెట్టింగ్స్",monitor:"మందుల పర్యవేక్షణ",interactions:"ఆహారం & పరస్పర చర్యల పర్యవేక్షణ",insights:"AI క్లినికల్ సమాచారం",dashboard:"డ్యాష్‌బోర్డ్",dosing:"డోసింగ్ క్యాలెండర్",logout:"లాగ్ అవుట్",guidance:"ఆహారం మరియు మందుల వినియోగ మార్గదర్శకం"},
+ml:{home:"ഹോം",profile:"രോഗി പ്രൊഫൈൽ",meds:"മരുന്ന് മാനേജ്മെന്റ്",prescription:"പ്രിസ്ക്രിപ്ഷൻ ചരിത്രം",food:"ഭക്ഷണവും ഇടപെടലുകളും",adr:"ലക്ഷണങ്ങളും സുരക്ഷാ റിപ്പോർട്ടുകളും",settings:"ക്രമീകരണങ്ങൾ",monitor:"മരുന്ന് നിരീക്ഷണം",interactions:"ഭക്ഷണം & ഇടപെടൽ നിരീക്ഷണം",insights:"AI ക്ലിനിക്കൽ വിവരങ്ങൾ",dashboard:"ഡാഷ്ബോർഡ്",dosing:"ഡോസിംഗ് കലണ്ടർ",logout:"ലോഗ് ഔട്ട്",guidance:"ഭക്ഷണവും മരുന്ന് ഉപയോഗ മാർഗ്ഗനിർദ്ദേശവും"}
+};
+function T(k){return (tr[lang]&&tr[lang][k])||tr.en[k]||k}
+
+
+/* Demonstration clinical knowledge layer. Production must use a validated,
+   versioned drug-information source. Half-life is supporting context, NOT an
+   interaction window by itself. */
+const drugKnowledge={
+ "metformin":{halfLife:"4–9 h",duration:"~12 h",tmax:"2–3 h",foodEffect:"Food/meal instructions depend on formulation and prescription."},
+ "amlodipine":{halfLife:"30–50 h",duration:"~24 h+",tmax:"6–12 h",foodEffect:"Food is not generally the primary interaction driver; verify product labeling."},
+ "warfarin":{halfLife:"~20–60 h",duration:"2–5 days",tmax:"~4 h",foodEffect:"Vitamin-K intake consistency is clinically important; timing alone does not define this dietary interaction."}
+};
+
+/*
+  Validated interaction layer.
+  These are intentionally drug-specific rules, not generic food warnings.
+  In production this array should be versioned/synced from approved labeling
+  and regional product information, with the source retained for every rule.
+*/
+const interactionDatabase=[
+ {
+  drug:"warfarin",
+  foodKeywords:["spinach","palak","saag","leafy green","green leafy","kale","collard"],
+  component:"Vitamin K",
+  mechanism:"Pharmacodynamic",
+  effect:"Changes in dietary vitamin K intake can alter anticoagulant response.",
+  severity:"moderate",
+  evidence:"A",
+  evidenceType:"Regulatory / clinical labeling",
+  source:"DailyMed – Warfarin Sodium Prescribing Information",
+  sourceUrl:"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7fdfd870-e72d-4d88-b6d9-1d711b66d09f",
+  recommendation:"Maintain a consistent vitamin-K intake and discuss substantial dietary changes with the healthcare professional.",
+  temporalRule:"exposure_pattern"
+ },
+ {
+  drug:"warfarin",
+  foodKeywords:["grapefruit","grapefruit juice"],
+  component:"Food constituents / CYP-related effects",
+  mechanism:"Pharmacokinetic / CYP450",
+  effect:"Grapefruit and grapefruit juice are listed among foods that can interact with warfarin.",
+  severity:"moderate",
+  evidence:"A",
+  evidenceType:"Regulatory / clinical labeling",
+  source:"DailyMed – Warfarin Sodium Prescribing Information",
+  sourceUrl:"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7fdfd870-e72d-4d88-b6d9-1d711b66d09f",
+  recommendation:"Flag the exposure for professional review rather than assuming a dose-proximal interaction.",
+  temporalRule:"exposure_pattern"
+ }
+];
+
+
+/* =========================================================
+   PERSONALIZED GUIDANCE KNOWLEDGE LAYER
+   The AI presentation layer may synthesize these sources, but
+   source-backed rules remain the authority for recommendations.
+   ========================================================= */
+const guidanceDatabase=[
+ {
+  drug:"warfarin",food:"spinach",
+  category:"amount",
+  title:"Maintain consistent vitamin-K exposure",
+  recommendation:"Do not make large or sudden changes to vitamin-K-rich foods. Keep intake consistent and discuss substantial dietary changes with the healthcare professional.",
+  evidence:"A",evidenceType:"Regulatory / clinical labeling",
+  source:"FDA Coumadin prescribing information",
+  sourceUrl:"https://www.accessdata.fda.gov/drugsatfda_docs/label/2016/009218s116lbl.pdf",
+  basis:"The FDA labeling advises a normal, balanced diet with a consistent amount of vitamin K and cautions against drastic dietary changes."
+ },
+ {
+  drug:"warfarin",food:"spinach",
+  category:"alternative",
+  title:"Alternative food guidance",
+  recommendation:"If the patient wants to replace a spinach-heavy side dish, choose a meal that does not create a large change from the patient's usual vitamin-K pattern. The goal is consistency, not elimination of all leafy vegetables.",
+  evidence:"A",evidenceType:"Regulatory / clinical labeling",
+  source:"FDA Coumadin prescribing information",
+  sourceUrl:"https://www.accessdata.fda.gov/drugsatfda_docs/label/2016/009218s116lbl.pdf",
+  basis:"Food substitution should preserve a consistent dietary pattern rather than impose an arbitrary 'safe food' list."
+ },
+ {
+  drug:"levothyroxine",food:"milk",
+  category:"timing",
+  title:"Review timing of calcium-containing foods",
+  recommendation:"Keep levothyroxine administration consistent with the product label and review the timing of calcium-containing foods/products with a pharmacist or prescriber. Do not change the medication dose yourself.",
+  evidence:"A",evidenceType:"Regulatory labeling + systematic review",
+  source:"DailyMed levothyroxine labeling",
+  sourceUrl:"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=52a07ade-4098-477d-874e-dd692667041e",
+  basis:"DailyMed advises administration on an empty stomach and notes that certain foods can affect absorption; systematic review evidence also supports attention to food timing."
+ },
+ {
+  drug:"simvastatin",food:"grapefruit",
+  category:"alternative",
+  title:"Avoid grapefruit according to product-specific guidance",
+  recommendation:"Do not use an AI-generated substitute as a dose-adjustment strategy. If grapefruit is part of the patient's diet, choose a non-grapefruit beverage or fruit only after checking the medication-specific labeling and the patient's full regimen.",
+  evidence:"A",evidenceType:"Regulatory / clinical",
+  source:"FDA simvastatin labeling",
+  sourceUrl:"https://www.fda.gov/media/71578/download",
+  basis:"FDA labeling documents increased simvastatin exposure with grapefruit juice and provides product-specific avoidance guidance."
+ }
+];
+
+function guidanceRulesFor(med,food){
+ const d=med.toLowerCase(),f=food.toLowerCase();
+ return guidanceDatabase.filter(g=>g.drug===d && f.includes(g.food));
+}
+
+function buildPatientGuidance(){
+ const rows=[];
+ state.foods.forEach(food=>{
+   const assessment=analyzeTimedFood(food.food,food.time);
+   assessment.matched.forEach(match=>{
+     guidanceRulesFor(match.med.name,food.food).forEach(rule=>{
+       rows.push({food,match,rule});
+     });
+   });
+ });
+ return rows;
+}
+
+function guidanceSourceLabel(rule){
+ return `<a href="${rule.sourceUrl}" target="_blank" rel="noopener">${rule.source}</a>`;
+}
+
+function minutes(t){const p=t.trim().split(/\s+/),x=p[0].split(":").map(Number),ap=(p[1]||"").toLowerCase();return (x[0]%12+(ap==="pm"?12:0))*60+x[1]}
+function hoursBetween(a,b){let d=Math.abs(minutes(a)-minutes(b));d=Math.min(d,1440-d);return d/60}
+function getDrugKnowledge(name){return drugKnowledge[name.toLowerCase()]||{halfLife:"Not available",duration:"Not available",tmax:"Not available",foodEffect:"Validated drug information required"}}
+
+function classifyTemporalExposure(med,foodTime,rule){
+ const delta=hoursBetween(med.time,foodTime);
+ if(rule.temporalRule==="exposure_pattern"){
+  return {delta,window:null,temporallyRelevant:true,knowledge:getDrugKnowledge(med.name),basis:"Exposure-pattern rule: timing is contextual, not a narrow dose window."};
+ }
+ let window=2;
+ if(med.name.toLowerCase()==="warfarin")window=6;
+ if(med.name.toLowerCase()==="amlodipine")window=4;
+ return {delta,window,temporallyRelevant:delta<=window,knowledge:getDrugKnowledge(med.name),basis:`Dose-proximal rule: ${window} h contextual window.`};
+}
+
+function findInteractionRules(food){
+ const f=food.toLowerCase();
+ return interactionDatabase.filter(r=>r.foodKeywords.some(k=>f.includes(k)));
+}
+
+function analyzeTimedFood(food,foodTime){
+ const rules=findInteractionRules(food);
+ const matched=[];
+ const relevant=[];
+ state.meds.forEach(med=>{
+  rules.filter(r=>r.drug===med.name.toLowerCase()).forEach(rule=>{
+   const temporal=classifyTemporalExposure(med,foodTime,rule);
+   relevant.push({med,...temporal,rule});
+   if(temporal.temporallyRelevant) matched.push({med,...temporal,rule});
+  });
+ });
+ let severity="low";
+ if(matched.length) severity=matched.some(x=>x.rule.severity==="high")?"high":matched.some(x=>x.rule.severity==="moderate")?"moderate":"low";
+ const message=matched.length
+  ? `${matched.length} validated drug-food interaction rule${matched.length>1?"s":""} matched the patient's current regimen.`
+  : "No validated drug-specific interaction rule matched the patient's current regimen for this food event.";
+ return {rules,relevant,matched,severity,message};
+}
+
+function applyTheme(){
+ document.body.classList.toggle("dark-theme",darkTheme);
+ const toggle=document.getElementById("darkThemeToggle");
+ if(toggle) toggle.checked=darkTheme;
+}
+function setTheme(enabled){
+ darkTheme=!!enabled;
+ localStorage.setItem("medimindTheme",darkTheme?"dark":"light");
+ applyTheme();
+}
+
+function applyFontScale(){
+ const scale=fontScale/100;
+ document.querySelectorAll(".main .page").forEach(page=>{
+   const targets=page.querySelectorAll(
+     "h1,h2,h3,h4,h5,h6,p,label,button,input,textarea,select,option,"+
+     "th,td,li,a,strong,b,small,em,span"
+   );
+   targets.forEach(el=>{
+     if(el.closest(".sidebar") || el.closest(".login-left")) return;
+     if(el.matches(
+       ".theme-setting-icon,.preference-setting-icon,.theme-slider,"+
+       ".preference-slider,.dose-dot,.calendar-nav,.avatar,.pro-avatar,"+
+       ".pro-dashboard-icon,.pro-kpi-icon"
+     )) return;
+     if(!el.dataset.fontScaleBase){
+       const computed=parseFloat(getComputedStyle(el).fontSize);
+       if(Number.isFinite(computed) && computed>0) el.dataset.fontScaleBase=String(computed);
+     }
+     const base=parseFloat(el.dataset.fontScaleBase);
+     if(Number.isFinite(base) && base>0) el.style.fontSize=(base*scale).toFixed(2)+"px";
+   });
+ });
+ const slider=document.getElementById("fontScaleSlider");
+ const value=document.getElementById("fontScaleValue");
+ const status=document.getElementById("fontScaleStatus");
+ if(slider){
+   slider.value=String(fontScale);
+   slider.setAttribute("aria-valuenow",String(fontScale));
+ }
+ if(value) value.textContent=fontScale+"%";
+ if(status) status.textContent="Current text scale: "+fontScale+"%";
+}
+
+function setFontScale(value){
+ const parsed=Number(value);
+ fontScale=Math.min(140,Math.max(100,Number.isFinite(parsed)?parsed:100));
+ localStorage.setItem("medimindFontScale",String(fontScale));
+ applyFontScale();
+}
+
+function setPreference(name, enabled){
+ const value=!!enabled;
+ if(name==="medicationReminders"){
+   medicationReminders=value;
+   localStorage.setItem("medimindMedicationReminders",value?"on":"off");
+ }else if(name==="reminderSound"){
+   reminderSound=value;
+   localStorage.setItem("medimindReminderSound",value?"on":"off");
+ }else if(name==="reminderVibration"){
+   reminderVibration=value;
+   localStorage.setItem("medimindReminderVibration",value?"on":"off");
+ }else if(name==="foodInteractionAlerts"){
+   foodInteractionAlerts=value;
+   localStorage.setItem("medimindFoodInteractionAlerts",value?"on":"off");
+ }else{
+   return;
+ }
+ toast((value?"Enabled: ":"Disabled: ")+({
+   medicationReminders:"Medication reminders",
+   reminderSound:"Reminder sound",
+   reminderVibration:"Reminder vibration",
+   foodInteractionAlerts:"Food interaction alerts"
+ }[name]));
+}
+
+function setLanguage(v){
+ lang=v;localStorage.setItem("medimindLanguage",v);
+ document.getElementById("loginLanguage").value=v;
+ document.getElementById("appLanguage").value=v;
+ if(document.getElementById("app").style.display==="block") render();
+}
+
+function selectRole(role,el){
+ selectedRole=role;
+ document.querySelectorAll(".role").forEach(x=>x.classList.remove("active"));
+ el.classList.add("active");
+}
+
+function login(){
+ if(!document.getElementById("loginId").value.trim()) {toast("Enter email or mobile number");return}
+ document.getElementById("loginPage").style.display="none";
+ document.getElementById("app").style.display="block";
+ currentPage="home";render();
+}
+function logout(){document.getElementById("app").style.display="none";document.getElementById("loginPage").style.display="flex"}
+
+function navItems(){
+ if(selectedRole==="patient") return [
+  ["home","🏠 "+T("home")],["profile","👤 "+T("profile")],["meds","💊 "+T("meds")],
+  ["prescription","📋 "+T("prescription")],["food","🥗 "+T("food")],["guidance","🍽 "+T("guidance")],["adr","⚕ "+T("adr")],["settings","⚙ "+T("settings")]
+ ];
+ return [
+  ["home","🏠 "+T("dashboard")],["monitor","💊 "+T("monitor")],["interactions","🥗 "+T("interactions")],
+  ["adr","⚕ "+T("adr")],["insights","✨ "+T("insights")],["settings","⚙ "+T("settings")]
+ ];
+}
+
+function render(){
+ document.getElementById("sideRole").textContent=selectedRole==="patient"?"Patient":"Healthcare Professional";
+ document.getElementById("sideRoleText").textContent=selectedRole==="patient"?"Personal medication workspace":"Patient medication monitoring workspace";
+ document.getElementById("welcomeTitle").textContent=selectedRole==="patient"?"Good morning, Patient":"Good morning, Healthcare Professional";
+ document.getElementById("welcomeSub").textContent=selectedRole==="patient"?"Your personalized medication overview":"Medication, food-interaction and adherence overview";
+ document.getElementById("profileName").textContent=selectedRole==="patient"?state.patient.name:"Healthcare Professional";
+ document.getElementById("avatar").textContent=selectedRole==="patient"?"A":"H";
+ const nav=document.getElementById("nav");
+ nav.innerHTML=navItems().map(n=>`<div class="nav-item ${currentPage===n[0]?"active":""}" onclick="showPage('${n[0]}')">${n[1]}</div>`).join("");
+ document.getElementById("pages").innerHTML=pageHTML();
+ applyFontScale();
+}
+function showPage(p){currentPage=p;render();window.scrollTo({top:0,behavior:"smooth"})}
+
+function pageHTML(){
+ if(selectedRole==="patient"){
+  if(currentPage==="profile")return patientProfile();
+  if(currentPage==="meds")return medicationManagement();
+  if(currentPage==="prescription")return prescriptionHistory();
+  if(currentPage==="food")return foodInteractions();
+   if(currentPage==="guidance")return personalizedGuidancePage();
+  if(currentPage==="adr")return safetyReportsPage();
+  if(currentPage==="settings")return settingsPage();
+  return patientHome();
+ }
+ if(currentPage==="monitor")return proMonitoring();
+ if(currentPage==="interactions")return proInteractions();
+  if(currentPage==="guidance")return personalizedGuidancePage();
+ if(currentPage==="adr")return safetyReportsPage();
+ if(currentPage==="insights")return proInsights();
+ if(currentPage==="settings")return settingsPage();
+ return proHome();
+}
+
+function patientHome(){
+ let adherence=Math.round(state.meds.reduce((a,m)=>a+(m.taken/m.total*100),0)/state.meds.length);
+ const interactions=state.foods.map(f=>{const a=analyzeTimedFood(f.food,f.time);return {...f,a}}).filter(x=>x.a.matched.length>0);
+
+ return `<section class="page active">
+
+  <div class="grid">
+   <div class="stat"><div class="stat-icon">💊</div><div class="stat-number">${state.meds.length}</div><div class="stat-label">Scheduled medication doses</div></div>
+   <div class="stat"><div class="stat-icon">🥗</div><div class="stat-number">${state.foods.length}</div><div class="stat-label">Food records</div></div>
+   <div class="stat"><div class="stat-icon">⚠️</div><div class="stat-number">${interactions.length}</div><div class="stat-label">Confirmed interaction events</div></div>
+   <div class="stat"><div class="stat-icon">✓</div><div class="stat-number">${adherence}%</div><div class="stat-label">Medication adherence</div></div>
+  </div>
+
+  <!-- TOP MONITORING ROW: side-by-side -->
+  <div class="top-monitoring-grid">
+
+   <div class="card monitoring-card">
+    <div class="card-header">
+     <h2>Drug-Food Interaction Monitoring Dashboard</h2>
+     <span>Time-aware</span>
+    </div>
+    <div class="risk-wrap">
+     <div class="risk-circle"><b>${interactions.length?"62":"0"}</b></div>
+     <div>
+      <strong>${interactions.length?"Patient-specific interaction risk detected":"No drug-food interaction detected"}</strong>
+      <p style="font-size:12px;color:#6d7c85;margin-top:6px">
+       Only food events with a drug-specific interaction match to a temporally relevant dose are shown on the severity board.
+      </p>
+      <button class="secondary-btn" style="margin-top:12px" onclick="showPage('food')">Open food interaction checker</button>
+     </div>
+    </div>
+   </div>
+
+   <div class="card monitoring-card">
+    <div class="card-header">
+     <h2>Clinical Alert Center</h2>
+     <span>Priority review</span>
+    </div>
+    ${state.alerts.map(a=>`
+      <div class="alert ${a.severity}">
+       ${a.severity==="high"?"🔴":a.severity==="moderate"?"🟠":"🟢"} ${a.text}
+      </div>
+    `).join("")}
+   </div>
+
+  </div>
+
+  <!-- TIME-AWARE TIMELINE -->
+  <div class="timeline-severity-grid">
+ <div><div class="card side-panel-card">
+   <div class="card-header">
+    <h2>Today's Time-Aware Medication & Food Timeline</h2>
+    <span>Morning • Afternoon • Evening</span>
+   </div>
+
+   <div class="timeline-board">
+    ${["Morning","Afternoon","Evening"].map(period=>{
+     const foods=state.foods.filter(f=>f.meal===period);
+     const meds=state.meds.filter(m=>
+       period==="Morning" ? m.time.includes("AM") :
+       period==="Evening" ? m.time.includes("PM") : false
+     );
+
+     return `
+      <div class="time-window">
+       <div class="window-title">
+        <strong>${period}</strong>
+        <span>${meds.length} scheduled dose(s) • ${foods.length} food record(s)</span>
+       </div>
+
+       ${meds.map(m=>`
+        <div class="event-row">
+         <div class="event-time">${m.time}</div>
+         <div class="event-main">
+          <strong>💊 ${m.name} ${m.dose}</strong>
+          <small>Scheduled dose • ${m.frequency}</small>
+         </div>
+         <span class="badge low">REMINDER</span>
+        </div>
+       `).join("")}
+
+       ${foods.map(f=>{
+        const a=analyzeTimedFood(f.food,f.time);
+        return `
+         <div class="event-row">
+          <div class="event-time">${f.time}</div>
+          <div class="event-main">
+           <strong>🥗 ${f.food}</strong>
+           <small>
+            ${a.matched.length
+             ? a.matched.map(x=>`Interaction with ${x.med.name} ${x.med.dose} at ${x.med.time}`).join(" • ")
+             : f.note}
+           </small>
+          </div>
+          <span class="badge ${a.matched.length?a.severity:"low"}">
+           ${a.matched.length?a.severity.toUpperCase():"LOGGED"}
+          </span>
+         </div>
+        `;
+       }).join("")}
+
+       ${!meds.length&&!foods.length
+        ? '<div class="window-note">No recorded medication dose or food intake in this time window.</div>'
+        : ""}
+      </div>
+     `;
+    }).join("")}
+   </div>
+  </div>
+
+  </div>
+ <div>
+<div class="card side-panel-card">
+ <div class="card-header">
+  <h2>Food Interaction Severity Board</h2>
+  <span>Recent intake</span>
+ </div>
+ ${interactions.length ? interactions.map(x=>x.a.matched.map(m=>`
+   <div class="interaction ${x.a.severity}">
+    <h3>${x.a.severity==="high"?"🔴":x.a.severity==="moderate"?"🟠":"🟢"} ${x.food} + ${m.med.name}</h3>
+    <p>${m.med.name} ${m.med.dose} at ${m.med.time} • Food at ${x.time} • ${x.date||"Today"}</p>
+    <div class="alternative">
+     ${x.a.severity==="high"?"Professional review recommended":x.a.severity==="moderate"?"Review timing / dietary guidance":"No significant interaction identified in demo"}
+    </div>
+   </div>
+ `).join("")).join("") : `<div class="empty">No drug-food interaction detected for the recorded food intake.</div>`}
+</div>
+</div>
+</div>
+
+<div class="section-grid">
+
+   <div>
+    <div class="card">
+     <div class="card-header">
+      <h2>Medication Reminders & Administration Tips</h2>
+      <span>Generated from prescription</span>
+     </div>
+     ${state.meds.map(m=>`
+      <div class="medication">
+       <div style="flex:1">
+        <strong>${m.name} ${m.dose}</strong>
+        <small>⏰ ${m.time} • ${m.frequency}</small>
+        <div class="administration-tip">
+         💡 <strong>Administration tip:</strong> ${m.adminTip}
+        </div>
+       </div>
+       <span class="pill">Reminder</span>
+      </div>
+     `).join("")}
+    </div>
+   </div>
+
+   <div>
+    <div class="card">
+     <div class="card-header"><h2>Food Intake</h2><span>Record by time</span></div>
+     <div class="food-record-box">
+      <div class="food-record-head">
+       <div>
+        <strong>Upload food photo</strong>
+        <p class="causal-note">The photo is timestamped and assessed against medicines scheduled around that intake.</p>
+       </div>
+       <span class="time-chip">AUTO TIME</span>
+      </div>
+      <div class="food-record-actions">
+       <label class="scan-btn">
+        📷 Take / Upload Food
+        <input class="photo-input" type="file" accept="image/*" capture="environment" onchange="recordFoodPhoto(event)">
+       </label>
+       <button class="secondary-btn" onclick="openFoodModal()">✎ Enter Food</button>
+      </div>
+     </div>
+    </div>
+
+    <div class="card">
+     <div class="card-header"><h2>AI Medication & Food Chatbot</h2><span>Time-aware</span></div>
+     ${chat()}
+    </div>
+   </div>
+
+  </div>
+
+  
+ </section>`;
+}
+function chat(){
+ return `<div class="chat"><div id="chatMessages" class="chat-messages">
+  <div class="bubble bot">Hello. I can check a food against the medication dose that is temporally relevant. Try: “I ate spinach at 1 PM; which doses were relevant?”</div>
+ </div><form class="chat-form" onsubmit="sendChat(event)"><input id="chatInput" placeholder="Ask about food, a medicine or your regimen..." required><button class="primary-btn">Send</button></form></div>`;
+}
+function sendChat(e){
+ e.preventDefault();let input=document.getElementById("chatInput"),q=input.value.trim();if(!q)return;
+ let box=document.getElementById("chatMessages");box.insertAdjacentHTML("beforeend",`<div class="bubble user">${safe(q)}</div>`);
+ let l=q.toLowerCase(),ans="I can review the food, intake time and scheduled medication doses that are temporally relevant. Timing is a prioritization aid, not proof of an interaction. Verify clinically important decisions with your healthcare professional.";
+ if(l.includes("spinach")||l.includes("पालक")||l.includes("ಸೊಪ್ಪು"))ans="Your current list includes Warfarin. Spinach is a vitamin-K-rich food, so consistency of vitamin K intake is important. Do not change or stop Warfarin based on this chat. Discuss major dietary changes with your healthcare professional.";
+ else if(l.includes("grapefruit")||l.includes("ग्रेप"))ans="Grapefruit can interact with some medicines. Your current regimen includes Amlodipine, so regular grapefruit intake should be reviewed with your healthcare professional.";
+ else if(l.includes("curd")||l.includes("yogurt")||l.includes("दही"))ans="In this prototype, no significant interaction is identified between curd and your listed Metformin regimen. Follow the prescribed administration instructions.";
+ setTimeout(()=>{box.insertAdjacentHTML("beforeend",`<div class="bubble bot">${ans}</div>`);box.scrollTop=box.scrollHeight},250);input.value="";box.scrollTop=box.scrollHeight;
+}
+
+function patientProfile(){
+  const activeMeds=[...new Set(state.meds.map(m=>m.name))];
+  const allergyText=state.patient.allergies||"None recorded";
+  const hasAllergy=!['none recorded','none'].includes(allergyText.toLowerCase());
+  return `<section class="page active"><div class="patient-profile-grid">
+    <div class="card"><div class="card-header"><div><h2>Demographics</h2><p style="font-size:11px;color:#7a8992;margin-top:3px">Personal information and medical identity</p></div><span>Patient profile</span></div>
+      <div class="form-grid"><div class="field"><label>Name</label><input value="${state.patient.name}"></div><div class="field"><label>Age</label><input value="${state.patient.age}"></div><div class="field"><label>Sex</label><input value="${state.patient.sex}"></div><div class="field"><label>Allergies</label><input value="${state.patient.allergies}"></div><div class="field full"><label>Diagnoses / Medical Conditions</label><textarea rows="4">${state.patient.conditions}</textarea></div></div>
+      <button class="primary-btn" onclick="toast('Patient profile saved')">Save Profile</button></div>
+    <div class="card patient-data-panel"><div class="card-header"><div><h2>Patient Data</h2><p style="font-size:11px;color:#7a8992;margin-top:3px">Personalized health snapshot</p></div><span>Live summary</span></div>
+      <div class="patient-data-summary">
+        <div class="patient-data-tile"><div class="patient-data-tile-head"><span class="patient-data-icon">💊</span><span class="patient-data-status">Active</span></div><div class="patient-data-label">Current Medications</div><div class="patient-data-value">${activeMeds.length}</div><div class="patient-data-sub">Unique medicines in regimen</div></div>
+        <div class="patient-data-tile"><div class="patient-data-tile-head"><span class="patient-data-icon">⚠️</span><span class="patient-data-status ${hasAllergy?'warn':''}">${hasAllergy?'Review':'Clear'}</span></div><div class="patient-data-label">Drug Allergies</div><div class="patient-data-value" style="font-size:14px">${hasAllergy?'Recorded':'None recorded'}</div><div class="patient-data-sub">${hasAllergy?allergyText:'No allergy recorded'}</div></div>
+        <div class="patient-data-tile"><div class="patient-data-tile-head"><span class="patient-data-icon">🥗</span><span class="patient-data-status">Tracked</span></div><div class="patient-data-label">Food Records</div><div class="patient-data-value">${state.foods.length}</div><div class="patient-data-sub">Available for interaction monitoring</div></div>
+        <div class="patient-data-tile"><div class="patient-data-tile-head"><span class="patient-data-icon">📋</span><span class="patient-data-status">Available</span></div><div class="patient-data-label">Safety Reports</div><div class="patient-data-value">${state.safetyReports.length}</div><div class="patient-data-sub">Patient-reported symptoms</div></div>
+      </div>
+      <div class="patient-data-section"><div class="patient-data-section-head"><strong>💊 Current Medication Summary</strong><button class="patient-data-link" onclick="showPage('meds')">View all →</button></div><div class="patient-data-list">${state.meds.slice(0,3).map(m=>`<div class="patient-data-list-row"><div><strong>${m.name} ${m.dose}</strong><small>${m.frequency} • ${m.time}</small></div><span class="patient-data-status">Active</span></div>`).join('')}${state.meds.length>3?`<div style="font-size:10px;color:#7a8992;text-align:center;padding-top:2px">+ ${state.meds.length-3} more scheduled dose${state.meds.length-3===1?'':'s'}</div>`:''}</div></div>
+      <div class="patient-data-section"><div class="patient-data-section-head"><strong>🩺 Medical Conditions</strong></div><div class="patient-data-list">${state.patient.conditions.split(';').map(c=>c.trim()).filter(Boolean).map(c=>`<div class="patient-data-list-row"><div><strong>${c}</strong><small>Recorded medical condition</small></div><span class="patient-data-status">Recorded</span></div>`).join('')}</div></div>
+      <div class="patient-data-section"><div class="patient-data-section-head"><strong>📑 Health Records</strong><span style="font-size:10px;color:#7a8992">Quick access</span></div><div class="patient-data-list">
+        <div class="patient-data-list-row" onclick="showPage('prescription')" style="cursor:pointer"><div><strong>Prescription History</strong><small>Current and previous prescriptions</small></div><span class="patient-data-status">View →</span></div>
+        <div class="patient-data-list-row" onclick="showPage('food')" style="cursor:pointer"><div><strong>Food & Interaction History</strong><small>${state.foods.length} food records available</small></div><span class="patient-data-status">View →</span></div>
+        <div class="patient-data-list-row" onclick="showPage('adr')" style="cursor:pointer"><div><strong>Symptoms & Safety Reports</strong><small>${state.safetyReports.length} reports recorded</small></div><span class="patient-data-status ${state.safetyReports.length?'warn':''}">${state.safetyReports.length?'Review':'Clear'}</span></div>
+      </div></div>
+      <div class="patient-data-alert"><span>🛡️</span><div><b>Personalized medication context</b>This summary brings together medication, condition, food and safety information used across MediMind.</div></div>
+    </div></div></section>`;
+}
+function medicationManagement(){
+ return `<section class="page active"><div class="card"><div class="card-header"><h2>Medication Management</h2><span>${state.meds.length} active</span></div><div class="table-wrap"><table><thead><tr><th>Medicine</th><th>Dose</th><th>Time</th><th>Frequency</th><th>Food guidance</th><th>Status</th></tr></thead><tbody>${state.meds.map((m,i)=>`<tr><td><strong>${m.name}</strong></td><td>${m.dose}</td><td>${m.time}</td><td>${m.frequency}</td><td>${m.food}<div class="administration-tip">💡 ${m.adminTip}</div></td><td><button class="secondary-btn" onclick="logDose(${i})">${m.taken<m.total?"Mark dose taken":"Log dose"}</button></td></tr>`).join("")}</tbody></table></div></div><div class="card"><div class="card-header"><h2>Medication Schedule</h2><span>Today</span></div>${state.meds.map((m,i)=>`<div class="schedule-item"><div class="time">${m.time}</div><div class="schedule-info"><strong>${m.name} ${m.dose}</strong><small>${m.food} • ${m.taken}/${m.total} doses recorded</small><div class="administration-tip">💡 ${m.adminTip}</div></div><input class="taken" type="checkbox" ${i===0?"":"checked"} onchange="logDose(${i})"></div>`).join("")}</div></section>`;
+}
+function prescriptionHistory(){
+ return `<section class="page active"><div class="section-grid"><div class="card"><div class="card-header"><h2>Prescription History</h2><span>AI-assisted</span></div><div class="upload-box"><div class="upload-icon">📷</div><strong>Upload or photograph prescription</strong><p>Upload before going home. MediMind extracts the regimen and immediately builds the dosing reminder schedule for patient review.</p><label class="upload-btn" for="prescriptionFile">📸 Upload Prescription</label><input id="prescriptionFile" type="file" accept="image/*" onchange="processPrescription(event)"></div><div class="or" style="text-align:center;margin:15px;color:#9aa6ad;font-size:12px">OR</div><button class="secondary-btn" style="width:100%" onclick="manualPrescription()">✎ Enter Prescription Manually</button></div><div class="card"><div class="card-header"><h2>Previous Prescriptions</h2><span>History</span></div><div class="event"><strong>24 Aug 2026</strong><p style="font-size:12px;color:#75838c;margin-top:5px">Current prescription • Medication schedule generated.</p></div><div class="event"><strong>18 Jul 2026</strong><p style="font-size:12px;color:#75838c;margin-top:5px">Previous prescription recorded.</p></div></div></div></section>`;
+}
+function foodInteractions(){
+ return `<section class="page active">
+ <div class="card"><div class="card-header"><h2>Time-Aware Food & Drug Interaction Monitoring</h2><span>Compare food with relevant dose</span></div>
+  <div class="food-checker"><div class="food-checker-title"><div><h3>📷 Record Food Intake</h3><p>Upload a food photo or enter the food type. The intake time is used to identify medication doses that are temporally relevant.</p></div><span class="badge neutral">TIME-AWARE</span></div>
+   <div class="food-input-row"><input id="foodQuery" placeholder="e.g. spinach curry, idli, grapefruit juice"><label class="scan-btn">📷 Take / Upload<input id="foodPhoto" type="file" accept="image/*" capture="environment" style="display:none" onchange="analyzeFoodPhoto(event)"></label><button class="primary-btn" style="width:auto" onclick="checkTimedFood()">Check at Intake Time</button></div>
+   <div class="food-input-row" style="grid-template-columns:1fr 1fr auto;margin-top:9px"><input id="foodTime" type="time" value="${new Date().toTimeString().slice(0,5)}"><select id="mealPeriod" class="meal-period-select" aria-label="Food intake period">
+<option value="Morning">Morning</option>
+<option value="Afternoon">Afternoon</option>
+<option value="Evening">Evening</option>
+</select><button class="secondary-btn" onclick="useCurrentTime()">Use current time</button></div>
+   <div id="foodCheckResult" class="check-result"><div class="empty">Record the food and time to see which medication doses were temporally relevant.</div></div>
+  </div>
+ </div>
+ <div class="card"><div class="card-header"><h2>Food Intake Timeline</h2><span>Morning • Afternoon • Evening</span></div><div class="timeline-board">${state.foods.map(f=>{let a=analyzeTimedFood(f.food,f.time);return `<div class="event-row"><div class="event-time">${f.time}</div><div class="event-main"><strong>🥗 ${f.food}</strong><small>${f.meal} • ${f.date} • ${a.relevant.length} temporally relevant dose(s)</small></div><span class="badge ${a.severity}">${a.severity.toUpperCase()}</span></div>`}).join("")}</div></div>
+ <div class="card"><div class="card-header"><h2>Medication Knowledge Used for Temporal Assessment</h2><span>Evidence layer</span></div><div class="pharm-grid">${[...new Map(state.meds.map(m=>[m.name,m])).values()].map(m=>{let k=getDrugKnowledge(m.name);return `<div class="pharm-card"><strong>${m.name}</strong><small>Half-life: ${k.halfLife}</small><small>Duration: ${k.duration}</small><small>Tmax: ${k.tmax}</small><small>${k.foodEffect}</small></div>`}).join("")}</div><div class="window-note" style="margin-top:12px"><strong>Clinical logic:</strong> half-life supports exposure context, but is not itself an interaction window. Production should use validated drug-specific food-effect and interaction evidence.</div></div>
+ <div class="section-grid"><div class="card"><div class="card-header"><h2>Interaction Results</h2><span>Temporal relevance</span></div>${state.foods.map(f=>{let a=analyzeTimedFood(f.food,f.time);return `<div class="interaction ${a.severity}"><h3>${a.severity==="high"?"🔴":a.severity==="moderate"?"🟠":"🟢"} ${f.food} • ${f.time}</h3><p>${a.message}</p><div class="alternative">${a.relevant.length?`Relevant dose(s): ${a.relevant.map(x=>`${x.med.name} ${x.med.dose} at ${x.med.time} (${x.delta.toFixed(1)} h apart)`).join(", ")}`:"No temporally relevant dose identified in the demonstration window."}</div></div>`}).join("")}</div>
+ <div class="card"><div class="card-header"><h2>Safety & Interpretation</h2><span>Human review</span></div><div class="alert high"><strong>Timing does not prove causality.</strong><br>A food being close to a dose does not by itself prove an interaction.</div><div class="alert moderate"><strong>Drug-specific assessment.</strong><br>Different medicines have different food effects, pharmacokinetics and pharmacodynamics.</div><div class="alert low"><strong>Production requirement.</strong><br>Connect the knowledge layer to a validated, versioned clinical drug-information source.</div></div></div>
+ </section>`;
+}
+function checkTimedFood(){const food=document.getElementById("foodQuery").value.trim(),time=document.getElementById("foodTime").value;if(!food||!time){toast("Enter the food and intake time");return}showTimedFoodResult(food,time)}
+function showTimedFoodResult(food,time){
+ const r=analyzeTimedFood(food,time),box=document.getElementById("foodCheckResult");
+ box.innerHTML=`<div class="interaction ${r.severity}"><div class="result-head"><strong>Assessment: ${safe(food)} at ${time}</strong><span class="badge ${r.severity}">${r.severity.toUpperCase()}</span></div><p>${r.message}</p><div class="result-med"><strong>Temporally relevant medication doses</strong>${r.relevant.length?r.relevant.map(x=>`<p>💊 ${x.med.name} ${x.med.dose} • ${x.med.time} • ${x.delta.toFixed(1)} h from food • half-life ${x.knowledge.halfLife}</p>`).join(""):"<p>No dose fell within the demonstration temporal screen.</p>"}</div><div class="administration-tip">💡 <strong>Interpretation:</strong> Timing and pharmacokinetic data prioritize the review; validated clinical interaction evidence determines the actual interaction.</div></div>`;
+}
+function analyzeFoodPhoto(event){const file=event.target.files[0];if(!file)return;const name=file.name.replace(/\.[^/.]+$/,"").replace(/[_-]+/g," ");document.getElementById("foodQuery").value=name;toast("Food photo captured. Production AI vision can identify the food and components.")}
+function recordFoodPhoto(event){const file=event.target.files[0];if(!file)return;const name=file.name.replace(/\.[^/.]+$/,"").replace(/[_-]+/g," ");showPage("food");setTimeout(()=>{document.getElementById("foodQuery").value=name;document.getElementById("foodTime").value=new Date().toTimeString().slice(0,5);toast("Food photo recorded with intake time. Review before saving.")},80)}
+function useCurrentTime(){document.getElementById("foodTime").value=new Date().toTimeString().slice(0,5)}
+function safetyReportsPage(){
+ const reports=state.safetyReports||[];
+ if(selectedRole==="patient"){
+  return `<section class="page active">
+   <div class="ss-simple">
+    <div class="ss-simple-head">
+     <div>
+      <div class="ss-simple-title"><span class="ss-simple-icon">💬</span><div><h2>Symptoms &amp; Safety</h2><p>Tell us if you feel unwell after taking a medicine or eating a food.</p></div></div>
+     </div>
+     <button class="primary-btn ss-report-btn" onclick="openADR()">+ Report a symptom</button>
+    </div>
+
+    <div class="ss-quick">
+     <div class="ss-quick-item"><span>📋</span><div><b>${reports.length}</b><small>Reports</small></div></div>
+     <div class="ss-quick-item"><span>⚠️</span><div><b>${reports.filter(r=>r.severity==="Severe").length}</b><small>Severe</small></div></div>
+     <div class="ss-quick-note"><span>🛡️</span><p>Reports help your healthcare professional review possible medicine or food-related problems.</p></div>
+    </div>
+
+    <div class="ss-section">
+     <div class="ss-section-head"><h3>Recent reports</h3><span>${reports.length ? "Latest first" : ""}</span></div>
+     ${reports.length ? reports.slice(0,5).map(r=>`
+      <div class="ss-report-row">
+       <div class="ss-report-symbol">${r.severity==="Severe"?"🔴":r.severity==="Moderate"?"🟠":"🟢"}</div>
+       <div class="ss-report-main">
+        <b>${r.symptom}</b>
+        <small>${r.date} • ${r.time} · ${r.medicine}</small>
+       </div>
+       <span class="badge ${r.severity==="Severe"?"high":r.severity==="Moderate"?"moderate":"low"}">${r.severity}</span>
+      </div>
+     `).join("") : `
+      <div class="ss-empty">
+       <span>✓</span><div><b>No reports yet</b><p>Your symptom reports will appear here.</p></div>
+      </div>
+     `}
+    </div>
+
+    <div class="ss-help">
+     <span>ℹ️</span>
+     <div><b>When should you report?</b><p>Report a new, unusual, worsening, or uncomfortable symptom. For severe or emergency symptoms, seek medical care immediately.</p></div>
+    </div>
+   </div>
+  </section>`;
+ }
+
+ return `<section class="page active">
+  <div class="card">
+   <div class="card-header">
+    <div>
+     <h2>Symptoms &amp; Safety Reports</h2>
+     <p style="font-size:12px;color:#71808a;margin-top:5px;line-height:1.5">
+      Review patient-reported symptoms alongside medication and food exposure. Reports are signals for clinical assessment, not automatic ADR diagnoses.
+     </p>
+    </div>
+    <span>Human-in-the-loop</span>
+   </div>
+
+   <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat"><div class="stat-icon">⚕</div><div class="stat-number">${reports.length}</div><div class="stat-label">Reports recorded</div></div>
+    <div class="stat"><div class="stat-icon">🔁</div><div class="stat-number">${reports.filter(r=>r.repeated==="Yes").length}</div><div class="stat-label">Repeated symptoms</div></div>
+    <div class="stat"><div class="stat-icon">🔎</div><div class="stat-number">${reports.filter(r=>r.status!=="Closed").length}</div><div class="stat-label">Open for review</div></div>
+   </div>
+
+   <div class="table-wrap">
+    <table class="safety-prof-table">
+     <thead><tr>
+      <th>Report</th><th>Symptom</th><th>Medication exposure</th><th>Food exposure</th>
+      <th>Timing</th><th>Severity</th><th>Repeated</th><th>Status</th><th>Review</th>
+     </tr></thead>
+     <tbody>
+      ${reports.map(r=>`
+       <tr>
+        <td><strong>${r.id}</strong><small>${r.date} • ${r.time}</small></td>
+        <td><strong>${r.symptom}</strong><small>${r.description}</small></td>
+        <td><strong>${r.medicine}</strong><small>Dose: ${r.medicineTime}</small></td>
+        <td><strong>${r.food}</strong><small>Recorded: ${r.foodTime}</small></td>
+        <td><strong>${r.duration}</strong><small>after exposure</small></td>
+        <td><span class="badge ${r.severity==="Severe"?"high":r.severity==="Moderate"?"moderate":"low"}">${r.severity}</span></td>
+        <td><span class="badge ${r.repeated==="Yes"?"moderate":"neutral"}">${r.repeated}</span></td>
+        <td><span class="badge ${r.status==="Closed"?"low":"moderate"}">${r.status}</span></td>
+        <td><button class="secondary-btn" onclick="reviewSafetyReport('${r.id}')">Review</button></td>
+       </tr>
+      `).join("")}
+     </tbody>
+    </table>
+   </div>
+  </div>
+
+  <div class="card">
+   <div class="card-header"><h2>Clinical review context</h2><span>Do not infer causality automatically</span></div>
+   <div class="safety-review-grid">
+    <div class="insight"><b>Medication relationship</b><p>Review the dose, administration time, recent dose changes, and whether the symptom recurs after exposure.</p></div>
+    <div class="insight"><b>Food relationship</b><p>Check the food recorded around the dose and whether a validated drug-food interaction was detected.</p></div>
+    <div class="insight"><b>Temporal relationship</b><p>Compare symptom onset with medication and food timestamps. Timing supports assessment but does not establish causality.</p></div>
+    <div class="insight"><b>Repeated exposure</b><p>Repeated symptoms following similar exposures may provide a stronger signal for professional review.</p></div>
+   </div>
+  </div>
+ </section>`;
+}
+
+function reviewSafetyReport(id){
+ const r=(state.safetyReports||[]).find(x=>x.id===id);
+ if(!r)return;
+ document.getElementById("modalContent").innerHTML=`
+  <h2>Clinical Review • ${r.id}</h2>
+  <p style="font-size:12px;color:#71808a;margin:7px 0 18px;line-height:1.5">
+   Review the symptom together with the recorded medication and food exposure. This workflow does not establish causality automatically.
+  </p>
+  <div class="form-grid">
+   <div class="field"><label>Symptom</label><input value="${safe(r.symptom)}" readonly></div>
+   <div class="field"><label>Severity</label><input value="${safe(r.severity)}" readonly></div>
+   <div class="field"><label>Medication exposure</label><input value="${safe(r.medicine)} at ${safe(r.medicineTime)}" readonly></div>
+   <div class="field"><label>Food exposure</label><input value="${safe(r.food)} at ${safe(r.foodTime)}" readonly></div>
+   <div class="field"><label>Repeated symptom?</label><input value="${safe(r.repeated)}" readonly></div>
+   <div class="field"><label>Current status</label>
+    <select id="reviewStatus">
+     <option ${r.status==="Needs review"?"selected":""}>Needs review</option>
+     <option ${r.status==="Under review"?"selected":""}>Under review</option>
+     <option ${r.status==="Closed"?"selected":""}>Closed</option>
+    </select>
+   </div>
+   <div class="field full"><label>Professional review note</label><textarea id="reviewNote" rows="5" placeholder="Document your assessment, follow-up or action."></textarea></div>
+  </div>
+  <button class="primary-btn" onclick="saveSafetyReview('${r.id}')">Save Clinical Review</button>
+  <button class="secondary-btn" style="margin-top:10px;width:100%" onclick="closeModal()">Cancel</button>
+ `;
+ document.getElementById("modal").classList.add("show");
+}
+
+function saveSafetyReview(id){
+ const r=(state.safetyReports||[]).find(x=>x.id===id);
+ if(!r)return;
+ r.status=document.getElementById("reviewStatus").value;
+ r.reviewNote=document.getElementById("reviewNote").value.trim();
+ closeModal();
+ toast("Clinical safety review saved");
+ render();
+}
+
+function openADR(){
+ openModal("adr");
+}
+function openModal(type){
+ let title=type==="food"?"Add Food Intake":type==="adr"?"Report How I Feel":"Enter Prescription Manually";
+ let body="";
+ if(type==="food") body=`<h2>${title}</h2><p style="font-size:12px;color:#71808a;margin:7px 0 18px">Record a food and compare it with the active regimen.</p><div class="form-grid"><div class="field full"><label>Food</label><input id="newFood" placeholder="e.g. spinach curry"></div></div><button class="primary-btn" onclick="saveFood()">Save Food Record</button>`;
+ else if(type==="adr") body=`
+  <h2>Report How I Feel</h2>
+  <p style="font-size:12px;color:#71808a;margin:7px 0 18px;line-height:1.5">
+   Record the symptom and the medication/food exposure around it. MediMind will pass the context to the healthcare professional for review.
+  </p>
+  <div class="form-grid">
+   <div class="field"><label>Symptom</label><input id="adrSymptom" placeholder="e.g. nausea, dizziness, headache"></div>
+   <div class="field"><label>Severity</label><select id="adrSeverity"><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
+   <div class="field"><label>Medication taken</label><select id="adrMedicine">${state.meds.map(m=>`<option value="${m.name} ${m.dose}" data-time="${m.time}">${m.name} ${m.dose} • ${m.time}</option>`).join("")}</select></div>
+   <div class="field"><label>Food around dose</label><select id="adrFood"><option value="None recorded">None recorded</option>${state.foods.map(f=>`<option value="${safe(f.food)}">${safe(f.food)} • ${f.time}</option>`).join("")}</select></div>
+   <div class="field"><label>How long did it last?</label><input id="adrDuration" placeholder="e.g. 30 minutes"></div>
+   <div class="field"><label>Has this happened before?</label><select id="adrRepeated"><option>No</option><option>Yes</option></select></div>
+   <div class="field full"><label>What happened?</label><textarea id="adrDescription" rows="4" placeholder="Describe the symptom and anything else you noticed."></textarea></div>
+  </div>
+  <button class="primary-btn" onclick="saveSafetyReport()">Submit Safety Report</button>`;
+ else body=`<h2>${title}</h2><div class="field" style="margin-top:18px"><label>Prescription details</label><textarea id="manualText" rows="9" placeholder="Example:\nMetformin 500 mg twice daily\nAmlodipine 5 mg once daily\nWarfarin 5 mg once daily"></textarea></div><button class="primary-btn" onclick="closeModal();toast('Prescription details saved for AI analysis')">Save Prescription</button>`;
+ body+=`<button class="secondary-btn" style="margin-top:10px;width:100%" onclick="closeModal()">Cancel</button>`;
+ document.getElementById("modalContent").innerHTML=body;
+ document.getElementById("modal").classList.add("show");
+}
+
+function saveSafetyReport(){
+ const symptom=document.getElementById("adrSymptom").value.trim();
+ if(!symptom){toast("Enter the symptom");return}
+ const medSelect=document.getElementById("adrMedicine");
+ const foodSelect=document.getElementById("adrFood");
+ const medOpt=medSelect.options[medSelect.selectedIndex];
+ const foodVal=foodSelect.value;
+ const foodObj=(state.foods||[]).find(f=>f.food===foodVal);
+ const now=new Date();
+ const time=now.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+ state.safetyReports.unshift({
+  id:"SR-"+Date.now().toString().slice(-6),
+  date:"24 Aug 2026",
+  time,
+  symptom,
+  severity:document.getElementById("adrSeverity").value,
+  medicine:medSelect.value,
+  medicineTime:medOpt.dataset.time||"Recorded dose",
+  food:foodVal,
+  foodTime:foodObj?foodObj.time:"—",
+  duration:document.getElementById("adrDuration").value.trim()||"Not recorded",
+  repeated:document.getElementById("adrRepeated").value,
+  description:document.getElementById("adrDescription").value.trim()||"No additional description.",
+  status:"Needs review"
+ });
+ closeModal();
+ toast("Safety report submitted for professional review");
+ render();
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function toast(msg){let x=document.getElementById("toast");x.textContent=msg;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2200)}
+function safe(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+function proHome(){
+ const patients=[
+  {id:"MM1024",meds:3,adherence:92,events:2,status:"Good",statusClass:"good",updated:"Today, 10:45 AM",avatar:"MM"},
+  {id:"MM1031",meds:5,adherence:76,events:1,status:"Needs Review",statusClass:"review",updated:"Today, 09:30 AM",avatar:"MM"},
+  {id:"MM1042",meds:2,adherence:95,events:0,status:"Excellent",statusClass:"excellent",updated:"Today, 08:15 AM",avatar:"MM"}
+ ];
+ const totalPatients=patients.length;
+ const avgAdherence=Math.round(patients.reduce((sum,p)=>sum+p.adherence,0)/totalPatients);
+ const totalEvents=patients.reduce((sum,p)=>sum+p.events,0);
+ const totalMeds=patients.reduce((sum,p)=>sum+p.meds,0);
+
+ return `<section class="page active pro-dashboard">
+  <div class="pro-dashboard-shell">
+   <div class="pro-dashboard-head">
+    <div class="pro-dashboard-brand">
+     <div class="pro-dashboard-icon">⌁</div>
+     <div class="pro-dashboard-title">
+      <h2>Medication Monitoring</h2>
+      <p>Real-time overview of patient medication adherence and interactions</p>
+     </div>
+    </div>
+    <span class="pro-overview" onclick="showPage('monitor')">Patient overview&nbsp; →</span>
+   </div>
+
+   <div class="pro-kpi-grid">
+    <div class="pro-kpi">
+     <div class="pro-kpi-icon people">♟</div>
+     <div>
+      <span class="pro-kpi-label">Total Patients</span>
+      <strong class="pro-kpi-value">${totalPatients}</strong>
+      <span class="pro-kpi-note">Active patients</span>
+     </div>
+    </div>
+    <div class="pro-kpi">
+     <div class="pro-kpi-icon adherence">✓</div>
+     <div>
+      <span class="pro-kpi-label">Avg. Adherence</span>
+      <strong class="pro-kpi-value teal">${avgAdherence}%</strong>
+      <span class="pro-kpi-note">Across all patients</span>
+     </div>
+    </div>
+    <div class="pro-kpi">
+     <div class="pro-kpi-icon alerts">!</div>
+     <div>
+      <span class="pro-kpi-label">Interaction Events</span>
+      <strong class="pro-kpi-value orange">${totalEvents}</strong>
+      <span class="pro-kpi-note">Total events</span>
+     </div>
+    </div>
+    <div class="pro-kpi">
+     <div class="pro-kpi-icon meds">▣</div>
+     <div>
+      <span class="pro-kpi-label">Medications Tracked</span>
+      <strong class="pro-kpi-value purple">${totalMeds}</strong>
+      <span class="pro-kpi-note">Across all patients</span>
+     </div>
+    </div>
+   </div>
+
+   <div class="pro-patient-table-wrap">
+    <table class="pro-patient-table">
+     <thead>
+      <tr>
+       <th>Patient ID</th>
+       <th>Medications</th>
+       <th>Adherence</th>
+       <th>Adherence Progress</th>
+       <th>Interaction Events</th>
+       <th>Status</th>
+       <th>Last Updated</th>
+       <th></th>
+      </tr>
+     </thead>
+     <tbody>
+      ${patients.map(p=>`
+       <tr>
+        <td>
+         <div class="pro-patient">
+          <div class="pro-avatar ${p.statusClass==="review"?"warn":""}">${p.avatar}</div>
+          <div class="pro-patient-name">
+           <strong>Patient #${p.id}</strong>
+           <small>${p.meds} medication${p.meds>1?"s":""}</small>
+          </div>
+         </div>
+        </td>
+        <td><span class="pro-med-count">${p.meds} medication${p.meds>1?"s":""}</span></td>
+        <td><span class="pro-adherence-value ${p.adherence<80?"warn":""}">${p.adherence}%</span></td>
+        <td>
+         <div class="pro-progress-wrap">
+          <div class="pro-progress ${p.adherence<80?"warn":""}">
+           <span style="width:${p.adherence}%"></span>
+          </div>
+          <span class="pro-progress-percent">${p.adherence}%</span>
+         </div>
+        </td>
+        <td><span class="pro-events ${p.events?"high":"none"}">${p.events} ${p.events===1?"event":"events"}</span></td>
+        <td><span class="pro-status ${p.statusClass}">${p.status}</span></td>
+        <td><span class="pro-updated">${p.updated}</span></td>
+        <td><button class="pro-action" title="Patient actions" onclick="toast('Patient actions')">⋮</button></td>
+       </tr>
+      `).join("")}
+     </tbody>
+    </table>
+   </div>
+  </div>
+
+  <div class="pro-insights-row">
+   <div class="pro-insight-card">
+    <div class="card-header"><h2>AI Clinical Insights</h2><span>Priority</span></div>
+    <div class="insight"><b>Interaction pattern</b><p>Repeated food-medication exposure detected in monitored patients.</p></div>
+   </div>
+   <div class="pro-insight-card">
+    <div class="card-header"><h2>Adherence pattern</h2><span>Monitoring</span></div>
+    <div class="insight"><b>Evening dosing window</b><p>Evening doses show lower adherence in the current sample and may warrant review.</p></div>
+   </div>
+  </div>
+ </section>`;
+}
+function proMonitoring(){
+ const monthName="August 2026", daysInMonth=31, firstDay=6, today=24;
+ const statusFor=(day,mi)=>{if(day>today)return "scheduled";const p=[["taken","taken","taken","missed","taken","taken","late"],["taken","late","taken","taken","missed","taken","taken"],["taken","taken","missed","taken","taken","late","taken"],["taken","taken","taken","taken","missed","taken","late"]];return p[mi%p.length][day%7]};
+ const doses=[];state.meds.forEach((m,mi)=>{for(let d=1;d<=today;d++)doses.push({day:d,med:m,status:statusFor(d,mi)})});
+ const c={taken:doses.filter(x=>x.status==='taken').length,missed:doses.filter(x=>x.status==='missed').length,late:doses.filter(x=>x.status==='late').length,scheduled:doses.filter(x=>x.status==='scheduled').length};
+ const adherence=Math.round(((c.taken+c.late)/(c.taken+c.late+c.missed))*100);
+ let cells='';for(let i=0;i<firstDay;i++)cells+='<div class="calendar-cell other-month"></div>';
+ for(let day=1;day<=daysInMonth;day++){const ds=doses.filter(x=>x.day===day);cells+=`<div class="calendar-cell ${day===today?'today':''}"><div class="calendar-date">${day}${day===today?' • Today':''}</div>${ds.map(x=>`<div class="calendar-dose ${x.status}" title="${x.med.name} ${x.med.dose} • ${x.med.time} • ${x.status}"><span class="dose-dot"></span><div><strong>${x.med.name} ${x.med.dose}</strong><small>${x.med.time} • ${x.status.toUpperCase()}</small></div></div>`).join('')}</div>`}
+ const trailing=(7-(firstDay+daysInMonth)%7)%7;for(let i=0;i<trailing;i++)cells+='<div class="calendar-cell other-month"></div>';
+ return `<section class="page active"><div class="card"><div class="card-header"><h2>Dosing Calendar</h2><span>Patient: ${state.patient.name}</span></div><div class="dosing-calendar"><div class="calendar-toolbar"><div class="calendar-month"><button type="button" class="calendar-nav" onclick="toast('Previous month')">‹</button><h3>${monthName}</h3><button type="button" class="calendar-nav" onclick="toast('Next month')">›</button></div><div class="calendar-legend"><span class="cal-key taken">● Taken</span><span class="cal-key missed">● Missed</span><span class="cal-key late">● Late</span><span class="cal-key scheduled">● Scheduled</span></div></div><div class="calendar-scroll"><div class="calendar-grid">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(x=>`<div class="calendar-day-name">${x}</div>`).join('')}${cells}</div></div><div class="calendar-summary"><div class="calendar-summary-card taken"><span>Taken doses</span><strong>${c.taken}</strong></div><div class="calendar-summary-card missed"><span>Missed doses</span><strong>${c.missed}</strong></div><div class="calendar-summary-card late"><span>Late doses</span><strong>${c.late}</strong></div><div class="calendar-summary-card"><span>Adherence</span><strong>${adherence}%</strong></div></div><div class="calendar-detail"><strong>How to read:</strong> Each medication dose appears on its scheduled date and time. Green = taken, red = missed, amber = late, grey = future/scheduled.</div></div></div><div class="drug-adherence-section">
+<div class="card">
+<div class="card-header"><h2>Individual Medication Adherence</h2><span>Monthly dose performance</span></div>
+<div class="drug-adherence-table-wrap">
+<table class="drug-adherence-table">
+<thead><tr>
+<th>Medication</th><th>Dose</th><th>Schedule</th><th>Scheduled Doses</th>
+<th>Taken</th><th>Missed</th><th>Late</th><th>Adherence</th>
+</tr></thead>
+<tbody>
+${[...new Map(state.meds.map((m,i)=>[`${m.name}|${m.dose}|${m.frequency}`,{m,i}])).values()].map(({m,i})=>{
+ const medStatuses=[];
+ for(let d=1;d<=today;d++) medStatuses.push(statusFor(d,i));
+ const taken=medStatuses.filter(x=>x==="taken").length;
+ const late=medStatuses.filter(x=>x==="late").length;
+ const missed=medStatuses.filter(x=>x==="missed").length;
+ const scheduled=medStatuses.length;
+ const adherence=Math.round(((taken+late)/scheduled)*100);
+ return `<tr>
+  <td>${m.name}</td>
+  <td>${m.dose}</td>
+  <td>${m.frequency}<br><small>${m.time}</small></td>
+  <td>${scheduled}</td>
+  <td class="count-taken">${taken}</td>
+  <td class="count-missed">${missed}</td>
+  <td class="count-late">${late}</td>
+  <td><div class="adherence-meter"><span class="adherence-bar"><span class="adherence-fill" style="width:${adherence}%"></span></span><span class="adherence-percent">${adherence}%</span></div></td>
+ </tr>`;
+}).join("")}
+</tbody>
+</table>
+</div>
+<div class="adherence-note">
+<strong>Individual adherence:</strong> Taken and late doses are counted as administered doses.
+Missed doses reduce adherence. This view lets the healthcare professional identify which specific medication has the poorest adherence.
+</div>
+</div>
+</div>
+<div class="card"><div class="card-header"><h2>Medication Monitoring</h2><span>Current regimen</span></div>${state.meds.map(m=>`<div class="medication"><div><strong>${m.name} ${m.dose}</strong><small>${m.frequency} • ${m.food}</small><div class="administration-tip">💡 ${m.adminTip}</div></div><span class="pill">Active</span></div>`).join('')}</div></section>`;
+}
+function proInteractions(){
+ const events=state.foods.map(f=>({...f,a:analyzeTimedFood(f.food,f.time)}));
+ const interactions=events.filter(x=>x.a.matched.length>0);
+ const allMatched=interactions.flatMap(x=>x.a.matched.map(m=>({food:x.food,foodTime:x.time,meal:x.meal,date:x.date,...m})));
+ const severityCounts={high:0,moderate:0,low:0};
+ allMatched.forEach(x=>severityCounts[x.rule.severity]++);
+
+ return `<section class="page active">
+  <div class="card">
+   <div class="card-header">
+    <h2>Drug-Food Interaction Timeline</h2>
+    <span>Patient: ${state.patient.name} • Validated rules only</span>
+   </div>
+   <p class="interaction-intro">Only food events that match a drug-specific interaction rule for a medication in this patient's current regimen are shown here. Ordinary food records remain in the time-aware medication & food timeline.</p>
+
+   ${interactions.length ? interactions.map(x=>x.a.matched.map(m=>`
+    <div class="interaction-timeline-item ${m.rule.severity}">
+     <div class="interaction-time-column">
+      <strong>${x.time}</strong>
+      <small>${x.meal} • ${x.date}</small>
+     </div>
+     <div class="interaction-link-column">
+      <div class="interaction-node food-node">🥗</div>
+      <div class="interaction-connector"></div>
+      <div class="interaction-node drug-node">💊</div>
+     </div>
+     <div class="interaction-detail-column">
+      <div class="interaction-pair">
+       <strong>${x.food}</strong>
+       <span>×</span>
+       <strong>${m.med.name} ${m.med.dose}</strong>
+      </div>
+      <div class="interaction-meta">
+       Food recorded ${x.time} • Scheduled dose ${m.med.time} • Δ ${m.delta.toFixed(1)} h
+      </div>
+      <div class="interaction-grid-details">
+       <div><span>Component</span><strong>${m.rule.component}</strong></div>
+       <div><span>Mechanism</span><strong>${m.rule.mechanism}</strong></div>
+       <div><span>Effect</span><strong>${m.rule.effect}</strong></div>
+       <div><span>Temporal rule</span><strong>${m.rule.temporalRule.replaceAll("_"," ")}</strong></div>
+      </div>
+      <div class="interaction-recommendation"><strong>Recommendation:</strong> ${m.rule.recommendation}</div>
+      <div class="interaction-evidence">
+       <span class="evidence-badge">Evidence ${m.rule.evidence}</span>
+       <span>${m.rule.evidenceType}</span>
+       <a href="${m.rule.sourceUrl}" target="_blank" rel="noopener">${m.rule.source}</a>
+      </div>
+     </div>
+     <span class="interaction-severity-badge ${m.rule.severity}">${m.rule.severity.toUpperCase()}</span>
+    </div>
+   `).join("")).join("") : `
+    <div class="interaction-empty">
+     <div class="empty-icon">✓</div>
+     <div><strong>No validated drug-food interaction detected</strong><p>Recorded foods did not match a validated interaction rule for the medications in this patient's current prescription.</p></div>
+    </div>`}
+  </div>
+
+  <div class="section-grid">
+   <div class="card">
+    <div class="card-header"><h2>Interaction Summary</h2><span>Current patient</span></div>
+    <div class="interaction-summary-grid">
+     <div><strong>${allMatched.length}</strong><span>Validated matches</span></div>
+     <div><strong>${severityCounts.high}</strong><span>High</span></div>
+     <div><strong>${severityCounts.moderate}</strong><span>Moderate</span></div>
+     <div><strong>${severityCounts.low}</strong><span>Low</span></div>
+    </div>
+    <div class="alert low" style="margin-top:14px"><strong>Important:</strong> A matched rule is an interaction signal for clinical review, not proof that the food caused harm or changed the patient's laboratory result.</div>
+   </div>
+
+   <div class="card">
+    <div class="card-header"><h2>Medication Exposure Context</h2><span>PK/PD support</span></div>
+    ${interactions.length ? interactions.map(x=>x.a.matched.map(m=>`
+     <div class="event">
+      <strong>${x.food} → ${m.med.name} ${m.med.dose}</strong>
+      <p style="font-size:12px;color:#71808a;margin-top:5px">${m.med.name} scheduled at ${m.med.time}; food recorded at ${x.time}; ${m.basis} Half-life: ${m.knowledge.halfLife}; duration: ${m.knowledge.duration}.</p>
+     </div>`).join("")).join("") : '<div class="empty">No matched medication exposure context to review.</div>'}
+   </div>
+  </div>
+ </section>`;
+}
+
+function proInsights(){
+ return `<section class="page active"><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="card"><div class="card-header"><h2>Interaction Patterns</h2><span>AI</span></div><div class="insight"><b>Repeated food-medication exposure</b><p>Warfarin and spinach appear together repeatedly in the recorded food timeline.</p></div></div><div class="card"><div class="card-header"><h2>Adherence Patterns</h2><span>AI</span></div><div class="insight"><b>Evening doses</b><p>Missed doses are more frequent in the evening dosing window.</p></div></div><div class="card"><div class="card-header"><h2>AI Clinical Summary</h2><span>Review</span></div><div class="insight"><b>Potential pattern identified</b><p>Repeated exposure is a signal for professional assessment, not proof of causation.</p></div></div></div><div class="card"><div class="card-header"><h2>Professional Review</h2><span>Human-in-the-loop</span></div><p style="font-size:13px;color:#6f7d87;line-height:1.6">AI insights are presented as patterns and alerts for professional review. The system should not independently diagnose, discontinue medicines or prescribe substitutions.</p><button class="primary-btn" style="width:auto;margin-top:15px" onclick="toast('Insight marked for professional review')">Mark insight for review</button></div></section>`;
+}
+
+function personalizedGuidancePage(){
+ const rows=buildPatientGuidance();
+ const patient=state.patient;
+ const meds=[...new Map(state.meds.map(m=>[m.name,m])).values()];
+
+ const primary=rows[0]||null;
+ const medicationLabel=primary ? `${primary.match.med.name} ${primary.match.med.dose}` : "Current medicines";
+ const foodLabel=primary ? primary.food.food : "Recorded foods";
+
+ const getCategory=(type)=>{
+   const r=rows.find(x=>x.rule.category===type);
+   if(!r) return null;
+   return r;
+ };
+
+ const recommendationCard=(type,icon,title,plainLabel)=>{
+   const r=getCategory(type);
+   if(!r){
+     return `<article class="pg-card pg-muted-card">
+       <div class="pg-card-icon">${icon}</div>
+       <div class="pg-card-body">
+         <span class="pg-eyebrow">${plainLabel}</span>
+         <h3>${title}</h3>
+         <p>No specific recommendation is needed from the current recorded information.</p>
+       </div>
+     </article>`;
+   }
+
+   let simple = r.rule.recommendation;
+   if(type==="alternative"){
+     simple = "Choose an option that keeps your usual food pattern consistent rather than making a sudden change.";
+   }
+   if(type==="timing"){
+     simple = r.rule.recommendation;
+   }
+   if(type==="amount"){
+     simple = "Keep the amount or exposure consistent. Avoid making a large dietary change without checking with your healthcare professional.";
+   }
+
+   return `<article class="pg-card pg-${type}">
+      <div class="pg-card-icon">${icon}</div>
+      <div class="pg-card-body">
+        <span class="pg-eyebrow">${plainLabel}</span>
+        <h3>${title}</h3>
+        <p class="pg-main-advice">${simple}</p>
+        <button type="button" class="pg-more-btn" data-guidance="${rows.indexOf(r)}">Why am I seeing this?</button>
+        <div class="pg-detail" id="pg-detail-${rows.indexOf(r)}">
+          <div class="pg-detail-line"><strong>For:</strong> ${r.food.food} with ${r.match.med.name} ${r.match.med.dose}</div>
+          <div class="pg-detail-line"><strong>Source:</strong> ${guidanceSourceLabel(r.rule)}</div>
+          <div class="pg-detail-line"><strong>Evidence:</strong> ${r.rule.evidenceType}</div>
+        </div>
+      </div>
+   </article>`;
+ };
+
+ const timeline = primary ? `
+   <div class="pg-context-row">
+     <div class="pg-context-item">
+       <span>Food</span><strong>🥗 ${primary.food.food}</strong><small>${primary.food.time} • ${primary.food.date}</small>
+     </div>
+     <div class="pg-arrow">→</div>
+     <div class="pg-context-item">
+       <span>Medicine</span><strong>💊 ${primary.match.med.name} ${primary.match.med.dose}</strong><small>Scheduled ${primary.match.med.time}</small>
+     </div>
+   </div>` : `
+   <div class="pg-no-trigger">
+     <span>✓</span>
+     <div><strong>Nothing needs changing right now</strong><p>No evidence-backed food administration change has been triggered for this patient's current recorded regimen.</p></div>
+   </div>`;
+
+ const sourceRows = rows.slice(0,4).map(r=>`
+   <div class="pg-source-row">
+     <div><span class="pg-source-type">${r.rule.category==="alternative"?"Food alternative":r.rule.category==="timing"?"Timing":"Amount / exposure"}</span>
+     <strong>${r.match.med.name}</strong></div>
+     <div>${guidanceSourceLabel(r.rule)}</div>
+   </div>`).join("");
+
+ return `<section class="page active">
+   <div class="pg-shell">
+
+     <div class="pg-header">
+       <div>
+         <div class="pg-title-line"><span class="pg-title-icon">🍽️</span><h2>Personalized Food & Administration Guidance</h2></div>
+         <p>Simple recommendations based on this patient's medicines and recorded food.</p>
+       </div>
+       <span class="pg-ai-pill">AI + evidence</span>
+     </div>
+
+     <div class="pg-patient-strip">
+       <div class="pg-avatar">${(patient.name||"P").split(" ").map(x=>x[0]).join("").slice(0,2)}</div>
+       <div><strong>${patient.name}</strong><span>${patient.age} years • ${patient.sex} • ${meds.length} active medicines</span></div>
+     </div>
+
+     <div class="pg-section-label">What should I do?</div>
+
+     <div class="pg-recommendation-grid">
+       ${recommendationCard("alternative","🥗","A simpler food choice","ALTERNATIVE FOOD")}
+       ${recommendationCard("timing","⏱️","When to take it","TIMING")}
+       ${recommendationCard("amount","⚖️","How much / how often","AMOUNT & EXPOSURE")}
+     </div>
+
+     <div class="pg-section-label">Why is this recommendation shown?</div>
+     <div class="pg-evidence-card">
+       ${timeline}
+       <div class="pg-evidence-explain">
+         <span>🔎</span>
+         <p>The system connects the patient's <strong>medicine</strong>, <strong>food</strong> and available clinical evidence. The AI explains the evidence in simpler language; it does not change the prescribed dose.</p>
+       </div>
+     </div>
+
+     <div class="pg-section-label">Evidence used</div>
+     <div class="pg-sources-card">
+       ${sourceRows || `<div class="pg-no-source">No source-backed recommendation has been triggered yet.</div>`}
+     </div>
+
+     <div class="pg-safety-note">
+       <span>ℹ️</span>
+       <div><strong>Important</strong><p>Do not stop, skip, double, or change a prescribed medicine based only on this guidance. Ask your healthcare professional before making a major diet or administration change.</p></div>
+     </div>
+
+   </div>
+
+   <style>
+   .pg-shell{max-width:1080px;margin:0 auto}
+   .pg-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:15px}
+   .pg-title-line{display:flex;align-items:center;gap:10px}
+   .pg-title-line h2{font-size:21px;color:#203640;letter-spacing:-.02em}
+   .pg-title-icon{width:40px;height:40px;border-radius:12px;background:#e8f7f4;display:grid;place-items:center;font-size:20px}
+   .pg-header p{font-size:12px;color:#75858e;margin:5px 0 0 50px}
+   .pg-ai-pill{padding:7px 11px;border-radius:20px;background:#eef8f6;color:#087f70;font-size:10px;font-weight:800;white-space:nowrap}
+   .pg-patient-strip{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid #e3eaed;border-radius:13px;padding:11px 14px;margin-bottom:20px}
+   .pg-avatar{width:36px;height:36px;border-radius:50%;background:#dff5ef;color:#087f70;display:grid;place-items:center;font-size:11px;font-weight:800}
+   .pg-patient-strip strong{display:block;font-size:13px;color:#263d47}
+   .pg-patient-strip span{display:block;color:#7b8992;font-size:11px;margin-top:2px}
+   .pg-section-label{font-size:12px;font-weight:800;color:#536872;margin:0 0 9px 2px}
+   .pg-recommendation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
+   .pg-card{background:#fff;border:1px solid #e2e9ec;border-radius:15px;padding:16px;min-height:178px;display:flex;gap:12px}
+   .pg-card-icon{width:38px;height:38px;flex:none;border-radius:11px;background:#f0f7f6;display:grid;place-items:center;font-size:18px}
+   .pg-card-body{min-width:0;flex:1}
+   .pg-eyebrow{display:block;color:#83929a;font-size:9px;font-weight:800;letter-spacing:.05em;margin-bottom:4px}
+   .pg-card h3{font-size:14px;color:#273e48;margin-bottom:8px}
+   .pg-main-advice{font-size:12px;line-height:1.55;color:#5d707a}
+   .pg-more-btn{border:0;background:transparent;padding:0;margin-top:10px;color:#087f70;font-size:10px;font-weight:750;text-align:left}
+   .pg-more-btn:hover{text-decoration:underline}
+   .pg-detail{display:none;margin-top:9px;padding:9px 10px;border-radius:9px;background:#f7fafb;border:1px solid #e6edef;font-size:10px;line-height:1.5;color:#647680}
+   .pg-detail.show{display:block}
+   .pg-detail-line+.pg-detail-line{margin-top:4px}
+   .pg-detail a{color:#087f70;font-weight:700;text-decoration:none}
+   .pg-muted-card{opacity:.72}
+   .pg-evidence-card{background:#fff;border:1px solid #e2e9ec;border-radius:15px;padding:15px;margin-bottom:20px}
+   .pg-context-row{display:grid;grid-template-columns:1fr 34px 1fr;align-items:center;gap:8px}
+   .pg-context-item{padding:11px 12px;border:1px solid #e4ebee;border-radius:11px;background:#fbfcfd}
+   .pg-context-item span{display:block;font-size:9px;color:#8a979e;font-weight:750;margin-bottom:3px}
+   .pg-context-item strong{display:block;font-size:12px;color:#334b56}
+   .pg-context-item small{display:block;font-size:10px;color:#7c8b94;margin-top:3px}
+   .pg-arrow{text-align:center;color:#9aa8ae;font-size:18px}
+   .pg-evidence-explain{display:flex;gap:9px;margin-top:11px;padding:10px 11px;border-radius:10px;background:#f4f8fa;color:#637680;font-size:10px;line-height:1.5}
+   .pg-evidence-explain span{font-size:14px}
+   .pg-sources-card{background:#fff;border:1px solid #e2e9ec;border-radius:15px;overflow:hidden;margin-bottom:14px}
+   .pg-source-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:11px 14px;border-bottom:1px solid #edf1f3;align-items:center}
+   .pg-source-row:last-child{border-bottom:0}
+   .pg-source-row strong{display:block;color:#344b55;font-size:11px;margin-top:4px}
+   .pg-source-row a{color:#087f70;font-size:10px;font-weight:700;text-decoration:none;line-height:1.4}
+   .pg-source-type{display:inline-block;padding:3px 7px;border-radius:12px;background:#eef7f5;color:#087f70;font-size:8px;font-weight:800}
+   .pg-no-source,.pg-no-trigger{padding:16px;color:#73838c;font-size:11px}
+   .pg-no-trigger{display:flex;align-items:center;gap:10px;background:#f4faf8;border-radius:11px}
+   .pg-no-trigger>span{width:28px;height:28px;border-radius:50%;background:#dff4ec;color:#087f70;display:grid;place-items:center;font-weight:800}
+   .pg-no-trigger strong{display:block;color:#39545c;font-size:12px}
+   .pg-no-trigger p{margin-top:3px;line-height:1.45}
+   .pg-safety-note{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border:1px solid #f0e0b8;background:#fffaf0;border-radius:12px;color:#715c2e;font-size:10px;line-height:1.5}
+   .pg-safety-note>span{font-size:14px}
+   .pg-safety-note strong{font-size:11px}
+   .pg-safety-note p{margin-top:2px}
+   @media(max-width:900px){.pg-recommendation-grid{grid-template-columns:1fr}.pg-card{min-height:auto}.pg-source-row{grid-template-columns:1fr}}
+   @media(max-width:600px){.pg-header{align-items:flex-start}.pg-title-line h2{font-size:18px}.pg-header p{margin-left:0}.pg-ai-pill{display:none}.pg-context-row{grid-template-columns:1fr}.pg-arrow{transform:rotate(90deg)}}
+   body.dark-theme .pg-title-line h2{color:#eef4f5}
+   body.dark-theme .pg-title-icon{background:#143a35}
+   body.dark-theme .pg-header p{color:#91a2ab}
+   body.dark-theme .pg-ai-pill{background:#143a35;color:#69d5c2}
+   body.dark-theme .pg-patient-strip,
+   body.dark-theme .pg-card,
+   body.dark-theme .pg-evidence-card,
+   body.dark-theme .pg-sources-card{background:#151f24;border-color:#2b3941}
+   body.dark-theme .pg-avatar{background:#143a35;color:#69d5c2}
+   body.dark-theme .pg-patient-strip strong,
+   body.dark-theme .pg-card h3,
+   body.dark-theme .pg-context-item strong,
+   body.dark-theme .pg-source-row strong{color:#e5eef1}
+   body.dark-theme .pg-patient-strip span,
+   body.dark-theme .pg-main-advice,
+   body.dark-theme .pg-context-item small,
+   body.dark-theme .pg-no-source,
+   body.dark-theme .pg-no-trigger p{color:#91a2ab}
+   body.dark-theme .pg-section-label{color:#b5c5cb}
+   body.dark-theme .pg-card-icon{background:#19302e}
+   body.dark-theme .pg-detail{background:#10191e;border-color:#2d3d44;color:#9aabb3}
+   body.dark-theme .pg-context-item{background:#10191e;border-color:#2b3c43}
+   body.dark-theme .pg-evidence-explain{background:#101c22;color:#9aadb7}
+   body.dark-theme .pg-source-row{border-color:#29383f}
+   body.dark-theme .pg-source-type{background:#143a35;color:#69d5c2}
+   body.dark-theme .pg-safety-note{background:#332b19;border-color:#685522;color:#dfc77f}
+   </style>
+   <div class="pg-interaction-script-hook" aria-hidden="true"></div>
+</section>`;
+}
+
+function settingsPage(){
+ return `<section class="page active"><div class="card" style="max-width:720px">
+ <div class="card-header"><h2>Settings</h2><span>Application preferences</span></div>
+ <div class="field"><label>🌐 App Language</label><select onchange="setLanguage(this.value)">
+ <option value="en" ${lang==="en"?"selected":""}>English</option>
+ <option value="hi" ${lang==="hi"?"selected":""}>हिन्दी</option>
+ <option value="kn" ${lang==="kn"?"selected":""}>ಕನ್ನಡ</option>
+ <option value="ta" ${lang==="ta"?"selected":""}>தமிழ்</option>
+ <option value="te" ${lang==="te"?"selected":""}>తెలుగు</option>
+ <option value="ml" ${lang==="ml"?"selected":""}>മലയാളം</option>
+ </select></div>
+
+ <div class="theme-setting">
+  <div class="theme-setting-copy">
+   <strong><span class="theme-setting-icon">🌙</span>Dark Theme</strong>
+   <p>Use a darker interface across the login screen, patient workspace and healthcare professional dashboard.</p>
+  </div>
+  <label class="theme-switch" aria-label="Enable dark theme">
+   <input id="darkThemeToggle" type="checkbox" ${darkTheme?"checked":""} onchange="setTheme(this.checked)">
+   <span class="theme-slider"></span>
+  </label>
+ </div>
+
+ <div class="font-scale-setting">
+  <div class="font-scale-head">
+   <div class="font-scale-copy">
+    <strong><span class="theme-setting-icon">Aa</span>Font scaling</strong>
+    <p>Increase text size for the main application content without changing the left navigation panel or resizing the UI layout.</p>
+   </div>
+   <output id="fontScaleValue" class="font-scale-value">${fontScale}%</output>
+  </div>
+  <div class="font-scale-control">
+   <span class="font-scale-min" aria-hidden="true">A</span>
+   <input id="fontScaleSlider" type="range" min="100" max="140" step="5" value="${fontScale}"
+          aria-label="Main content font scale" aria-valuemin="100" aria-valuemax="140"
+          aria-valuenow="${fontScale}" oninput="setFontScale(this.value)">
+   <span class="font-scale-max" aria-hidden="true">A<span>A</span></span>
+  </div>
+  <div class="font-scale-ticks" aria-hidden="true">
+   <span>100%</span><span>110%</span><span>120%</span><span>130%</span><span>140%</span>
+  </div>
+  <div class="font-scale-status" id="fontScaleStatus">Current text scale: ${fontScale}%</div>
+ </div>
+
+ <div class="settings-group-title">Medication &amp; Reminders</div>
+
+ <div class="preference-setting">
+  <div class="preference-setting-copy">
+   <strong><span class="preference-setting-icon">🔔</span>Medication reminders</strong>
+   <p>Enable scheduled medication reminders for the active dosing plan.</p>
+  </div>
+  <label class="preference-switch" aria-label="Enable medication reminders">
+   <input type="checkbox" ${medicationReminders?"checked":""} onchange="setPreference('medicationReminders',this.checked)">
+   <span class="preference-slider"></span>
+  </label>
+ </div>
+
+ <div class="preference-setting">
+  <div class="preference-setting-copy">
+   <strong><span class="preference-setting-icon">🔊</span>Reminder sound</strong>
+   <p>Play a sound when a medication reminder is triggered.</p>
+  </div>
+  <label class="preference-switch" aria-label="Enable reminder sound">
+   <input type="checkbox" ${reminderSound?"checked":""} onchange="setPreference('reminderSound',this.checked)">
+   <span class="preference-slider"></span>
+  </label>
+ </div>
+
+ <div class="preference-setting">
+  <div class="preference-setting-copy">
+   <strong><span class="preference-setting-icon">📳</span>Reminder vibration</strong>
+   <p>Use device vibration when supported by the browser or device.</p>
+  </div>
+  <label class="preference-switch" aria-label="Enable reminder vibration">
+   <input type="checkbox" ${reminderVibration?"checked":""} onchange="setPreference('reminderVibration',this.checked)">
+   <span class="preference-slider"></span>
+  </label>
+ </div>
+
+ <div class="settings-group-title">Food &amp; Drug Interactions</div>
+
+ <div class="preference-setting">
+  <div class="preference-setting-copy">
+   <strong><span class="preference-setting-icon">🥗</span>Food interaction alerts</strong>
+   <p>Show alerts when the validated interaction engine identifies a relevant food-drug interaction.</p>
+  </div>
+  <label class="preference-switch" aria-label="Enable food interaction alerts">
+   <input type="checkbox" ${foodInteractionAlerts?"checked":""} onchange="setPreference('foodInteractionAlerts',this.checked)">
+   <span class="preference-slider"></span>
+  </label>
+ </div>
+
+ <div class="alert low">Theme preference is stored locally in this browser and remains active the next time the prototype is opened.</div>
+ <div class="alert moderate">Clinical safety notice: AI output is decision-support only. Important medication or diet changes should be reviewed by a qualified healthcare professional.</div>
+ </div></section>`;
+}
+
+function logDose(i){state.meds[i].taken=Math.min(state.meds[i].taken+1,state.meds[i].total);toast("Dose recorded");render()}
+function processPrescription(e){if(!e.target.files[0])return;toast("Prescription uploaded. Extracting medication regimen...");setTimeout(()=>{toast("Dosing schedule generated. Review doses, times and administration tips.");currentPage="meds";render()},900)}
+function manualPrescription(){openModal("manual")}
+function openFoodModal(){openModal("food")}
+function openADR(){openModal("adr")}
+function openModal(type){
+ let title=type==="food"?"Add Food Intake":type==="adr"?"Report ADR / Symptom":"Enter Prescription Manually";
+ let body="";
+ if(type==="food") body=`<h2>${title}</h2><p style="font-size:12px;color:#71808a;margin:7px 0 18px">Record a food and compare it with the active regimen.</p><div class="form-grid"><div class="field full"><label>Food</label><input id="newFood" placeholder="e.g. spinach curry"></div></div><button class="primary-btn" onclick="saveFood()">Save Food Record</button>`;
+ else if(type==="adr") body=`<h2>${title}</h2><div class="form-grid" style="margin-top:18px"><div class="field"><label>Symptom</label><input id="adrSymptom" placeholder="e.g. nausea"></div><div class="field"><label>Medicine</label><select>${state.meds.map(m=>`<option>${m.name}</option>`).join("")}</select></div><div class="field"><label>Severity</label><select><option>Mild</option><option>Moderate</option><option>Severe</option></select></div><div class="field"><label>Food around dose</label><input placeholder="Optional"></div></div><button class="primary-btn" onclick="closeModal();toast('ADR report saved for professional review')">Save Report</button>`;
+ else body=`<h2>${title}</h2><div class="field" style="margin-top:18px"><label>Prescription details</label><textarea id="manualText" rows="9" placeholder="Example:\nMetformin 500 mg twice daily\nAmlodipine 5 mg once daily\nWarfarin 5 mg once daily"></textarea></div><button class="primary-btn" onclick="closeModal();toast('Prescription details saved for AI analysis')">Save Prescription</button>`;
+ body+=`<button class="secondary-btn" style="margin-top:10px;width:100%" onclick="closeModal()">Cancel</button>`;
+ document.getElementById("modalContent").innerHTML=body;document.getElementById("modal").classList.add("show")
+}
+function saveFood(){let f=document.getElementById("newFood").value.trim();if(!f){toast("Enter a food item");return}const time=new Date().toTimeString().slice(0,5),h=Number(time.slice(0,2)),meal=h<12?"Morning":h<17?"Afternoon":"Evening",a=analyzeTimedFood(f,time);state.foods.unshift({food:f,time,meal,date:"24 Aug",note:`Recorded at ${time}; ${a.relevant.length} temporally relevant dose(s) identified`,status:a.severity==="low"?"No relevant interaction flagged":"Review interaction pattern"});closeModal();toast("Food recorded with intake time");render()}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function toast(msg){let x=document.getElementById("toast");x.textContent=msg;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2200)}
+function safe(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+document.getElementById("loginLanguage").value=lang;
+document.getElementById("appLanguage").value=lang;
+applyTheme();
+applyFontScale();
+
+
+document.addEventListener("click",function(e){
+  const btn=e.target.closest(".pg-more-btn");
+  if(!btn)return;
+  const detail=document.getElementById("pg-detail-"+btn.dataset.guidance);
+  if(!detail)return;
+  const open=detail.classList.toggle("show");
+  btn.textContent=open?"Hide details":"Why am I seeing this?";
+});
+</script>
+</body>
+</html>

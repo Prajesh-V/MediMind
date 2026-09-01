@@ -1,0 +1,4 @@
+-- Demo seed boundary.
+-- M0 intentionally inserts no rows of any kind.
+-- Future demo fixtures must be synthetic, opt-in, clearly labeled, and blocked by
+-- the deployment workflow when MEDIMIND_ENVIRONMENT is production.

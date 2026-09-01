@@ -1,0 +1,24 @@
+# Dependencies and build output
+node_modules/
+.next/
+dist/
+coverage/
+
+# Local environment and service artifacts
+.env
+.env.local
+.env.*.local
+!.env.example
+.supabase/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Local generated data and uploads
+tmp/
+storage/
+uploads/
+playwright-report/
+test-results/
