@@ -27,3 +27,9 @@ test-results/
 .env.local.backup
 scratch_*.ts
 scratch_*.js
+
+# Temporary/local files
+.env.local.backup
+scratch_*.ts
+scratch_*.js
+*.tsbuildinfo
