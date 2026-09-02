@@ -1,0 +1,222 @@
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 10% 20%, #dff6f0 0, transparent 30%),
+    radial-gradient(circle at 90% 80%, #dcecff 0, transparent 30%),
+    var(--mm-bg-login);
+  padding: 25px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  min-height: 680px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  background: var(--mm-bg-card);
+  border-radius: var(--mm-radius-login);
+  overflow: hidden;
+  box-shadow: var(--mm-shadow-login);
+}
+
+/* ── Left panel ── */
+.left {
+  padding: 55px;
+  background: var(--mm-gradient-login-left);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: var(--mm-font-weight-black);
+  letter-spacing: -1px;
+}
+.logo span {
+  color: var(--mm-primary-logo-accent);
+}
+
+.tagline {
+  margin-top: 6px;
+  opacity: 0.9;
+  font-size: var(--mm-font-size-md);
+}
+
+.hero {
+  margin-top: 105px;
+  position: relative;
+  z-index: 2;
+}
+.hero h1 {
+  font-size: var(--mm-font-size-hero);
+  line-height: 1.08;
+  margin-bottom: 20px;
+}
+.hero p {
+  font-size: var(--mm-font-size-lg);
+  line-height: 1.7;
+  opacity: 0.9;
+  max-width: 455px;
+}
+
+.aiBadge {
+  display: inline-flex;
+  margin-top: 30px;
+  padding: 10px 16px;
+  border-radius: var(--mm-radius-pill);
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: var(--mm-font-size-base);
+}
+
+.circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: var(--mm-radius-full);
+  border: 50px solid rgba(255, 255, 255, 0.08);
+  right: -100px;
+  bottom: -80px;
+}
+
+/* ── Right panel ── */
+.right {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.right h2 {
+  font-size: var(--mm-font-size-4xl);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--mm-text-subtitle);
+  margin-bottom: 22px;
+}
+
+.languageBox {
+  margin-bottom: 20px;
+}
+.languageBox label {
+  display: block;
+  font-size: var(--mm-font-size-base);
+  font-weight: var(--mm-font-weight-semibold);
+  margin-bottom: 7px;
+}
+.languageBox select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--mm-border-input);
+  border-radius: var(--mm-radius-base);
+  background: var(--mm-bg-input);
+  color: var(--mm-text-primary);
+}
+
+.roleSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.role {
+  border: 1px solid var(--mm-border-input);
+  padding: 17px;
+  border-radius: var(--mm-radius-xl);
+  cursor: pointer;
+  text-align: center;
+  background: var(--mm-bg-card);
+  transition: border-color 0.2s, background 0.2s;
+}
+.roleActive {
+  border-color: var(--mm-focus-border);
+  background: var(--mm-primary-bg);
+  color: var(--mm-primary);
+}
+
+.roleIcon {
+  font-size: 27px;
+  margin-bottom: 7px;
+}
+.role strong {
+  display: block;
+  font-size: var(--mm-font-size-md);
+}
+.role small {
+  color: var(--mm-text-muted);
+  font-size: var(--mm-font-size-xs);
+}
+
+.field {
+  margin-bottom: 15px;
+}
+.field label {
+  display: block;
+  font-size: var(--mm-font-size-base);
+  font-weight: var(--mm-font-weight-semibold);
+  margin-bottom: 7px;
+}
+.field input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--mm-border-input);
+  border-radius: var(--mm-radius-base);
+  outline: none;
+  background: var(--mm-bg-input);
+  color: var(--mm-text-primary);
+}
+.field input:focus {
+  border-color: var(--mm-focus-border);
+  box-shadow: var(--mm-focus-ring);
+}
+
+.primaryBtn {
+  width: 100%;
+  border: none;
+  padding: 14px;
+  border-radius: var(--mm-radius-base);
+  color: #fff;
+  background: var(--mm-primary);
+  cursor: pointer;
+  font-weight: var(--mm-font-weight-bold);
+  font-size: var(--mm-font-size-md);
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 8px;
+}
+.primaryBtn:hover {
+  background: var(--mm-primary-hover);
+  transform: translateY(-1px);
+}
+
+.demoNote {
+  margin-top: 14px;
+  text-align: center;
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-moderate-text);
+  font-weight: var(--mm-font-weight-semibold);
+}
+
+/* ── Responsive ── */
+@media (max-width: 950px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .left {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .roleSelector {
+    grid-template-columns: 1fr;
+  }
+  .right {
+    padding: 30px 22px;
+  }
+}

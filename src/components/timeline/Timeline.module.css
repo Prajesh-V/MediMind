@@ -1,0 +1,25 @@
+.timeline {
+  position: relative;
+  margin-left: 8px;
+}
+
+.event {
+  border-left: 2px solid var(--mm-border-timeline);
+  padding: 0 0 18px 18px;
+  position: relative;
+}
+
+.event::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: var(--mm-radius-full);
+  background: var(--mm-primary);
+  position: absolute;
+  left: -6px;
+  top: 3px;
+}
+
+.event:last-child {
+  border-left-color: transparent;
+}

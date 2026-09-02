@@ -1,0 +1,22 @@
+.stat {
+  background: var(--mm-bg-card);
+  border-radius: var(--mm-radius-2xl);
+  padding: 21px;
+  border: 1px solid var(--mm-border-card);
+}
+
+.icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-size: var(--mm-font-size-2xl);
+  font-weight: var(--mm-font-weight-extrabold);
+}
+
+.label {
+  color: var(--mm-text-tertiary);
+  font-size: var(--mm-font-size-base);
+  margin-top: 4px;
+}

@@ -1,0 +1,53 @@
+.app {
+  min-height: 100vh;
+}
+
+.main {
+  margin-left: var(--mm-sidebar-width);
+  padding: var(--mm-space-6xl);
+  background: transparent;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--mm-overlay-bg);
+  z-index: 19;
+}
+
+.mobileDrawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--mm-sidebar-width);
+  z-index: 20;
+}
+
+/* The sidebar inside the drawer needs to show */
+.mobileDrawer aside {
+  display: flex !important;
+  width: 100%;
+}
+
+/* Show close button in mobile drawer */
+.mobileDrawer button[aria-label="Close navigation"] {
+  display: block !important;
+}
+
+@media (max-width: 700px) {
+  .main {
+    margin-left: 0;
+    padding: 18px;
+  }
+
+  .overlay {
+    display: block;
+  }
+
+  .mobileDrawer {
+    display: block;
+  }
+}

@@ -1,0 +1,22 @@
+.wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 11px 9px;
+  border-bottom: 1px solid var(--mm-border-divider);
+  text-align: left;
+  font-size: var(--mm-font-size-sm);
+  white-space: nowrap;
+}
+
+.table th {
+  color: var(--mm-text-tertiary);
+  font-weight: var(--mm-font-weight-semibold);
+}

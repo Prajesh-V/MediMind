@@ -1,0 +1,43 @@
+.btn {
+  border: none;
+  padding: 14px;
+  border-radius: var(--mm-radius-base);
+  font-weight: var(--mm-font-weight-bold);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  font-size: var(--mm-font-size-md);
+  text-align: center;
+}
+
+.primary {
+  width: 100%;
+  color: #fff;
+  background: var(--mm-primary);
+}
+.primary:hover {
+  background: var(--mm-primary-hover);
+  transform: translateY(-1px);
+}
+
+.secondary {
+  border: 1px solid var(--mm-border-input);
+  padding: 11px 15px;
+  border-radius: var(--mm-radius-sm);
+  background: var(--mm-bg-card);
+  color: var(--mm-text-sidebar);
+  font-weight: var(--mm-font-weight-semibold);
+}
+.secondary:hover {
+  border-color: var(--mm-primary-border);
+}
+
+.danger {
+  border: 1px solid var(--mm-high-border-alt);
+  background: var(--mm-high-bg);
+  color: var(--mm-high-text-alt);
+  padding: 10px 13px;
+  border-radius: var(--mm-radius-sm);
+}
+.danger:hover {
+  background: var(--mm-high-bg-alt);
+}

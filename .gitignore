@@ -22,3 +22,8 @@ storage/
 uploads/
 playwright-report/
 test-results/
+
+# Sensitive/local development files
+.env.local.backup
+scratch_*.ts
+scratch_*.js

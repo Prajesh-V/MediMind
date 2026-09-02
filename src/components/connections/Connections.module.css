@@ -1,0 +1,107 @@
+.connectionsBox {
+  margin-top: 20px;
+  background: var(--mm-bg-card);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.desc {
+  color: var(--mm-text-muted);
+  font-size: var(--mm-font-size-sm);
+  margin-top: 4px;
+}
+
+.codeDisplay {
+  background: var(--mm-primary-bg);
+  border: 1px dashed var(--mm-primary);
+  padding: 20px;
+  border-radius: var(--mm-radius-md);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.codeDisplay h2 {
+  font-size: 32px;
+  letter-spacing: 4px;
+  color: var(--mm-primary);
+  margin-top: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.connectionItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--mm-border-divider);
+  border-radius: var(--mm-radius-md);
+  background: var(--mm-bg-input);
+}
+
+.badge {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.badgeActive {
+  background: var(--mm-moderate-bg);
+  color: var(--mm-moderate-text);
+}
+
+.badgePending {
+  background: var(--mm-low-bg);
+  color: var(--mm-low-text);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.empty {
+  color: var(--mm-text-muted);
+  font-size: var(--mm-font-size-sm);
+  padding: 16px 0;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.input {
+  padding: 12px;
+  border: 1px solid var(--mm-border-input);
+  border-radius: var(--mm-radius-sm);
+  background: var(--mm-bg-input);
+  color: var(--mm-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  width: 150px;
+}
+
+.successText {
+  color: var(--mm-moderate-text);
+  font-size: var(--mm-font-size-sm);
+}
+
+.errorText {
+  color: var(--mm-high-text);
+  font-size: var(--mm-font-size-sm);
+}

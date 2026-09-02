@@ -1,0 +1,211 @@
+/*
+ * MediMind Design Tokens
+ * Extracted from reference-artifacts/MediMind(1).html
+ * Do not redesign — preserve the prototype's visual identity.
+ */
+
+:root {
+  /* ── Primary (teal) ── */
+  --mm-primary: #087f70;
+  --mm-primary-hover: #066e61;
+  --mm-primary-light: #0c9b89;
+  --mm-primary-accent: #1aa78f;
+  --mm-primary-bg: #eafaf7;
+  --mm-primary-bg-alt: #e9f8f5;
+  --mm-primary-bg-subtle: #eaf8f5;
+  --mm-primary-surface: #f4faf9;
+  --mm-primary-surface-alt: #f8fdfc;
+  --mm-primary-border: #b9dcd6;
+  --mm-primary-muted: #d8f3ed;
+  --mm-primary-logo-accent: #b9fff2;
+
+  /* ── Severity: High ── */
+  --mm-high-bg: #fff0f0;
+  --mm-high-bg-alt: #ffe9e9;
+  --mm-high-border: #c83b3b;
+  --mm-high-border-alt: #ffd3d3;
+  --mm-high-text: #b62e2e;
+  --mm-high-text-alt: #b13a3a;
+
+  /* ── Severity: Moderate ── */
+  --mm-moderate-bg: #fff8e8;
+  --mm-moderate-bg-alt: #fff2cf;
+  --mm-moderate-border: #e8a62d;
+  --mm-moderate-border-alt: #ffe6a7;
+  --mm-moderate-text: #986300;
+
+  /* ── Severity: Low ── */
+  --mm-low-bg: #edf9f6;
+  --mm-low-bg-alt: #e6f8f1;
+  --mm-low-border: #15977f;
+  --mm-low-border-alt: #cceee4;
+  --mm-low-text: #087f70;
+
+  /* ── Neutrals ── */
+  --mm-text-primary: #17212b;
+  --mm-text-secondary: #778690;
+  --mm-text-tertiary: #7b8993;
+  --mm-text-muted: #82909b;
+  --mm-text-faint: #84919a;
+  --mm-text-sidebar: #63727d;
+  --mm-text-sidebar-role: #5f716f;
+  --mm-text-logout: #65737d;
+  --mm-text-subtitle: #70808d;
+  --mm-text-demo: #87949d;
+
+  /* ── Backgrounds ── */
+  --mm-bg-body: #f7fcfb;
+  --mm-bg-body-mid: #f3f9f8;
+  --mm-bg-body-end: #f7fafc;
+  --mm-bg-login: #f5f8fb;
+  --mm-bg-card: #ffffff;
+  --mm-bg-input: #fbfcfd;
+  --mm-bg-neutral: #eef2f5;
+  --mm-bg-insight: #f2f8ff;
+  --mm-bg-admin-tip: #f0f8ff;
+
+  /* ── Borders ── */
+  --mm-border-card: #e8eef2;
+  --mm-border-input: #dbe4e9;
+  --mm-border-item: #e5ecef;
+  --mm-border-sidebar: #e7edf1;
+  --mm-border-divider: #edf1f3;
+  --mm-border-logout: #e2e9ec;
+  --mm-border-empty: #d9e3e6;
+  --mm-border-timeline: #dce8e5;
+  --mm-border-insight: #dcecff;
+  --mm-border-admin-tip: #d9eafb;
+  --mm-border-food-checker: #d9ece8;
+
+  /* ── Typography ── */
+  --mm-font-family: "Yu Gothic UI", "Segoe UI", Arial, sans-serif;
+  --mm-font-size-xs: 11px;
+  --mm-font-size-sm: 12px;
+  --mm-font-size-base: 13px;
+  --mm-font-size-md: 14px;
+  --mm-font-size-lg: 16px;
+  --mm-font-size-xl: 18px;
+  --mm-font-size-2xl: 26px;
+  --mm-font-size-3xl: 28px;
+  --mm-font-size-4xl: 30px;
+  --mm-font-size-hero: 43px;
+  --mm-font-weight-normal: 400;
+  --mm-font-weight-semibold: 650;
+  --mm-font-weight-bold: 700;
+  --mm-font-weight-extrabold: 750;
+  --mm-font-weight-black: 800;
+
+  /* ── Spacing ── */
+  --mm-space-xs: 5px;
+  --mm-space-sm: 9px;
+  --mm-space-md: 12px;
+  --mm-space-lg: 15px;
+  --mm-space-xl: 17px;
+  --mm-space-2xl: 20px;
+  --mm-space-3xl: 22px;
+  --mm-space-4xl: 23px;
+  --mm-space-5xl: 28px;
+  --mm-space-6xl: 32px;
+
+  /* ── Radius ── */
+  --mm-radius-sm: 10px;
+  --mm-radius-md: 11px;
+  --mm-radius-base: 12px;
+  --mm-radius-lg: 13px;
+  --mm-radius-xl: 14px;
+  --mm-radius-2xl: 17px;
+  --mm-radius-3xl: 19px;
+  --mm-radius-4xl: 20px;
+  --mm-radius-full: 50%;
+  --mm-radius-pill: 30px;
+  --mm-radius-login: 28px;
+
+  /* ── Shadows ── */
+  --mm-shadow-login: 0 25px 70px rgba(24, 54, 74, 0.13);
+  --mm-shadow-toast: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+  /* ── Sidebar ── */
+  --mm-sidebar-width: 250px;
+
+  /* ── Overlay ── */
+  --mm-overlay-bg: rgba(16, 33, 43, 0.53);
+
+  /* ── Toast ── */
+  --mm-toast-bg: #17212b;
+  --mm-toast-text: #ffffff;
+
+  /* ── Focus ── */
+  --mm-focus-ring: 0 0 0 3px rgba(10, 146, 127, 0.1);
+  --mm-focus-border: #0a927f;
+
+  /* ── Gradients ── */
+  --mm-gradient-login-left: linear-gradient(145deg, #087f70, #0c9b89);
+  --mm-gradient-body: linear-gradient(135deg, #f7fcfb 0%, #f3f9f8 45%, #f7fafc 100%);
+  --mm-gradient-food-checker: linear-gradient(135deg, #f7fdfc, #f2f8ff);
+}
+
+/* ── Dark Mode ── */
+[data-theme="dark"] {
+  --mm-text-primary: #eef4f5;
+  --mm-text-secondary: #91a2ab;
+  --mm-text-tertiary: #8fa1a9;
+  --mm-text-muted: #9aadb5;
+  --mm-text-faint: #8fa1a9;
+  --mm-text-sidebar: #a3b3bc;
+  --mm-text-sidebar-role: #9aadb5;
+  --mm-text-logout: #91a2ab;
+  --mm-text-subtitle: #91a2ab;
+  --mm-text-demo: #6e7f88;
+
+  --mm-bg-body: #0b1519;
+  --mm-bg-body-mid: #0d1a1f;
+  --mm-bg-body-end: #0f1d22;
+  --mm-bg-login: #0b1519;
+  --mm-bg-card: #111f24;
+  --mm-bg-input: #14252a;
+  --mm-bg-neutral: #202d33;
+  --mm-bg-insight: #102430;
+  --mm-bg-admin-tip: #102430;
+
+  --mm-border-card: #2d4149;
+  --mm-border-input: #2b3f47;
+  --mm-border-item: #2d4149;
+  --mm-border-sidebar: #1e3038;
+  --mm-border-divider: #29383f;
+  --mm-border-logout: #2b3f47;
+  --mm-border-empty: #2b3f47;
+  --mm-border-timeline: #2d4149;
+  --mm-border-insight: #29475b;
+  --mm-border-admin-tip: #29475b;
+  --mm-border-food-checker: #28534c;
+
+  --mm-primary-bg: #143a35;
+  --mm-primary-bg-alt: #102825;
+  --mm-primary-bg-subtle: #143a35;
+  --mm-primary-surface: #132328;
+  --mm-primary-surface-alt: #16282d;
+  --mm-primary-muted: #1a3a35;
+
+  --mm-high-bg: #2a1515;
+  --mm-high-bg-alt: #2d1a1a;
+  --mm-high-border: #8b3535;
+  --mm-high-border-alt: #5c2828;
+  --mm-high-text: #e88a8a;
+
+  --mm-moderate-bg: #342b19;
+  --mm-moderate-bg-alt: #2e2515;
+  --mm-moderate-border: #6b5525;
+  --mm-moderate-text: #e2c47a;
+
+  --mm-low-bg: #102825;
+  --mm-low-bg-alt: #143a35;
+  --mm-low-text: #69d5c2;
+
+  --mm-overlay-bg: rgba(5, 12, 16, 0.7);
+  --mm-toast-bg: #e0eaef;
+  --mm-toast-text: #111f24;
+
+  --mm-gradient-body: linear-gradient(135deg, #0b1519 0%, #0d1a1f 45%, #0f1d22 100%);
+  --mm-gradient-food-checker: linear-gradient(135deg, #102825, #101d29);
+  --mm-gradient-login-left: linear-gradient(145deg, #065e53, #087f70);
+}

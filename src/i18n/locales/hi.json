@@ -1,0 +1,22 @@
+{
+  "home": "होम",
+  "profile": "मरीज़ प्रोफ़ाइल",
+  "meds": "दवा प्रबंधन",
+  "prescription": "प्रिस्क्रिप्शन इतिहास",
+  "food": "भोजन और इंटरैक्शन",
+  "guidance": "भोजन और प्रशासन मार्गदर्शन",
+  "adr": "लक्षण और सुरक्षा रिपोर्ट",
+  "settings": "सेटिंग्स",
+  "dashboard": "डैशबोर्ड",
+  "monitor": "दवा निगरानी",
+  "interactions": "भोजन और इंटरैक्शन निगरानी",
+  "insights": "AI क्लिनिकल अंतर्दृष्टि",
+  "logout": "लॉग आउट",
+  "patient": "मरीज़",
+  "professional": "स्वास्थ्य पेशेवर",
+  "login_title": "MediMind में आपका स्वागत है",
+  "login_subtitle": "जारी रखने के लिए अपना खाता प्रकार चुनें",
+  "login_continue": "MediMind में जारी रखें",
+  "language_label": "ऐप भाषा",
+  "dev_preview_badge": "विकास पूर्वावलोकन"
+}

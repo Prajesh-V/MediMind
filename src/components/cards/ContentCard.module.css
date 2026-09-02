@@ -1,0 +1,24 @@
+.card {
+  background: var(--mm-bg-card);
+  border: 1px solid var(--mm-border-card);
+  border-radius: var(--mm-radius-3xl);
+  padding: var(--mm-space-4xl);
+  margin-bottom: var(--mm-space-2xl);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--mm-space-xl);
+  gap: 10px;
+}
+
+.title {
+  font-size: var(--mm-font-size-xl);
+}
+
+.action {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-primary);
+}

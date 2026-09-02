@@ -1,0 +1,21 @@
+.empty {
+  padding: var(--mm-space-5xl);
+  text-align: center;
+  color: var(--mm-text-tertiary);
+  border: 1px dashed var(--mm-border-empty);
+  border-radius: var(--mm-radius-xl);
+}
+
+.icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.message {
+  font-size: var(--mm-font-size-md);
+  line-height: 1.5;
+}
+
+.action {
+  margin-top: 16px;
+}

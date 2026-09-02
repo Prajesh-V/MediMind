@@ -1,0 +1,134 @@
+.sidebar {
+  width: var(--mm-sidebar-width);
+  background: var(--mm-bg-card);
+  border-right: 1px solid var(--mm-border-sidebar);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 27px 17px;
+  z-index: 10;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  padding: 0 15px 28px;
+}
+
+.logoText {
+  font-size: 30px;
+  font-weight: var(--mm-font-weight-black);
+  letter-spacing: -1px;
+  color: var(--mm-primary);
+}
+
+.logoAccent {
+  color: var(--mm-primary-light);
+}
+
+.tagline {
+  margin-top: 6px;
+  opacity: 0.9;
+  font-size: var(--mm-font-size-md);
+  color: var(--mm-text-secondary);
+}
+
+.closeBtn {
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--mm-text-secondary);
+  cursor: pointer;
+}
+
+.roleBox {
+  margin: 18px 5px;
+  padding: 12px;
+  border-radius: var(--mm-radius-base);
+  background: var(--mm-primary-surface);
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-sidebar-role);
+}
+
+.roleName {
+  display: block;
+  color: var(--mm-primary);
+  margin-bottom: 3px;
+}
+
+.roleDesc {
+  font-size: var(--mm-font-size-xs);
+}
+
+.navItem {
+  display: block;
+  padding: 12px 15px;
+  border-radius: var(--mm-radius-md);
+  margin-bottom: 5px;
+  color: var(--mm-text-sidebar);
+  cursor: pointer;
+  font-size: var(--mm-font-size-md);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.navItem:hover,
+.active {
+  background: var(--mm-primary-bg-alt);
+  color: var(--mm-primary);
+  font-weight: var(--mm-font-weight-semibold);
+  text-decoration: none;
+}
+
+.languageBox {
+  margin-top: auto;
+  padding: 12px 5px;
+}
+
+.langLabel {
+  display: block;
+  font-size: var(--mm-font-size-xs);
+  font-weight: var(--mm-font-weight-semibold);
+  margin-bottom: 6px;
+  color: var(--mm-text-muted);
+}
+
+.langSelect {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--mm-border-input);
+  border-radius: var(--mm-radius-sm);
+  background: var(--mm-bg-card);
+  color: var(--mm-text-primary);
+  font-size: var(--mm-font-size-sm);
+}
+
+.logout {
+  margin-top: 12px;
+  padding: 11px;
+  border: 1px solid var(--mm-border-logout);
+  background: var(--mm-bg-card);
+  border-radius: var(--mm-radius-sm);
+  cursor: pointer;
+  color: var(--mm-text-logout);
+  text-align: center;
+  text-decoration: none;
+  font-size: var(--mm-font-size-md);
+  display: block;
+}
+.logout:hover {
+  text-decoration: none;
+  background: var(--mm-primary-bg);
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    display: none;
+  }
+}

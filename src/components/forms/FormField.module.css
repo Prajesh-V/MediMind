@@ -1,0 +1,26 @@
+.field {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: block;
+  font-size: var(--mm-font-size-base);
+  font-weight: var(--mm-font-weight-semibold);
+  margin-bottom: 7px;
+}
+
+.input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--mm-border-input);
+  border-radius: var(--mm-radius-base);
+  outline: none;
+  background: var(--mm-bg-input);
+  color: var(--mm-text-primary);
+  font-size: var(--mm-font-size-md);
+}
+
+.input:focus {
+  border-color: var(--mm-focus-border);
+  box-shadow: var(--mm-focus-ring);
+}

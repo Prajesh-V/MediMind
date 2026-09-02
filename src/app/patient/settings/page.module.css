@@ -1,0 +1,124 @@
+.settingsGrid {
+  max-width: 720px;
+}
+
+.settingsSection {
+  margin-bottom: 28px;
+}
+
+.sectionTitle {
+  font-size: var(--mm-font-size-lg);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--mm-border-divider);
+}
+
+.settingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--mm-border-divider);
+  gap: 16px;
+}
+
+.settingRow strong {
+  display: block;
+  font-size: var(--mm-font-size-md);
+  margin-bottom: 2px;
+}
+
+.settingRow small {
+  display: block;
+  color: var(--mm-text-muted);
+  font-size: var(--mm-font-size-xs);
+}
+
+/* Toggle switch */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: var(--mm-border-divider);
+  border-radius: 26px;
+  transition: background 0.2s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle input:checked + .slider {
+  background: var(--mm-primary);
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+.toggle input:disabled + .slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle input:focus-visible + .slider {
+  box-shadow: var(--mm-focus-ring);
+}
+
+/* Font scale control */
+.fontScaleControl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rangeInput {
+  width: 120px;
+  accent-color: var(--mm-primary);
+}
+
+.fontScaleValue {
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-semibold);
+  color: var(--mm-primary);
+  min-width: 40px;
+}
+
+.langSelect {
+  padding: 9px 12px;
+  border: 1px solid var(--mm-border-input);
+  border-radius: var(--mm-radius-sm);
+  background: var(--mm-bg-card);
+  color: var(--mm-text-primary);
+  font-size: var(--mm-font-size-sm);
+}
+
+@media (max-width: 700px) {
+  .settingRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
