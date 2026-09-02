@@ -85,3 +85,38 @@ export async function revokeConnection(connectionId: string) {
   revalidatePath('/patient/settings')
   return { success: true }
 }
+
+/**
+ * Ensures the authenticated caller is either:
+ * - the patient themselves, or
+ * - a professional with an active connection to the patient.
+ * Throws an Error if unauthorized.
+ */
+export async function authorizePatientAccess(patientId: string) {
+  const supabase = await createClient()
+  const { data: { user }, error: authError } = await supabase.auth.getUser()
+
+  if (authError || !user) {
+    throw new Error('Unauthorized')
+  }
+
+  // If the user is the patient, access is granted.
+  if (user.id === patientId) {
+    return user
+  }
+
+  // If the user is a professional, verify active connection.
+  const { data: connection, error: connErr } = await supabase
+    .from('patient_professional_connections')
+    .select('id')
+    .eq('professional_id', user.id)
+    .eq('patient_id', patientId)
+    .eq('status', 'active')
+    .single()
+
+  if (connErr || !connection) {
+    throw new Error('Forbidden: No active connection with this patient')
+  }
+
+  return user
+}

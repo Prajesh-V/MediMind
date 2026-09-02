@@ -33,3 +33,5 @@ scratch_*.js
 scratch_*.ts
 scratch_*.js
 *.tsbuildinfo
+
+.agents/mcp.json

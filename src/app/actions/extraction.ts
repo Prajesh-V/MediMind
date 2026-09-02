@@ -43,6 +43,24 @@ export async function extractPrescription(
   if (doc.storage_path.endsWith('.png')) mimeType = 'image/png';
   if (doc.storage_path.endsWith('.pdf')) mimeType = 'application/pdf';
 
+  // 1. Create a parent prescription row required by the schema BEFORE extraction
+  const { data: prescription, error: prescriptionError } = await supabase
+    .from('prescriptions')
+    .insert({
+      patient_id: patientId,
+      title: title || 'Uploaded Prescription',
+      prescription_date: prescriptionDate || new Date().toISOString().split('T')[0],
+      notes: 'Imported via OCR document upload',
+      file_path: doc.storage_path
+    })
+    .select('id')
+    .single();
+
+  if (prescriptionError || !prescription) {
+    console.error('Failed to create parent prescription:', prescriptionError);
+    throw new Error('Database persistence failed for prescription');
+  }
+
   // Create extraction run (pending)
   const { data: run, error: runError } = await supabase
     .from('extraction_runs')
@@ -67,25 +85,6 @@ export async function extractPrescription(
 
   // If successful, map to prescription candidates
   if (result.status === 'success' && result.candidates.length > 0) {
-    // 1. Create a parent prescription row required by the schema
-    const { data: prescription, error: prescriptionError } = await supabase
-      .from('prescriptions')
-      .insert({
-        patient_id: patientId,
-        title: title || 'Uploaded Prescription',
-        prescription_date: prescriptionDate || null,
-        notes: 'Imported via OCR document upload',
-        file_path: doc.storage_path
-      })
-      .select('id')
-      .single();
-
-    if (prescriptionError || !prescription) {
-      console.error('Failed to create parent prescription:', prescriptionError);
-      await supabase.from('extraction_runs').update({ status: 'failed' }).eq('id', run.id);
-      return { extractionRunId: run.id, status: 'failed', error: 'Database persistence failed' };
-    }
-
     const candidatesToInsert = result.candidates.map(c => ({
       prescription_id: prescription.id,
       extraction_run_id: run.id,
@@ -103,13 +102,10 @@ export async function extractPrescription(
     if (insertError) {
       console.error('Failed to insert prescription candidates into database:', insertError);
       
-      // Rollback the orphaned parent row
-      await supabase.from('prescriptions').delete().eq('id', prescription.id);
-      
       // Update the run status to reflect the persistence failure
       await supabase.from('extraction_runs').update({ status: 'failed' }).eq('id', run.id);
       
-      return { extractionRunId: run.id, status: 'failed', error: 'Database persistence failed' };
+      return { extractionRunId: run.id, status: 'failed', error: 'Database persistence failed for candidates' };
     }
 
     // Generate AI Summary (isolated persistence step)

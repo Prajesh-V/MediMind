@@ -133,7 +133,8 @@ export type TraceEventType =
   | 'LONGITUDINAL_PATTERN_REVIEWED'
   | 'LONGITUDINAL_PATTERN_STATE_CHANGED'
   | 'EXPLANATION_GENERATED' 
-  | 'EXPLANATION_FAILED';
+  | 'EXPLANATION_FAILED'
+  | 'PATIENT_OBSERVATION_REPORTED';
 
 export interface ClinicalTraceEvent {
   id: string;

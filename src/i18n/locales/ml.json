@@ -14,5 +14,7 @@
   "logout": "ലോഗ് ഔട്ട്",
   "patient": "രോഗി",
   "professional": "ആരോഗ്യ പ്രൊഫഷണൽ",
-  "dev_preview_badge": "ഡെവലപ്മെന്റ് പ്രിവ്യൂ"
+  "dev_preview_badge": "ഡെവലപ്മെന്റ് പ്രിവ്യൂ",
+  "first_name_label": "ആദ്യ പേര്",
+  "last_name_label": "അവസാന പേര്"
 }

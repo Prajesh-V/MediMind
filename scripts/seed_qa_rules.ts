@@ -21,8 +21,8 @@ async function run() {
       version: 1,
       status: 'approved',
       medication_selector: {
-        type: 'exact_rxcui',
-        entities: ['83367'],
+        type: 'ingredient',
+        entities: ['atorvastatin'],
         condition: 'ALL'
       },
       food_component_selector: {
@@ -43,8 +43,8 @@ async function run() {
       version: 1,
       status: 'approved',
       medication_selector: {
-        type: 'exact_rxcui',
-        entities: ['29046', '9997'],
+        type: 'ingredient',
+        entities: ['lisinopril', 'spironolactone'],
         condition: 'ALL'
       },
       food_component_selector: {

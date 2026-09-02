@@ -22,7 +22,7 @@ insert into medical_knowledge.interaction_rules (
 )
 values (
   '33333333-3333-3333-3333-333333333333', 'ATORVASTATIN_GRAPEFRUIT', 1, 'draft',
-  '{"type":"exact_rxcui","entities":["83367"],"condition":"ALL"}'::jsonb,
+  '{"type":"ingredient","entities":["atorvastatin"],"condition":"ALL"}'::jsonb,
   '{"components":["grapefruit"],"condition":"ANY"}'::jsonb,
   '{"type":"none"}'::jsonb,
   'moderate', 'Grapefruit inhibits CYP3A4 metabolism of atorvastatin.',
@@ -53,7 +53,7 @@ insert into medical_knowledge.interaction_rules (
 )
 values (
   '44444444-4444-4444-4444-444444444444', 'LISINOPRIL_SPIRONOLACTONE_HYPERKALEMIA', 1, 'draft',
-  '{"type":"exact_rxcui","entities":["29046","9997"],"condition":"ALL"}'::jsonb,
+  '{"type":"ingredient","entities":["lisinopril","spironolactone"],"condition":"ALL"}'::jsonb,
   '{"components":[],"condition":"ANY"}'::jsonb,
   '{"type":"none"}'::jsonb,
   'high', 'Additive potassium-retaining effect leads to severe hyperkalemia risk.',

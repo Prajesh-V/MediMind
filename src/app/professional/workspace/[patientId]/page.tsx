@@ -1,12 +1,23 @@
 import { getWorkspaceContext, acknowledgeWorkspaceAssessment } from '@/app/actions/workspace';
+import { getPatientSymptomReports } from '@/app/actions/symptoms';
 import { InteractionCard } from '@/components/interactions/InteractionCard';
+import { triggerAlertReconciliation } from '@/app/actions/alerts';
 import { redirect } from 'next/navigation';
 
 export default async function PatientWorkspacePage({ params }: { params: Promise<{ patientId: string }> }) {
   const { patientId } = await params;
   let context;
+  let symptomReports;
   try {
     context = await getWorkspaceContext(patientId);
+    symptomReports = await getPatientSymptomReports(patientId);
+    
+    // Professional Recovery: ensure alerts are materialized for this patient
+    try {
+      await triggerAlertReconciliation(patientId);
+    } catch (err) {
+      console.error('Failed to trigger alert reconciliation on workspace load:', err);
+    }
   } catch (err: any) {
     return (
       <div className="p-8">
@@ -78,6 +89,45 @@ export default async function PatientWorkspacePage({ params }: { params: Promise
           )}
         </section>
       </div>
+
+      <section className="mt-10">
+        <h3 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Patient-Reported Symptoms</h3>
+        {!symptomReports || symptomReports.length === 0 ? (
+          <p className="text-gray-600 italic">No symptoms reported by patient.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {symptomReports.map((report) => (
+              <div key={report.id} className="bg-white p-4 rounded shadow-sm border border-l-4" style={{
+                borderLeftColor: report.severity === 'severe' ? '#ef4444' : report.severity === 'moderate' ? '#f59e0b' : '#3b82f6'
+              }}>
+                <div className="flex justify-between items-start mb-2">
+                  <h4 className="font-bold text-gray-800">{report.symptom}</h4>
+                  <span className={`text-xs px-2 py-1 rounded-full uppercase font-bold ${
+                    report.severity === 'severe' ? 'bg-red-100 text-red-800' :
+                    report.severity === 'moderate' ? 'bg-orange-100 text-orange-800' :
+                    'bg-blue-100 text-blue-800'
+                  }`}>
+                    {report.severity}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600 mb-1">
+                  <strong>Onset:</strong> {new Date(report.onset_at).toLocaleString()}
+                </p>
+                {report.related_medication_id && (
+                  <p className="text-sm text-gray-600 mb-1">
+                    <strong>Related to:</strong> {medications.find((m: any) => m.id === report.related_medication_id)?.display_name || 'Unknown Medication'}
+                  </p>
+                )}
+                {report.notes && (
+                  <p className="mt-2 text-sm text-gray-700 bg-gray-50 p-2 rounded whitespace-pre-wrap">
+                    {report.notes}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="mt-10">
         <h3 className="text-2xl font-bold mb-6 text-gray-800">Deterministic Assessments</h3>

@@ -14,5 +14,7 @@
   "logout": "లాగ్ అవుట్",
   "patient": "రోగి",
   "professional": "ఆరోగ్య నిపుణుడు",
-  "dev_preview_badge": "డెవలప్‌మెంట్ ప్రివ్యూ"
+  "dev_preview_badge": "డెవలప్‌మెంట్ ప్రివ్యూ",
+  "first_name_label": "మొదటి పేరు",
+  "last_name_label": "చివరి పేరు"
 }

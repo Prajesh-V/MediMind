@@ -2,6 +2,7 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { getPatientToday, localToUtc } from '@/utils/timezone'
 
 export interface LogDoseInput {
   patientMedicationId: string
@@ -81,9 +82,18 @@ export async function getTodayDoses(patientId?: string) {
   if (!user) return []
 
   const targetPatientId = patientId || user.id
-  const now = new Date()
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString()
-  const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).toISOString()
+
+  const { data: patient } = await supabase
+    .from('patients')
+    .select('timezone')
+    .eq('id', targetPatientId)
+    .single()
+    
+  const timezone = patient?.timezone || 'UTC'
+
+  const todayStr = getPatientToday(timezone)
+  const startOfDay = localToUtc(todayStr, '00:00:00', timezone)
+  const endOfDay = localToUtc(todayStr, '23:59:59', timezone)
 
   const { data, error } = await supabase
     .from('scheduled_doses')

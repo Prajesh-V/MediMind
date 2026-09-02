@@ -18,8 +18,8 @@ export default function ProfessionalDashboard() {
       {/* KPI Grid */}
       <div className={styles.grid}>
         <StatCard icon="👥" value={patientCount} label="Monitored Patients" />
-        <StatCard icon="⚠️" value={0} label="Critical Alerts" />
-        <StatCard icon="📋" value={0} label="Pending Reviews" />
+        <StatCard icon="⚠️" value="—" label="Critical Alerts" />
+        <StatCard icon="📋" value="—" label="Pending Reviews" />
         <StatCard icon="📊" value="—" label="Avg Adherence" />
       </div>
 

@@ -6,6 +6,9 @@ import type { PatientEvaluationContext, InteractionAssessment } from '@/services
 import { revalidatePath } from 'next/cache';
 import { createClient as createServiceClient } from '@supabase/supabase-js';
 import { recordTraceEvent } from '@/services/medical/trace';
+import { getPatientActiveMedications } from './medication';
+import { getPatientDietaryRecords } from './intake';
+import { triggerAlertReconciliation } from './alerts';
 
 export type ReviewState = 'UNREVIEWED' | 'REVIEWED' | 'SUPERSEDED';
 
@@ -79,8 +82,8 @@ export async function getWorkspaceContext(patientId: string): Promise<WorkspaceC
   });
 
   // 3. Fetch Canonical Inputs
-  const { data: meds } = await supabase.from('patient_medications').select('*').eq('patient_id', patientId).eq('is_active', true);
-  const { data: diet } = await supabase.from('patient_dietary_intake').select('*').eq('patient_id', patientId);
+  const meds = await getPatientActiveMedications(patientId);
+  const diet = await getPatientDietaryRecords(patientId);
 
   return {
     patient_id: patientId,
@@ -168,6 +171,12 @@ export async function acknowledgeWorkspaceAssessment(
         return { success: false, error: 'Failed to record atomic acknowledgment' };
       }
     }
+  }
+
+  try {
+    await triggerAlertReconciliation(patientId);
+  } catch (err) {
+    console.error('Alert reconciliation failed during M9 acknowledgment:', err);
   }
 
   revalidatePath(`/professional/workspace/${patientId}`);

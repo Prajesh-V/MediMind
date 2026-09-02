@@ -348,6 +348,12 @@ export function PrescriptionManager() {
                   </button>
                 )}
               </div>
+              
+              {!searching && !showDropdown && query && (
+                <div style={{ fontSize: '12px', marginTop: '4px', fontWeight: 500, color: selectedConcept && selectedConcept.name === query ? 'var(--mm-primary)' : 'var(--mm-warning)' }}>
+                  {selectedConcept && selectedConcept.name === query ? '✓ RxNorm Verified' : '⚠️ Custom Medication (Unverified)'}
+                </div>
+              )}
 
               {searching && (
                 <div style={{ fontSize: '12px', marginTop: '4px', color: 'var(--mm-text-muted)' }}>

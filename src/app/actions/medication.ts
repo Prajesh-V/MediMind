@@ -5,8 +5,11 @@ import { searchRxNorm, getRxNormProperties } from '@/services/rxnorm'
 import { revalidatePath } from 'next/cache'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import { recordTraceEvent } from '@/services/medical/trace'
+import { localToUtc } from '@/utils/timezone'
+import { triggerAlertReconciliation } from './alerts'
 
 export interface CreateMedicationInput {
+  prescription_id?: string
   rxcui?: string
   displayName: string
   genericName?: string
@@ -30,6 +33,37 @@ export interface CreateMedicationInput {
 
 export async function searchMedicationConcepts(query: string) {
   return await searchRxNorm(query)
+}
+
+import { authorizePatientAccess } from './connection'
+
+/**
+ * Retrieves the canonical active medications for a patient, securely authenticated.
+ * Used by UI dashboards, interaction engine, and workspace.
+ */
+export async function getPatientActiveMedications(patientId?: string) {
+  const supabase = await createClient()
+  const { data: { user }, error: userErr } = await supabase.auth.getUser()
+  if (userErr || !user) throw new Error('Unauthorized')
+  
+  const targetPatientId = patientId || user.id
+  await authorizePatientAccess(targetPatientId)
+
+  const { data, error } = await supabase
+    .from('patient_medications')
+    .select(`
+      *,
+      medication_schedules (*)
+    `)
+    .eq('patient_id', patientId)
+    .eq('is_active', true)
+
+  if (error) {
+    console.error('Error fetching patient medications:', error)
+    throw new Error('Failed to load active medications')
+  }
+
+  return data || []
 }
 
 export async function createMedication(input: CreateMedicationInput) {
@@ -59,6 +93,7 @@ export async function createMedication(input: CreateMedicationInput) {
     .from('patient_medications')
     .insert({
       patient_id: user.id,
+      prescription_id: input.prescription_id || null,
       rxcui: input.rxcui || null,
       display_name: normalizedName,
       generic_name: input.genericName || null,
@@ -126,6 +161,12 @@ export async function createMedication(input: CreateMedicationInput) {
     }
   }
 
+  try {
+    await triggerAlertReconciliation(user.id);
+  } catch (err) {
+    console.error('Alert reconciliation failed during medication creation:', err);
+  }
+
   revalidatePath('/patient')
   revalidatePath('/patient/medications')
   return { success: true, medication: med }
@@ -157,6 +198,12 @@ export async function archiveMedication(medicationId: string) {
     .eq('status', 'pending')
     .gt('scheduled_time', new Date().toISOString())
 
+  try {
+    await triggerAlertReconciliation(user.id);
+  } catch (err) {
+    console.error('Alert reconciliation failed during medication archive:', err);
+  }
+
   revalidatePath('/patient')
   revalidatePath('/patient/medications')
   return { success: true }
@@ -165,7 +212,7 @@ export async function archiveMedication(medicationId: string) {
 /**
  * Projects scheduled_doses for the specified days ahead.
  */
-async function projectScheduledDoses(
+export async function projectScheduledDoses(
   patientId: string,
   medicationId: string,
   schedules: any[],
@@ -198,10 +245,9 @@ async function projectScheduledDoses(
 
       // Compute UTC timestamp for local date + time_of_day in patient's timezone
       const timeStr = s.time_of_day // e.g. "08:00:00"
-      const localDateTimeStr = `${dateStr}T${timeStr}`
       
-      // Convert to UTC ISO string safely
-      const scheduledUtc = new Date(localDateTimeStr).toISOString()
+      // Convert to UTC ISO string safely using the patient's timezone
+      const scheduledUtc = localToUtc(dateStr, timeStr, timezone)
 
       dosesToInsert.push({
         patient_id: patientId,

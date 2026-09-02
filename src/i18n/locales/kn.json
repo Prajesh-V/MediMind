@@ -14,5 +14,7 @@
   "logout": "ಲಾಗ್ ಔಟ್",
   "patient": "ರೋಗಿ",
   "professional": "ಆರೋಗ್ಯ ವೃತ್ತಿಪರ",
-  "dev_preview_badge": "ಅಭಿವೃದ್ಧಿ ಪೂರ್ವಾವಲೋಕನ"
+  "dev_preview_badge": "ಅಭಿವೃದ್ಧಿ ಪೂರ್ವಾವಲೋಕನ",
+  "first_name_label": "ಮೊದಲ ಹೆಸರು",
+  "last_name_label": "ಕೊನೆಯ ಹೆಸರು"
 }

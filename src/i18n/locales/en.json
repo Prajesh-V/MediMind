@@ -59,7 +59,9 @@
   "check_interaction": "Check Interaction",
   "scheduled_doses": "Scheduled medication doses",
   "food_records": "Food records",
-  "interaction_events": "Interaction events",
+  "active_safety_warnings": "Active safety warnings",
   "adherence": "Adherence",
-  "dev_preview_badge": "Development Preview"
+  "dev_preview_badge": "Development Preview",
+  "first_name_label": "First Name",
+  "last_name_label": "Last Name"
 }

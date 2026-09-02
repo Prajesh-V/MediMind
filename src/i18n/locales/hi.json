@@ -18,5 +18,7 @@
   "login_subtitle": "जारी रखने के लिए अपना खाता प्रकार चुनें",
   "login_continue": "MediMind में जारी रखें",
   "language_label": "ऐप भाषा",
-  "dev_preview_badge": "विकास पूर्वावलोकन"
+  "dev_preview_badge": "विकास पूर्वावलोकन",
+  "first_name_label": "पहला नाम",
+  "last_name_label": "अंतिम नाम"
 }

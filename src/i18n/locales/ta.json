@@ -14,5 +14,7 @@
   "logout": "வெளியேறு",
   "patient": "நோயாளர்",
   "professional": "சுகாதார நிபுணர்",
-  "dev_preview_badge": "மேம்பாட்டு முன்னோட்டம்"
+  "dev_preview_badge": "மேம்பாட்டு முன்னோட்டம்",
+  "first_name_label": "முதல் பெயர்",
+  "last_name_label": "கடைசி பெயர்"
 }

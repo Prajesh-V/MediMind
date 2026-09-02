@@ -5,6 +5,8 @@ import { revalidatePath } from 'next/cache';
 import { evaluatePatientInteractions } from '@/services/medical/interaction-engine';
 import { createClient as createServiceClient } from '@supabase/supabase-js';
 import { recordTraceEvent } from '@/services/medical/trace';
+import { getPatientActiveMedications } from './medication';
+import { getPatientDietaryRecords } from './intake';
 import type {
   InteractionAssessment,
   PatientEvaluationContext,
@@ -128,50 +130,19 @@ export async function acknowledgeAssessment(
 /**
  * Internal helper to load patient clinical data and execute the deterministic engine.
  */
-async function computeAssessmentsForPatient(patientId: string): Promise<InteractionAssessment[]> {
+export async function computeAssessmentsForPatient(patientId: string): Promise<InteractionAssessment[]> {
   const supabase = await createClient();
 
-  // 1. Fetch Patient Active Medications & Schedules
-  const { data: meds, error: medErr } = await supabase
-    .from('patient_medications')
-    .select(`
-      id,
-      rxcui,
-      display_name,
-      generic_name,
-      food_relation,
-      administration_instructions,
-      medication_schedules (
-        id,
-        time_of_day,
-        slot_label,
-        days_of_week,
-        dose_quantity
-      )
-    `)
-    .eq('patient_id', patientId)
-    .eq('is_active', true);
+  // 1. Fetch Patient Active Medications & Schedules (Canonical)
+  const meds = await getPatientActiveMedications(patientId);
 
-  if (medErr) {
-    console.error('Error fetching patient medications:', medErr);
-    throw new Error('Failed to load patient medications');
-  }
-
-  // 2. Fetch Confirmed Dietary Intake
-  const { data: dietaryRecords, error: dietErr } = await supabase
-    .from('patient_dietary_intake')
-    .select('id, component_name, consumed_at')
-    .eq('patient_id', patientId)
-    .order('consumed_at', { ascending: false });
-
-  if (dietErr) {
-    console.error('Error fetching patient dietary intake:', dietErr);
-  }
+  // 2. Fetch Confirmed Dietary Intake (Canonical)
+  const dietaryRecords = await getPatientDietaryRecords(patientId);
 
   // Format patient context
   const context: PatientEvaluationContext = {
     patient_id: patientId,
-    medications: (meds || []).map((m: any) => ({
+    medications: meds.map((m: any) => ({
       id: m.id,
       rxcui: m.rxcui,
       display_name: m.display_name,
@@ -180,7 +151,7 @@ async function computeAssessmentsForPatient(patientId: string): Promise<Interact
       administration_instructions: m.administration_instructions,
       schedules: m.medication_schedules || [],
     })),
-    dietary_records: dietaryRecords || [],
+    dietary_records: dietaryRecords,
   };
 
   // 3. Fetch Approved Interaction Rules with Evidence via secure RPC

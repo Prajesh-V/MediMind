@@ -67,6 +67,73 @@ function getHourDifference(timeA: string, timeB: string): number {
 }
 
 /**
+ * Pure deterministic helper to evaluate if a rule's medication selector matches the patient's active medications.
+ */
+export function matchesMedicationSelector(
+  activeMedications: PatientMedicationContext[],
+  rule: DatabaseInteractionRule
+): { matches: boolean; matchingMeds: PatientMedicationContext[] } {
+  let matchesMedication = false;
+  const matchingMeds: PatientMedicationContext[] = [];
+
+  const medSelector = rule.medication_selector;
+  if (medSelector && medSelector.entities && medSelector.entities.length > 0) {
+    const requiredEntities = medSelector.entities;
+
+    if (medSelector.type === 'exact_rxcui') {
+      const matchedEntitySet = new Set<string>();
+
+      for (const entity of requiredEntities) {
+        const matchingMed = activeMedications.find(
+          (m) => m.rxcui && m.rxcui.trim() === entity.trim()
+        );
+        if (matchingMed) {
+          matchedEntitySet.add(entity);
+          if (!matchingMeds.some((m) => m.id === matchingMed.id)) {
+            matchingMeds.push(matchingMed);
+          }
+        }
+      }
+
+      if (medSelector.condition === 'ALL') {
+        matchesMedication = matchedEntitySet.size === requiredEntities.length;
+      } else {
+        matchesMedication = matchedEntitySet.size > 0;
+      }
+    } else if (medSelector.type === 'ingredient') {
+      const matchedEntitySet = new Set<string>();
+
+      for (const entity of requiredEntities) {
+        const normEntity = entity.toLowerCase().trim();
+        const matchingMed = activeMedications.find((m) => {
+          const generic = m.generic_name?.toLowerCase() || '';
+          const display = m.display_name.toLowerCase();
+          return generic.includes(normEntity) || display.includes(normEntity);
+        });
+
+        if (matchingMed) {
+          matchedEntitySet.add(entity);
+          if (!matchingMeds.some((m) => m.id === matchingMed.id)) {
+            matchingMeds.push(matchingMed);
+          }
+        }
+      }
+
+      if (medSelector.condition === 'ALL') {
+        matchesMedication = matchedEntitySet.size === requiredEntities.length;
+      } else {
+        matchesMedication = matchedEntitySet.size > 0;
+      }
+    }
+  } else {
+    // Rule has no medication selector (matches all medications if food/timing applies)
+    matchesMedication = true;
+  }
+
+  return { matches: matchesMedication, matchingMeds };
+}
+
+/**
  * Pure deterministic interaction evaluation engine.
  * STRICT INVARIANT: Contains zero LLM reasoning. All clinical assertions originate
  * directly from approved governance rules.
@@ -92,64 +159,9 @@ export function evaluatePatientInteractions(
   }
 
   for (const rule of activeRules) {
-    let matchesMedication = false;
-    const matchingMeds: PatientMedicationContext[] = [];
-
-    // 1. Evaluate Medication Selector
-    const medSelector = rule.medication_selector;
-    if (medSelector && medSelector.entities && medSelector.entities.length > 0) {
-      const requiredEntities = medSelector.entities;
-
-      if (medSelector.type === 'exact_rxcui') {
-        const matchedEntitySet = new Set<string>();
-
-        for (const entity of requiredEntities) {
-          const matchingMed = activeMedications.find(
-            (m) => m.rxcui && m.rxcui.trim() === entity.trim()
-          );
-          if (matchingMed) {
-            matchedEntitySet.add(entity);
-            if (!matchingMeds.some((m) => m.id === matchingMed.id)) {
-              matchingMeds.push(matchingMed);
-            }
-          }
-        }
-
-        if (medSelector.condition === 'ALL') {
-          matchesMedication = matchedEntitySet.size === requiredEntities.length;
-        } else {
-          // ANY
-          matchesMedication = matchedEntitySet.size > 0;
-        }
-      } else if (medSelector.type === 'ingredient') {
-        const matchedEntitySet = new Set<string>();
-
-        for (const entity of requiredEntities) {
-          const normEntity = entity.toLowerCase().trim();
-          const matchingMed = activeMedications.find((m) => {
-            const generic = m.generic_name?.toLowerCase() || '';
-            const display = m.display_name.toLowerCase();
-            return generic.includes(normEntity) || display.includes(normEntity);
-          });
-
-          if (matchingMed) {
-            matchedEntitySet.add(entity);
-            if (!matchingMeds.some((m) => m.id === matchingMed.id)) {
-              matchingMeds.push(matchingMed);
-            }
-          }
-        }
-
-        if (medSelector.condition === 'ALL') {
-          matchesMedication = matchedEntitySet.size === requiredEntities.length;
-        } else {
-          matchesMedication = matchedEntitySet.size > 0;
-        }
-      }
-    } else {
-      // Rule has no medication selector (matches all medications if food/timing applies)
-      matchesMedication = true;
-    }
+    const selectorResult = matchesMedicationSelector(activeMedications, rule);
+    const matchesMedication = selectorResult.matches;
+    const matchingMeds = selectorResult.matchingMeds;
 
     if (!matchesMedication) {
       continue;
