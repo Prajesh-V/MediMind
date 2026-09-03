@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, KeyboardEvent } from 'react';
+import { useTranslation } from '@/i18n';
 import styles from './ChatAssistant.module.css';
 
 export interface ChatMessage {
@@ -9,6 +10,7 @@ export interface ChatMessage {
 }
 
 export function ChatAssistant() {
+  const { t, locale } = useTranslation();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +46,7 @@ export function ChatAssistant() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({ messages: updatedMessages, locale }),
       });
 
       if (!res.ok) {
@@ -57,11 +59,11 @@ export function ChatAssistant() {
         setMessages((prev) => [...prev, { role: 'assistant', content: data.message }]);
       } else {
         // API handled the error gracefully but returned success: false
-        setErrorMsg('Sorry, the assistant is temporarily unavailable. Please try again.');
+        setErrorMsg(t('ai_error_msg'));
       }
     } catch (error) {
       console.error('[ChatAssistant] API Request failed:', error);
-      setErrorMsg('Sorry, the assistant is temporarily unavailable. Please try again.');
+      setErrorMsg(t('ai_error_msg'));
     } finally {
       setIsLoading(false);
     }
@@ -95,17 +97,17 @@ export function ChatAssistant() {
         {messages.length === 0 && (
           <div className={styles.introMessage}>
             <div className={styles.welcomeBox}>
-              <p>Hi! I can help you understand your medications, doses, food history, and safety information.</p>
+              <p>{t('ai_welcome')}</p>
             </div>
             <div className={styles.suggestedPrompts}>
-              <button className={styles.suggestedPromptBtn} onClick={() => handleSend("What medications am I currently taking?")}>
-                What medications am I currently taking?
+              <button className={styles.suggestedPromptBtn} onClick={() => handleSend(t('ai_prompt_1'))}>
+                {t('ai_prompt_1')}
               </button>
-              <button className={styles.suggestedPromptBtn} onClick={() => handleSend("Have I missed any doses recently?")}>
-                Have I missed any doses recently?
+              <button className={styles.suggestedPromptBtn} onClick={() => handleSend(t('ai_prompt_2'))}>
+                {t('ai_prompt_2')}
               </button>
-              <button className={styles.suggestedPromptBtn} onClick={() => handleSend("Are there any food interactions I should know about?")}>
-                Are there any food interactions I should know about?
+              <button className={styles.suggestedPromptBtn} onClick={() => handleSend(t('ai_prompt_3'))}>
+                {t('ai_prompt_3')}
               </button>
             </div>
           </div>
@@ -137,7 +139,7 @@ export function ChatAssistant() {
           <div className={styles.errorState}>
             {errorMsg}
             <br />
-            <button className={styles.retryBtn} onClick={handleRetry}>Retry</button>
+            <button className={styles.retryBtn} onClick={handleRetry}>{t('ai_retry')}</button>
           </div>
         )}
 
@@ -152,7 +154,7 @@ export function ChatAssistant() {
             value={inputValue}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            placeholder="Ask a question about your medications or interactions..."
+            placeholder={t('ai_placeholder')}
             disabled={isLoading}
             rows={1}
             aria-label="Chat input"

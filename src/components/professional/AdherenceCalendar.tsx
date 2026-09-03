@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { getPatientDoseHistory, getPatientTimezone } from '@/app/actions/dose';
 import { Surface } from '@/components/ui/Surface';
+import { useTranslation } from '@/i18n';
 import styles from './AdherenceCalendar.module.css';
 
 interface AdherenceCalendarProps {
@@ -18,6 +19,8 @@ export function AdherenceCalendar({ patientId }: AdherenceCalendarProps) {
   // Date states
   const [currentDate, setCurrentDate] = useState(new Date()); // Represents the viewed month
   const [selectedDateStr, setSelectedDateStr] = useState<string | null>(null);
+
+  const { t, locale } = useTranslation();
 
   useEffect(() => {
     async function loadData() {
@@ -118,23 +121,29 @@ export function AdherenceCalendar({ patientId }: AdherenceCalendarProps) {
     return styles.statusMixed; // Skipped or mixed states
   };
 
-  const monthLabel = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  // Convert exact locales like 'hi' to 'hi-IN' for better Intl support if needed, 
+  // but browsers handle 'hi' fine. We use the currently selected global locale.
+  const intlLocale = locale === 'en' ? 'en-US' : `${locale}-IN`;
+
+  const monthLabel = currentDate.toLocaleString(intlLocale, { month: 'long', year: 'numeric' });
   const selectedDoses = selectedDateStr ? dosesByDate.get(selectedDateStr) || [] : [];
 
-  if (loading) return <Surface padding="md"><p>Loading adherence data...</p></Surface>;
-  if (error) return <Surface padding="md"><p>Error: {error}</p></Surface>;
+  if (loading) return <Surface padding="md"><p>{t('calendar_loading')}</p></Surface>;
+  if (error) return <Surface padding="md"><p>{t('error')}: {error}</p></Surface>;
 
   return (
     <div className={styles.container}>
       <div className={styles.calendarHeader}>
-          <button className={styles.navButton} onClick={handlePrevMonth}>&larr; Prev</button>
+          <button className={styles.navButton} onClick={handlePrevMonth}>&larr; {t('prev')}</button>
           <span className={styles.monthLabel}>{monthLabel}</span>
-          <button className={styles.navButton} onClick={handleNextMonth}>Next &rarr;</button>
+          <button className={styles.navButton} onClick={handleNextMonth}>{t('next')} &rarr;</button>
         </div>
 
         <div className={styles.grid}>
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className={styles.dayOfWeek}>{day}</div>
+          {Array.from({ length: 7 }).map((_, i) => (
+            <div key={i} className={styles.dayOfWeek}>
+              {new Date(2023, 0, i + 1).toLocaleString(intlLocale, { weekday: 'short' })}
+            </div>
           ))}
           
           {calendarDays.map((cell, idx) => {
@@ -165,11 +174,11 @@ export function AdherenceCalendar({ patientId }: AdherenceCalendarProps) {
         {selectedDateStr && (
           <div className={styles.detailPanel}>
             <div className={styles.detailHeader}>
-              Medications for {new Date(selectedDateStr + 'T12:00:00').toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+              {t('medications_for')} {new Date(selectedDateStr + 'T12:00:00').toLocaleDateString(intlLocale, { weekday: 'short', month: 'short', day: 'numeric' })}
             </div>
             
             {selectedDoses.length === 0 ? (
-              <p className={styles.emptyState}>No medications scheduled for this date.</p>
+              <p className={styles.emptyState}>{t('calendar_empty_day')}</p>
             ) : (
               <ul className={styles.detailList}>
                 {selectedDoses.map((dose) => {
@@ -188,11 +197,11 @@ export function AdherenceCalendar({ patientId }: AdherenceCalendarProps) {
                           {med?.display_name} {med?.dosage_amount}{med?.dosage_unit}
                         </span>
                         <span className={styles.doseTime}>
-                          Scheduled: {sched?.time_of_day || toLocalTimeString(dose.scheduled_time, timezone)}
+                          {t('calendar_scheduled')} {sched?.time_of_day || toLocalTimeString(dose.scheduled_time, timezone)}
                         </span>
                       </div>
                       <span className={`${styles.doseBadge} ${badgeClass}`}>
-                        {dose.status}
+                        {t('status_' + dose.status)}
                       </span>
                     </li>
                   );

@@ -34,7 +34,7 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      setErrorMsg('Please enter both email and password.');
+      setErrorMsg(t('login_err_empty'));
       return;
     }
     setLoading(true);
@@ -49,7 +49,7 @@ export default function LoginPage() {
       if (error) throw error;
       router.push(`/${selectedRole}`);
     } catch (err: any) {
-      setErrorMsg(err.message || 'Invalid login credentials.');
+      setErrorMsg(err.message || t('login_err_invalid'));
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,7 @@ export default function LoginPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password || !firstName || !lastName) {
-      setErrorMsg('Please complete all fields to sign up.');
+      setErrorMsg(t('login_err_signup'));
       return;
     }
     setLoading(true);
@@ -81,11 +81,11 @@ export default function LoginPage() {
       if (data.session) {
         router.push(`/${selectedRole}`);
       } else {
-        setSuccessMsg('Account created! Please check your email to verify.');
+        setSuccessMsg(t('login_success'));
         setView('login');
       }
     } catch (err: any) {
-      setErrorMsg(err.message || 'An error occurred during sign up.');
+      setErrorMsg(err.message || t('login_err_generic'));
     } finally {
       setLoading(false);
     }
@@ -114,16 +114,14 @@ export default function LoginPage() {
           
           <div className={styles.heroContent}>
             <h1 className={styles.heroTitle}>
-              Smarter medication.<br />
-              Safer decisions.
+              {t('login_hero_title1')}<br />
+              {t('login_hero_title2')}
             </h1>
             <p className={styles.heroDesc}>
-              A personalized healthcare companion connecting prescriptions,
-              schedules, adherence, and professional monitoring through 
-              advanced clinical intelligence.
+              {t('login_hero_desc')}
             </p>
             <div className={styles.aiBadge}>
-              <span className={styles.badgeIcon}>✦</span> Clinical Intelligence
+              <span className={styles.badgeIcon}>✦</span> {t('login_clinical_intel')}
             </div>
           </div>
           <div className={styles.ambientGraphic} aria-hidden="true" />
@@ -133,12 +131,12 @@ export default function LoginPage() {
         <div className={styles.rightPanel}>
           <div className={styles.formHeader}>
             <h2 className={styles.formTitle}>
-              {view === 'login' ? 'Sign In to MediMind' : 'Create your account'}
+              {view === 'login' ? t('login_signin_title') : t('login_create_title')}
             </h2>
             <p className={styles.formSubtitle}>
               {view === 'login' 
-                ? 'Welcome back. Please enter your details.' 
-                : 'Join MediMind as a patient or healthcare professional.'}
+                ? t('login_signin_sub') 
+                : t('login_create_sub')}
             </p>
           </div>
 
@@ -162,7 +160,7 @@ export default function LoginPage() {
               role="radio"
               aria-checked={selectedRole === 'patient'}
             >
-              Patient
+              {t('login_role_patient')}
             </button>
             <button
               type="button"
@@ -171,7 +169,7 @@ export default function LoginPage() {
               role="radio"
               aria-checked={selectedRole === 'professional'}
             >
-              Professional
+              {t('login_role_prof')}
             </button>
           </div>
 
@@ -183,7 +181,7 @@ export default function LoginPage() {
               <div className={styles.nameRow}>
                 <FormField
                   id="fname"
-                  label="First Name"
+                  label={t('login_fname')}
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
@@ -192,7 +190,7 @@ export default function LoginPage() {
                 />
                 <FormField
                   id="lname"
-                  label="Last Name"
+                  label={t('login_lname')}
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -204,7 +202,7 @@ export default function LoginPage() {
 
             <FormField
               id="email"
-              label="Email Address"
+              label={t('login_email')}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -214,7 +212,7 @@ export default function LoginPage() {
 
             <FormField
               id="password"
-              label="Password"
+              label={t('login_pass')}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -226,33 +224,27 @@ export default function LoginPage() {
               variant="primary"
               type="submit"
               disabled={loading}
-              style={{ marginTop: 'var(--mm-space-2)' }}
+              className={styles.primaryBtn}
             >
-              {loading ? (
-                <span className={styles.spinner} />
-              ) : (
-                view === 'login' ? 'Sign In' : 'Create Account'
-              )}
+              {loading 
+                ? (view === 'login' ? t('login_btn_signing_in') : t('login_btn_creating'))
+                : (view === 'login' ? t('login_btn_signin') : t('login_btn_create'))}
             </Button>
           </form>
 
-          <div className={styles.formFooter}>
+          <div className={styles.authToggle}>
             {view === 'login' ? (
               <p>
-                Don&apos;t have an account?{' '}
-                <button type="button" className={styles.textBtn} onClick={() => switchView('signup')}>
-                  Sign up
-                </button>
+                {t('login_no_account')} <button type="button" onClick={() => switchView('signup')} className={styles.textBtn}>{t('login_link_signup')}</button>
               </p>
             ) : (
               <p>
-                Already have an account?{' '}
-                <button type="button" className={styles.textBtn} onClick={() => switchView('login')}>
-                  Sign in
-                </button>
+                {t('login_has_account')} <button type="button" onClick={() => switchView('login')} className={styles.textBtn}>{t('login_link_signin')}</button>
               </p>
             )}
+          </div>
             
+          <div className={styles.formFooter}>
             <div className={styles.footerControls}>
               <div className={styles.langSelectWrapper}>
                 <label htmlFor="lang-select" className={styles.srOnly}>Select Language</label>

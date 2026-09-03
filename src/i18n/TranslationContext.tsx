@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback, useMemo, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo, useEffect, type ReactNode } from 'react';
 
 import en from './locales/en.json';
 import hi from './locales/hi.json';
@@ -33,10 +33,26 @@ interface TranslationContextValue {
 const TranslationContext = createContext<TranslationContextValue | null>(null);
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en');
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('mm_locale') as Locale;
+        if (saved && locales[saved]) {
+          return saved;
+        }
+      } catch (e) {}
+    }
+    return 'en';
+  });
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
+    try {
+      localStorage.setItem('mm_locale', newLocale);
+      document.cookie = `mm_locale=${newLocale}; path=/; max-age=31536000`;
+    } catch (e) {
+      console.warn('Failed to save locale to storage', e);
+    }
   }, []);
 
   const t = useCallback(

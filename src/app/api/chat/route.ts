@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     const messages: ChatMessage[] = body.messages;
+    const locale: string = body.locale || 'en';
 
     // Bounded limits
     if (messages.length > 50) {
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Pass to Engine
-    const response = await generateChatResponse(messages, patientId);
+    const response = await generateChatResponse(messages, patientId, locale);
 
     if (!response.success) {
       // Return 200 with error payload, rather than 500, to fail gracefully

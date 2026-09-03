@@ -56,16 +56,25 @@ function buildGeminiTools() {
 
 const MAX_ROUNDS = 5;
 
-export async function generateChatResponse(messages: ChatMessage[], patientId: string): Promise<ChatResponse> {
+const LOCALE_NAMES: Record<string, string> = {
+  en: 'English',
+  hi: 'Hindi',
+  kn: 'Kannada',
+  ta: 'Tamil',
+  te: 'Telugu',
+  ml: 'Malayalam'
+};
+
+export async function generateChatResponse(messages: ChatMessage[], patientId: string, locale: string = 'en'): Promise<ChatResponse> {
   const ollamaUrl = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
   const ollamaModel = process.env.OLLAMA_CHAT_MODEL || 'qwen3:4b';
 
   try {
-    return await executeOllamaLoop(messages, patientId, ollamaUrl, ollamaModel);
+    return await executeOllamaLoop(messages, patientId, ollamaUrl, ollamaModel, locale);
   } catch (error: any) {
     console.warn(`[AI_ENGINE] Ollama primary failed (${error.message}). Falling back to Gemini...`);
     try {
-      return await executeGeminiLoop(messages, patientId);
+      return await executeGeminiLoop(messages, patientId, locale);
     } catch (fallbackError: any) {
       console.error(`[AI_ENGINE] Gemini fallback failed:`, fallbackError);
       return { success: false, error: 'Assistant temporarily unavailable. Please try again later.', provider: 'none' };
@@ -73,9 +82,12 @@ export async function generateChatResponse(messages: ChatMessage[], patientId: s
   }
 }
 
-async function executeOllamaLoop(initialMessages: ChatMessage[], patientId: string, url: string, model: string): Promise<ChatResponse> {
+async function executeOllamaLoop(initialMessages: ChatMessage[], patientId: string, url: string, model: string, locale: string): Promise<ChatResponse> {
+  const langName = LOCALE_NAMES[locale] || 'English';
+  const localizedPrompt = SYSTEM_PROMPT + `\n16. You MUST respond exclusively in ${langName}. Do NOT use English unless the user specifically asks for it. All answers must be in ${langName}.`;
+
   let messages = [
-    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'system', content: localizedPrompt },
     ...initialMessages
   ];
 
@@ -153,14 +165,18 @@ async function executeOllamaLoop(initialMessages: ChatMessage[], patientId: stri
   return { success: false, error: 'Maximum tool execution limit reached.', provider: 'ollama' };
 }
 
-async function executeGeminiLoop(initialMessages: ChatMessage[], patientId: string): Promise<ChatResponse> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error('GEMINI_API_KEY missing');
+async function executeGeminiLoop(initialMessages: ChatMessage[], patientId: string, locale: string): Promise<ChatResponse> {
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error('GEMINI_API_KEY is not configured');
+  }
 
-  const genAI = new GoogleGenerativeAI(apiKey);
+  const langName = LOCALE_NAMES[locale] || 'English';
+  const localizedPrompt = SYSTEM_PROMPT + `\n16. You MUST respond exclusively in ${langName}. Do NOT use English unless the user specifically asks for it. All answers must be in ${langName}.`;
+
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
-    systemInstruction: SYSTEM_PROMPT,
+    model: "gemini-1.5-flash",
+    systemInstruction: localizedPrompt,
     tools: buildGeminiTools()
   });
 

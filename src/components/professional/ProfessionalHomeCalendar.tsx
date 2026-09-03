@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { AdherenceCalendar } from './AdherenceCalendar';
 import { Surface } from '@/components/ui/Surface';
+import { useTranslation } from '@/i18n';
 
 interface PatientOption {
   id: string;
@@ -14,6 +15,7 @@ export function ProfessionalHomeCalendar() {
   const [patients, setPatients] = useState<PatientOption[]>([]);
   const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function loadPatients() {
@@ -43,14 +45,14 @@ export function ProfessionalHomeCalendar() {
   }, []);
 
   if (loading) {
-    return <Surface padding="md"><p style={{ color: 'var(--mm-text-muted)', fontStyle: 'italic', fontSize: 'var(--mm-font-size-sm)' }}>Loading calendar...</p></Surface>;
+    return <Surface padding="md"><p style={{ color: 'var(--mm-text-muted)', fontStyle: 'italic', fontSize: 'var(--mm-font-size-sm)' }}>{t('calendar_loading')}</p></Surface>;
   }
 
   if (patients.length === 0) {
     return (
       <Surface padding="md">
         <p style={{ color: 'var(--mm-text-muted)', fontStyle: 'italic', fontSize: 'var(--mm-font-size-sm)' }}>
-          No connected patients. Connect a patient to view their medication adherence calendar.
+          {t('calendar_no_patients')}
         </p>
       </Surface>
     );
@@ -61,7 +63,7 @@ export function ProfessionalHomeCalendar() {
       {patients.length > 1 && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--mm-space-3)' }}>
           <label htmlFor="calendar-patient-select" style={{ fontSize: 'var(--mm-font-size-sm)', color: 'var(--mm-text-secondary)', fontWeight: 500 }}>
-            Select Patient:
+            {t('select_patient')}
           </label>
           <select 
             id="calendar-patient-select"

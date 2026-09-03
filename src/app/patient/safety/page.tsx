@@ -13,7 +13,7 @@ import { getPatientActiveMedications } from '@/app/actions/medication';
 import { SymptomReportForm } from '@/components/forms/SymptomReportForm';
 
 export default function SafetyPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [assessments, setAssessments] = useState<InteractionAssessment[]>([]);
   const [symptomReports, setSymptomReports] = useState<SymptomReport[]>([]);
   const [activeMedications, setActiveMedications] = useState<any[]>([]);
@@ -49,7 +49,7 @@ export default function SafetyPage() {
     <section style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Deterministic Medical Interaction Alerts */}
       <ContentCard
-        title="🛡️ Medication & Food Interaction Alerts"
+        title={t('safety_interactions_title')}
         action={
           <Button
             variant="secondary"
@@ -58,7 +58,7 @@ export default function SafetyPage() {
             disabled={loading}
             style={{ fontSize: '13px', padding: '6px 12px' }}
           >
-            {loading ? 'Evaluating...' : '↻ Re-evaluate'}
+            {loading ? t('safety_evaluating') : t('safety_reevaluate')}
           </Button>
         }
       >
@@ -68,7 +68,7 @@ export default function SafetyPage() {
           </div>
         ) : loading ? (
           <p style={{ color: 'var(--mm-text-secondary)', fontSize: '14px' }}>
-            Evaluating active medications and confirmed dietary intake against clinical knowledge rules...
+            {t('safety_evaluating_desc')}
           </p>
         ) : (
           <InteractionList assessments={assessments} />
@@ -77,7 +77,7 @@ export default function SafetyPage() {
 
       {/* Symptoms & Safety Reports Section */}
       <ContentCard
-        title="Symptoms &amp; Safety Reports"
+        title={t('safety_symptoms_title')}
         action={
           <Button 
             variant="secondary" 
@@ -103,7 +103,7 @@ export default function SafetyPage() {
         )}
 
         {loading ? (
-          <p style={{ color: 'var(--mm-text-secondary)', fontSize: '14px' }}>Loading symptom reports...</p>
+          <p style={{ color: 'var(--mm-text-secondary)', fontSize: '14px' }}>{t('safety_loading_reports')}</p>
         ) : symptomReports.length === 0 ? (
           <EmptyState icon="⚕" message={t('no_safety_reports')} />
         ) : (
@@ -132,12 +132,12 @@ export default function SafetyPage() {
                 </div>
                 
                 <p style={{ margin: '4px 0', fontSize: '14px', color: 'var(--mm-text-secondary)' }}>
-                  <strong>Onset:</strong> {new Date(report.onset_at).toLocaleString()}
+                  <strong>{t('safety_onset')}</strong> {new Date(report.onset_at).toLocaleString(locale === 'en' ? 'en-US' : `${locale}-IN`)}
                 </p>
                 
                 {report.related_medication_id && (
                   <p style={{ margin: '4px 0', fontSize: '14px', color: 'var(--mm-text-secondary)' }}>
-                    <strong>Related to:</strong> {activeMedications.find(m => m.id === report.related_medication_id)?.display_name || 'Unknown Medication'}
+                    <strong>{t('safety_related_to')}</strong> {activeMedications.find(m => m.id === report.related_medication_id)?.display_name || t('safety_unknown_med')}
                   </p>
                 )}
                 

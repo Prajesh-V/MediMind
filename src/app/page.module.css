@@ -23,8 +23,8 @@
 /* ── Left panel — Brand / Deep Forest ── */
 .leftPanel {
   padding: var(--mm-space-12);
-  background: var(--mm-primary);
-  color: var(--mm-primary-surface);
+  background: var(--mm-bg-surface-alt);
+  color: var(--mm-text-primary);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -45,7 +45,7 @@
 }
 
 .logoAccent {
-  color: var(--mm-primary-light);
+  color: var(--mm-semantic-info-text);
 }
 
 .tagline {
@@ -87,15 +87,15 @@
   margin-top: var(--mm-space-8);
   padding: var(--mm-space-3) var(--mm-space-4);
   border-radius: var(--mm-radius-full);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--mm-bg-surface);
+  border: 1px solid var(--mm-border-default);
   font-family: var(--mm-font-family);
   font-size: var(--mm-font-size-sm);
   font-weight: var(--mm-font-weight-medium);
 }
 
 .badgeIcon {
-  color: var(--mm-primary-light);
+  color: var(--mm-semantic-info-text);
 }
 
 /* Subtle botanical/technical texture using CSS patterns */
@@ -106,9 +106,9 @@
   bottom: 0;
   left: 0;
   background-image: 
-    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 40%),
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    radial-gradient(circle at 80% 20%, rgba(var(--mm-primary-rgb),0.03) 0%, transparent 40%),
+    linear-gradient(rgba(var(--mm-primary-rgb),0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--mm-primary-rgb),0.02) 1px, transparent 1px);
   background-size: 100% 100%, 40px 40px, 40px 40px;
   background-position: 0 0, -1px -1px, -1px -1px;
   opacity: 0.5;
