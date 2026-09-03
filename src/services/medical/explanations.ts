@@ -5,6 +5,29 @@ import type { ExplanationOutput, InteractionAssessment } from './types';
 export const M7_PROMPT_VERSION = 1;
 export const M7_LANGUAGE = 'en';
 
+function validateSemanticContradiction(severity: string, explanation: ExplanationOutput) {
+  const text = JSON.stringify(explanation).toLowerCase();
+  const sev = severity.toLowerCase();
+  
+  // Contradiction checks
+  if (sev === 'high' || sev === 'severe') {
+    if (text.includes('minor concern') || text.includes('no concern') || text.includes('perfectly safe') || text.includes('negligible') || text.includes('harmless')) {
+      throw new Error(`M7 Semantic Validation Failed: Explanation downplays a HIGH severity interaction as minor/safe.`);
+    }
+  }
+  
+  if (sev === 'low' || sev === 'minor') {
+    if (text.includes('fatal') || text.includes('life-threatening') || text.includes('critical emergency') || text.includes('severe concern')) {
+      throw new Error(`M7 Semantic Validation Failed: Explanation exaggerates a LOW severity interaction.`);
+    }
+  }
+
+  // Warning for missing explicit severity (non-blocking)
+  if (!explanation.what_the_system_determined.toLowerCase().includes(sev)) {
+    console.warn('M7 Semantic Validation Warning: LLM explanation did not clearly state the exact severity.');
+  }
+}
+
 const explanationSchema: ResponseSchema = {
   type: SchemaType.OBJECT,
   properties: {
@@ -112,10 +135,8 @@ ${JSON.stringify(structuredData, null, 2)}
   const responseText = result.response.text();
   const parsed = JSON.parse(responseText) as ExplanationOutput;
   
-  // Semantic Validation (Basic checks)
-  if (!parsed.what_the_system_determined.toLowerCase().includes(assessment.severity.toLowerCase())) {
-    console.warn('M7 Semantic Validation Warning: LLM explanation did not clearly state the exact severity.');
-  }
+  // Semantic Validation
+  validateSemanticContradiction(assessment.severity, parsed);
 
   return { output: parsed, modelUsed: modelName };
 }
@@ -197,9 +218,8 @@ ${JSON.stringify(structuredData, null, 2)}
   const cleanText = resultText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
   const parsed = JSON.parse(cleanText) as ExplanationOutput;
 
-  if (!parsed.what_the_system_determined.toLowerCase().includes(assessment.severity.toLowerCase())) {
-    console.warn('M7 Semantic Validation Warning: LLM explanation did not clearly state the exact severity.');
-  }
+  // Semantic Validation
+  validateSemanticContradiction(assessment.severity, parsed);
 
   return { output: parsed, modelUsed: modelName };
 }
@@ -282,9 +302,8 @@ ${JSON.stringify(structuredData, null, 2)}
   const cleanText = resultText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
   const parsed = JSON.parse(cleanText) as ExplanationOutput;
 
-  if (!parsed.what_the_system_determined.toLowerCase().includes(assessment.severity.toLowerCase())) {
-    console.warn('M7 Semantic Validation Warning: LLM explanation did not clearly state the exact severity.');
-  }
+  // Semantic Validation
+  validateSemanticContradiction(assessment.severity, parsed);
 
   return { output: parsed, modelUsed: modelName };
 }

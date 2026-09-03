@@ -35,8 +35,12 @@ export function InteractionCard({
     setExplaining(true);
     setExplanationError(null);
     try {
-      const output = await getExplanation(assessment.assessment_id, isProfessional ? 'professional' : 'patient');
-      setExplanation(output);
+      const result = await getExplanation(assessment.assessment_id, isProfessional ? 'professional' : 'patient');
+      if (result.success) {
+        setExplanation(result.data);
+      } else {
+        setExplanationError(result.error || 'An explanation is temporarily unavailable.');
+      }
     } catch (err: any) {
       console.error(err);
       setExplanationError(err.message || 'An explanation is temporarily unavailable.');

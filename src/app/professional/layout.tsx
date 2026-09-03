@@ -10,7 +10,6 @@ const professionalNav: NavItem[] = [
   { key: 'guidance', icon: '🍽', labelKey: 'guidance', href: '/professional/guidance' },
   { key: 'safety', icon: '⚕', labelKey: 'adr', href: '/professional/safety' },
   { key: 'insights', icon: '✦', labelKey: 'insights', href: '/professional/insights' },
-  { key: 'settings', icon: '⚙', labelKey: 'settings', href: '/professional/settings' },
 ];
 
 export default function ProfessionalLayout({ children }: { children: React.ReactNode }) {

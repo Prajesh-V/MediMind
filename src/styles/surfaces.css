@@ -1,0 +1,111 @@
+/*
+ * MediMind Surface System
+ * Layered tinted surfaces for depth without shadows.
+ * Cream → Keylime → Mint → Sage → Slate
+ *
+ * Usage: Apply .mm-surface-cream, .mm-surface-keylime, etc. to containers.
+ * Or use the --color-* tokens directly in CSS modules.
+ */
+
+/* ── Base Surface (Cream Paper) ── */
+/* Default page/card background — warm off-white */
+.mm-surface-cream {
+  background-color: var(--color-cream-paper);
+}
+
+/* ── Level 1 (Keylime Wash) ── */
+/* Primary tinted panel — hero areas, light feature blocks */
+.mm-surface-keylime {
+  background-color: var(--color-keylime-wash);
+}
+
+/* ── Level 2 (Mint Veil) ── */
+/* Mid-tone section surface between keylime and sage */
+.mm-surface-mint {
+  background-color: var(--color-mint-veil);
+}
+
+/* ── Level 3 (Sage Mist) ── */
+/* Heavier tinted panels — feature highlights, active states */
+.mm-surface-sage {
+  background-color: var(--color-sage-mist);
+}
+
+/* ── Level 4 (Slate Hush) ── */
+/* Cool counter-panel — M7 AI explanations, insight areas */
+.mm-surface-slate {
+  background-color: var(--color-slate-hush);
+}
+
+/* ── Card Variants ── */
+/* All cards share: 14px radius, no shadow, generous padding */
+
+.mm-card {
+  border-radius: var(--radius-cards);
+  padding: var(--spacing-28);
+  border: none;
+  box-shadow: none;
+}
+
+.mm-card-cream {
+  composes: mm-card;
+  background-color: var(--color-cream-paper);
+  border: 1px solid var(--color-border-mist);
+}
+
+.mm-card-keylime {
+  composes: mm-card;
+  background-color: var(--color-keylime-wash);
+}
+
+.mm-card-sage {
+  composes: mm-card;
+  background-color: var(--color-sage-mist);
+}
+
+.mm-card-slate {
+  composes: mm-card;
+  background-color: var(--color-slate-hush);
+}
+
+/* ── Semantic Status Surfaces ── */
+/* For clinical alerts: critical, warning, success, informational */
+
+.mm-surface-critical {
+  background-color: var(--color-semantic-critical-bg);
+  border-left: 3px solid var(--color-semantic-critical);
+}
+
+.mm-surface-warning {
+  background-color: var(--color-semantic-warning-bg);
+  border-left: 3px solid var(--color-semantic-warning);
+}
+
+.mm-surface-success {
+  background-color: var(--color-semantic-success-bg);
+  border-left: 3px solid var(--color-semantic-success);
+}
+
+.mm-surface-info {
+  background-color: var(--color-semantic-info-bg);
+  border-left: 3px solid var(--color-semantic-info);
+}
+
+/* ── M6/M7 Visual Hierarchy ── */
+/* M6 AUTHORITATIVE cards: warm cream/forest — printed medical record feel */
+.mm-m6-surface {
+  background-color: var(--color-cream-paper);
+  border: 1px solid var(--color-border-mist);
+  border-radius: var(--radius-cards);
+  padding: var(--spacing-28);
+  box-shadow: none;
+}
+
+/* M7 AI EXPLANATION cards: cool slate — visually distinct from M6 */
+.mm-m7-surface {
+  background-color: var(--color-slate-hush);
+  border: none;
+  border-radius: var(--radius-cards);
+  padding: var(--spacing-28);
+  box-shadow: none;
+}

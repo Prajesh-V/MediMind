@@ -5,11 +5,13 @@ import { useTranslation } from '@/i18n';
 import { StatCard } from '@/components/cards/StatCard';
 import { ContentCard } from '@/components/cards/ContentCard';
 import { EmptyState } from '@/components/feedback/EmptyState';
+import { ChatAssistant } from '@/components/chat/ChatAssistant';
 import { DoseTimeline } from '@/components/medications/DoseTimeline';
 import { getAdherenceMetrics, getTodayDoses } from '@/app/actions/dose';
 import { getPatientDietaryRecords } from '@/app/actions/intake';
 import { getPatientAssessments } from '@/app/actions/interactions';
 import { triggerAlertReconciliation, getPatientAlerts, PatientAlert, markAlertRead } from '@/app/actions/alerts';
+import { Timeline } from '@/components/timeline/Timeline';
 import styles from './page.module.css';
 
 export default function PatientDashboard() {
@@ -19,6 +21,7 @@ export default function PatientDashboard() {
   const [interactionCount, setInteractionCount] = useState(0);
   const [adherenceRate, setAdherenceRate] = useState('—');
   const [alerts, setAlerts] = useState<PatientAlert[]>([]);
+  const [foodRecords, setFoodRecords] = useState<any[]>([]);
 
   const loadMetrics = async () => {
     const today = await getTodayDoses();
@@ -26,6 +29,7 @@ export default function PatientDashboard() {
 
     const diet = await getPatientDietaryRecords();
     setFoodCount(diet.length);
+    setFoodRecords(diet);
 
     const assessments = await getPatientAssessments();
     setInteractionCount(assessments.length);
@@ -65,10 +69,26 @@ export default function PatientDashboard() {
           </ContentCard>
 
           <ContentCard title="Recent Food &amp; Interaction Timeline">
-            <EmptyState
-              icon="🥗"
-              message={t('no_food_records')}
-            />
+            {foodRecords.length === 0 ? (
+              <EmptyState
+                icon="🥗"
+                message={t('no_food_records')}
+              />
+            ) : (
+              <Timeline 
+                events={foodRecords.map(f => ({
+                  id: f.id,
+                  content: (
+                    <div className={styles.alertBody}>
+                      <strong>{f.component_name}</strong>
+                      <div className={styles.alertTime}>
+                        {new Date(f.consumed_at).toLocaleString()}
+                      </div>
+                    </div>
+                  )
+                }))}
+              />
+            )}
           </ContentCard>
         </div>
 
@@ -101,10 +121,7 @@ export default function PatientDashboard() {
           </ContentCard>
 
           <ContentCard title="AI Assistant">
-            <EmptyState
-              icon="✦"
-              message="AI assistant will be available in a future update."
-            />
+            <ChatAssistant />
           </ContentCard>
         </div>
       </div>

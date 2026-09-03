@@ -1,0 +1,119 @@
+/*
+ * MediMind Typography System
+ * Based on Ease Health reference: editorial serif display + humanist sans body.
+ * Uses system font fallback stacks (no external font dependencies).
+ *
+ * Display (Faire Octave substitute): serif stack for headings, editorial calm.
+ * Body/UI (Suisse Intl substitute): sans-serif stack for readability.
+ *
+ * USAGE: Apply classes like .mm-display, .mm-heading, .mm-body, etc.
+ * Or use CSS custom properties --mm-font-family-display and --mm-font-family.
+ */
+
+/* ── Display ── */
+/* Elegant, lightweight serif for page titles and hero-level headings */
+.mm-display {
+  font-family: var(--mm-font-family-display);
+  font-size: clamp(40px, 5vw, 74px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--color-forest-ink);
+}
+
+/* ── Heading ── */
+/* Serif heading for section titles (M6 assessment headers, card titles) */
+.mm-heading {
+  font-family: var(--mm-font-family-display);
+  font-size: clamp(23px, 3vw, 40px);
+  font-weight: 300;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--color-forest-ink);
+}
+
+/* ── Heading Small ── */
+/* Sans-serif heading for subsections and content card headers */
+.mm-heading-sm {
+  font-family: var(--mm-font-family);
+  font-size: clamp(18px, 2vw, 23px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--mm-text-primary);
+}
+
+/* ── Subheading ── */
+/* Sans-serif subheading for supporting context */
+.mm-subheading {
+  font-family: var(--mm-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--mm-text-secondary);
+}
+
+/* ── Body ── */
+/* Default readable body text */
+.mm-body {
+  font-family: var(--mm-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--mm-text-primary);
+}
+
+/* ── UI ── */
+/* Sans-serif for interactive elements: buttons, form labels, nav items */
+.mm-ui {
+  font-family: var(--mm-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.0;
+  color: var(--mm-text-primary);
+}
+
+/* ── Caption ── */
+/* Small supporting text for timestamps, metadata, fine print */
+.mm-caption {
+  font-family: var(--mm-font-family);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--mm-text-muted);
+}
+
+/* ── Eyebrow ── */
+/* Uppercase micro-label for section categories (e.g., "CLINICAL ASSESSMENT") */
+.mm-eyebrow {
+  font-family: var(--mm-font-family);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-forest-ink);
+}
+
+/* ── M6 Authority Label ── */
+/* Communicates DETERMINISTIC CLINICAL TRUTH */
+.mm-authority-label {
+  font-family: var(--mm-font-family);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-forest-ink);
+}
+
+/* ── M7 AI Label ── */
+/* Communicates AI-GENERATED, NON-AUTHORITATIVE */
+.mm-ai-label {
+  font-family: var(--mm-font-family);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-semantic-info);
+}

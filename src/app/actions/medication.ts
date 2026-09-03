@@ -55,7 +55,7 @@ export async function getPatientActiveMedications(patientId?: string) {
       *,
       medication_schedules (*)
     `)
-    .eq('patient_id', patientId)
+    .eq('patient_id', targetPatientId)
     .eq('is_active', true)
 
   if (error) {

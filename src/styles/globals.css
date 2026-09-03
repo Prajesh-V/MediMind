@@ -1,4 +1,6 @@
 @import './design-tokens.css';
+@import './typography.css';
+@import './surfaces.css';
 
 /* ── Reset ── */
 *,

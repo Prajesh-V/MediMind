@@ -10,7 +10,7 @@ import { recordTraceEvent } from '@/services/medical/trace';
 export async function getExplanation(
   assessmentId: string,
   audience: 'patient' | 'professional'
-): Promise<ExplanationOutput> {
+): Promise<{ success: true; data: ExplanationOutput } | { success: false; error: string }> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -18,7 +18,7 @@ export async function getExplanation(
   } = await supabase.auth.getUser();
 
   if (authError || !user) {
-    throw new Error('Unauthorized');
+    return { success: false, error: 'Unauthorized' };
   }
 
   let authoritativeAssessment: InteractionAssessment | undefined;
@@ -41,7 +41,7 @@ export async function getExplanation(
       .eq('status', 'active');
 
     if (connErr) {
-      throw new Error('Failed to load professional connections');
+      return { success: false, error: 'Failed to load professional connections' };
     }
 
     // This ensures we only evaluate patients they have active connections with
@@ -57,7 +57,7 @@ export async function getExplanation(
   }
 
   if (!authoritativeAssessment || !targetPatientId) {
-    throw new Error('Assessment not found or unauthorized');
+    return { success: false, error: 'Assessment not found or unauthorized' };
   }
 
   // Check Cache
@@ -73,7 +73,7 @@ export async function getExplanation(
   if (cached && !cacheErr) {
     // Audit cache hit
     await logAudit(supabase, targetPatientId, user.id, assessmentId, audience, 'cache_hit', 'gemini-3.6-flash', true);
-    return cached.explanation_data as ExplanationOutput;
+    return { success: true, data: cached.explanation_data as ExplanationOutput };
   }
 
   // Generate Explanation
@@ -84,7 +84,7 @@ export async function getExplanation(
     const isValid = validateExplanation(output, authoritativeAssessment);
     if (!isValid) {
       await logAudit(supabase, targetPatientId, user.id, assessmentId, audience, 'semantic_validation_failed', modelUsed, false);
-      throw new Error('Explanation failed semantic validation');
+      return { success: false, error: 'Explanation failed semantic validation' };
     }
 
     // Save to Cache
@@ -103,11 +103,11 @@ export async function getExplanation(
     // Audit generation success
     await logAudit(supabase, targetPatientId, user.id, assessmentId, audience, 'generation_success', modelUsed, true);
 
-    return output;
+    return { success: true, data: output };
   } catch (err) {
     console.error('Explanation generation error:', err);
     await logAudit(supabase, targetPatientId, user.id, assessmentId, audience, 'generation_failed', 'unknown', false);
-    throw new Error('An explanation is temporarily unavailable.');
+    return { success: false, error: 'An explanation is temporarily unavailable.' };
   }
 }
 

@@ -49,9 +49,27 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Optional: Role-based redirect if trying to access the other role's dashboard
-  // We can fetch the role from the database or JWT metadata if set.
-  // For M2, we will just ensure the session is active.
+  // Role-based route protection
+  if (user) {
+    const isPatientRoute = request.nextUrl.pathname.startsWith('/patient');
+    const isProfessionalRoute = request.nextUrl.pathname.startsWith('/professional');
+
+    if (isPatientRoute) {
+      const { data, error } = await supabase.from('patients').select('id').eq('id', user.id).single();
+      if (error || !data) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/professional';
+        return NextResponse.redirect(url);
+      }
+    } else if (isProfessionalRoute) {
+      const { data, error } = await supabase.from('professionals').select('id').eq('id', user.id).single();
+      if (error || !data) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/patient';
+        return NextResponse.redirect(url);
+      }
+    }
+  }
 
   return supabaseResponse
 }

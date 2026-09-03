@@ -181,35 +181,55 @@ export function PrescriptionManager() {
   }
 
   const handleConfirm = async (candidate: any) => {
-    const isVerified = Boolean(candidate.suggested_rxcui);
-    const res = await confirmPrescriptionCandidate(candidate.id, {
-      displayName: candidate.suggested_name || candidate.medication_name || candidate.raw_name, // fallback for OCR vs manual
-      rxcui: candidate.suggested_rxcui || undefined,
-      verificationStatus: isVerified ? 'verified_rxnorm' : 'manual_custom',
-      dosageUnit: 'mg',
-      dosageForm: 'Tablet',
-      foodRelation: 'with_meal',
-      administrationInstructions: candidate.raw_instructions || undefined,
-      schedules: [
-        {
-          timeOfDay: '08:00:00',
-          slotLabel: 'morning',
-          doseQuantity: 1.0
-        }
-      ]
-    })
+    try {
+      const isVerified = Boolean(candidate.suggested_rxcui);
+      const payload: any = {
+        displayName: candidate.suggested_name || candidate.raw_name, // fallback for OCR vs manual
+        verificationStatus: isVerified ? 'verified_rxnorm' : 'manual_custom',
+        dosageUnit: 'mg',
+        dosageForm: 'Tablet',
+        foodRelation: 'with_meal',
+        schedules: [
+          {
+            timeOfDay: '08:00:00',
+            slotLabel: 'morning',
+            doseQuantity: 1.0
+          }
+        ]
+      };
 
-    if (res.success) {
-      fetchData()
-    } else {
-      alert(res.error || 'Failed to confirm candidate.')
+      if (candidate.suggested_rxcui) {
+        payload.rxcui = candidate.suggested_rxcui;
+      }
+      if (candidate.raw_instructions) {
+        payload.administrationInstructions = candidate.raw_instructions;
+      }
+
+      console.log('Sending payload to confirmPrescriptionCandidate:', payload);
+      const res = await confirmPrescriptionCandidate(candidate.id, payload);
+
+      if (res.success) {
+        fetchData();
+      } else {
+        alert(res.error || 'Failed to confirm candidate.');
+      }
+    } catch (err: any) {
+      console.error('Confirmation crash:', err);
+      alert(err.message || 'An unexpected error occurred during confirmation.');
     }
   }
 
   const handleReject = async (candidateId: string) => {
-    const res = await rejectPrescriptionCandidate(candidateId)
-    if (res.success) {
-      fetchData()
+    try {
+      const res = await rejectPrescriptionCandidate(candidateId)
+      if (res.success) {
+        fetchData()
+      } else {
+        alert(res.error || 'Failed to reject candidate.')
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || 'An unexpected error occurred during rejection.');
     }
   }
 
@@ -234,7 +254,7 @@ export function PrescriptionManager() {
               return (
               <div key={c.id} className={styles.candidateCard}>
                 <div>
-                  <strong style={{ fontSize: '15px' }}>{c.medication_name || c.raw_name}</strong>
+                  <strong style={{ fontSize: '15px' }}>{c.suggested_name || c.raw_name}</strong>
                   {isOCR && <span style={{ marginLeft: '8px', fontSize: '11px', background: 'var(--mm-primary)', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>Extracted via {c.extraction_runs?.service_provider?.includes('ollama') ? 'Ollama AI' : 'Gemini AI'}</span>}
                   
                   {hasWarnings && (

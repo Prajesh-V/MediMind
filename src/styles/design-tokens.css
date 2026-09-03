@@ -5,148 +5,203 @@
  */
 
 :root {
-  /* ── Primary (teal) ── */
-  --mm-primary: #087f70;
-  --mm-primary-hover: #066e61;
-  --mm-primary-light: #0c9b89;
-  --mm-primary-accent: #1aa78f;
-  --mm-primary-bg: #eafaf7;
-  --mm-primary-bg-alt: #e9f8f5;
-  --mm-primary-bg-subtle: #eaf8f5;
-  --mm-primary-surface: #f4faf9;
-  --mm-primary-surface-alt: #f8fdfc;
-  --mm-primary-border: #b9dcd6;
-  --mm-primary-muted: #d8f3ed;
-  --mm-primary-logo-accent: #b9fff2;
+  /* ── 1. CORE DESIGN REFERENCE TOKENS (Botanical Greenhouse) ── */
+  /* Colors */
+  --color-forest-ink: #0f3e17;
+  --color-sage-mist: #b1dbb8;
+  --color-keylime-wash: #e1f4df;
+  --color-mint-veil: #cfe7d3;
+  --color-slate-hush: #b6ced5;
+  --color-cream-paper: #fffefc;
+  --color-charcoal: #222222;
+  --color-border-mist: #efeeeb;
+  --color-forest-shadow: #0c2f10;
 
-  /* ── Severity: High ── */
-  --mm-high-bg: #fff0f0;
-  --mm-high-bg-alt: #ffe9e9;
-  --mm-high-border: #c83b3b;
-  --mm-high-border-alt: #ffd3d3;
-  --mm-high-text: #b62e2e;
-  --mm-high-text-alt: #b13a3a;
+  /* Typography Fallbacks */
+  --font-faire-octave: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-suisse-intl: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  /* ── Severity: Moderate ── */
-  --mm-moderate-bg: #fff8e8;
-  --mm-moderate-bg-alt: #fff2cf;
-  --mm-moderate-border: #e8a62d;
-  --mm-moderate-border-alt: #ffe6a7;
-  --mm-moderate-text: #986300;
+  /* Spacing Scale */
+  --spacing-4: 4px;
+  --spacing-7: 7px;
+  --spacing-9: 9px;
+  --spacing-11: 11px;
+  --spacing-14: 14px;
+  --spacing-18: 18px;
+  --spacing-21: 21px;
+  --spacing-28: 28px;
+  --spacing-35: 35px;
+  --spacing-42: 42px;
+  --spacing-49: 49px;
+  --spacing-56: 56px;
+  --spacing-70: 70px;
+  --spacing-76: 76px;
+  --spacing-99: 99px;
+  --spacing-156: 156px;
 
-  /* ── Severity: Low ── */
-  --mm-low-bg: #edf9f6;
-  --mm-low-bg-alt: #e6f8f1;
-  --mm-low-border: #15977f;
-  --mm-low-border-alt: #cceee4;
-  --mm-low-text: #087f70;
+  /* Border Radius */
+  --radius-nav: 7px;
+  --radius-cards: 14px;
+  --radius-badges: 999px;
+  --radius-buttons: 14px;
+  --radius-sections: 9999px;
 
-  /* ── Neutrals ── */
-  --mm-text-primary: #17212b;
-  --mm-text-secondary: #778690;
-  --mm-text-tertiary: #7b8993;
-  --mm-text-muted: #82909b;
-  --mm-text-faint: #84919a;
-  --mm-text-sidebar: #63727d;
-  --mm-text-sidebar-role: #5f716f;
-  --mm-text-logout: #65737d;
-  --mm-text-subtitle: #70808d;
-  --mm-text-demo: #87949d;
+  /* Semantic Medical Colors (Muted Rust/Coral for Critical) */
+  --color-semantic-critical: #8c3838;
+  --color-semantic-critical-bg: #faebeb;
+  --color-semantic-warning: #9e7a2c;
+  --color-semantic-warning-bg: #fcf6e8;
+  --color-semantic-success: var(--color-forest-ink);
+  --color-semantic-success-bg: var(--color-keylime-wash);
+  --color-semantic-info: #2d556e;
+  --color-semantic-info-bg: var(--color-slate-hush);
 
-  /* ── Backgrounds ── */
-  --mm-bg-body: #f7fcfb;
-  --mm-bg-body-mid: #f3f9f8;
-  --mm-bg-body-end: #f7fafc;
-  --mm-bg-login: #f5f8fb;
-  --mm-bg-card: #ffffff;
-  --mm-bg-input: #fbfcfd;
-  --mm-bg-neutral: #eef2f5;
-  --mm-bg-insight: #f2f8ff;
-  --mm-bg-admin-tip: #f0f8ff;
 
-  /* ── Borders ── */
-  --mm-border-card: #e8eef2;
-  --mm-border-input: #dbe4e9;
-  --mm-border-item: #e5ecef;
-  --mm-border-sidebar: #e7edf1;
-  --mm-border-divider: #edf1f3;
-  --mm-border-logout: #e2e9ec;
-  --mm-border-empty: #d9e3e6;
-  --mm-border-timeline: #dce8e5;
-  --mm-border-insight: #dcecff;
-  --mm-border-admin-tip: #d9eafb;
-  --mm-border-food-checker: #d9ece8;
+  /* ── 2. MAPPED MEDIMIND TOKENS (Preserving backward compatibility) ── */
+  
+  /* Primary (mapped to Forest Ink) */
+  --mm-primary: var(--color-forest-ink);
+  --mm-primary-hover: var(--color-forest-shadow);
+  --mm-primary-light: var(--color-sage-mist);
+  --mm-primary-accent: var(--color-mint-veil);
+  --mm-primary-bg: var(--color-keylime-wash);
+  --mm-primary-bg-alt: var(--color-mint-veil);
+  --mm-primary-bg-subtle: var(--color-cream-paper);
+  --mm-primary-surface: var(--color-keylime-wash);
+  --mm-primary-surface-alt: var(--color-mint-veil);
+  --mm-primary-border: var(--color-sage-mist);
+  --mm-primary-muted: var(--color-sage-mist);
+  --mm-primary-logo-accent: var(--color-sage-mist);
 
-  /* ── Typography ── */
-  --mm-font-family: "Yu Gothic UI", "Segoe UI", Arial, sans-serif;
-  --mm-font-size-xs: 11px;
+  /* Severity: High (mapped to Semantic Critical) */
+  --mm-high-bg: var(--color-semantic-critical-bg);
+  --mm-high-bg-alt: #f5dfdf;
+  --mm-high-border: var(--color-semantic-critical);
+  --mm-high-border-alt: #e3b6b6;
+  --mm-high-text: var(--color-semantic-critical);
+  --mm-high-text-alt: #752929;
+
+  /* Severity: Moderate (mapped to Semantic Warning) */
+  --mm-moderate-bg: var(--color-semantic-warning-bg);
+  --mm-moderate-bg-alt: #f5ebd5;
+  --mm-moderate-border: var(--color-semantic-warning);
+  --mm-moderate-border-alt: #e8d097;
+  --mm-moderate-text: var(--color-semantic-warning);
+
+  /* Severity: Low (mapped to Semantic Success) */
+  --mm-low-bg: var(--color-semantic-success-bg);
+  --mm-low-bg-alt: var(--color-mint-veil);
+  --mm-low-border: var(--color-semantic-success);
+  --mm-low-border-alt: var(--color-sage-mist);
+  --mm-low-text: var(--color-semantic-success);
+
+  /* Neutrals (mapped to Charcoal / Slate) */
+  --mm-text-primary: var(--color-charcoal);
+  --mm-text-secondary: #5a5a5a;
+  --mm-text-tertiary: #757575;
+  --mm-text-muted: #8e8e8e;
+  --mm-text-faint: #a6a6a6;
+  --mm-text-sidebar: var(--color-charcoal);
+  --mm-text-sidebar-role: var(--color-forest-ink);
+  --mm-text-logout: #5a5a5a;
+  --mm-text-subtitle: #5a5a5a;
+  --mm-text-demo: #757575;
+
+  /* Backgrounds */
+  --mm-bg-body: var(--color-cream-paper);
+  --mm-bg-body-mid: var(--color-cream-paper);
+  --mm-bg-body-end: var(--color-cream-paper);
+  --mm-bg-login: var(--color-cream-paper);
+  --mm-bg-card: var(--color-cream-paper);
+  --mm-bg-input: var(--color-cream-paper);
+  --mm-bg-neutral: var(--color-border-mist);
+  --mm-bg-insight: var(--color-slate-hush); /* M7 AI Insight panel */
+  --mm-bg-admin-tip: var(--color-slate-hush);
+
+  /* Borders (subtle borders for depth instead of shadows) */
+  --mm-border-card: var(--color-border-mist);
+  --mm-border-input: var(--color-border-mist);
+  --mm-border-item: var(--color-border-mist);
+  --mm-border-sidebar: var(--color-border-mist);
+  --mm-border-divider: var(--color-border-mist);
+  --mm-border-logout: var(--color-border-mist);
+  --mm-border-empty: var(--color-border-mist);
+  --mm-border-timeline: var(--color-sage-mist);
+  --mm-border-insight: var(--color-slate-hush);
+  --mm-border-admin-tip: var(--color-slate-hush);
+  --mm-border-food-checker: var(--color-mint-veil);
+
+  /* Typography */
+  --mm-font-family: var(--font-suisse-intl); /* Default to Body */
+  --mm-font-family-display: var(--font-faire-octave); /* New token for M6 Headers */
+  --mm-font-size-xs: 10px;
   --mm-font-size-sm: 12px;
-  --mm-font-size-base: 13px;
+  --mm-font-size-base: 14px; /* text-body */
   --mm-font-size-md: 14px;
-  --mm-font-size-lg: 16px;
-  --mm-font-size-xl: 18px;
-  --mm-font-size-2xl: 26px;
-  --mm-font-size-3xl: 28px;
-  --mm-font-size-4xl: 30px;
-  --mm-font-size-hero: 43px;
-  --mm-font-weight-normal: 400;
-  --mm-font-weight-semibold: 650;
-  --mm-font-weight-bold: 700;
-  --mm-font-weight-extrabold: 750;
-  --mm-font-weight-black: 800;
+  --mm-font-size-lg: 18px; /* text-subheading */
+  --mm-font-size-xl: 23px; /* text-heading-sm */
+  --mm-font-size-2xl: 28px;
+  --mm-font-size-3xl: 40px; /* text-heading */
+  --mm-font-size-4xl: 56px; /* text-heading-lg */
+  --mm-font-size-hero: 74px; /* text-display */
+  --mm-font-weight-normal: 300;
+  --mm-font-weight-semibold: 400;
+  --mm-font-weight-bold: 600;
+  --mm-font-weight-extrabold: 600;
+  --mm-font-weight-black: 600;
 
-  /* ── Spacing ── */
-  --mm-space-xs: 5px;
-  --mm-space-sm: 9px;
-  --mm-space-md: 12px;
-  --mm-space-lg: 15px;
-  --mm-space-xl: 17px;
-  --mm-space-2xl: 20px;
-  --mm-space-3xl: 22px;
-  --mm-space-4xl: 23px;
-  --mm-space-5xl: 28px;
-  --mm-space-6xl: 32px;
+  /* Spacing */
+  --mm-space-xs: var(--spacing-4);
+  --mm-space-sm: var(--spacing-9);
+  --mm-space-md: var(--spacing-14);
+  --mm-space-lg: var(--spacing-21);
+  --mm-space-xl: var(--spacing-28);
+  --mm-space-2xl: var(--spacing-42);
+  --mm-space-3xl: var(--spacing-49);
+  --mm-space-4xl: var(--spacing-56);
+  --mm-space-5xl: var(--spacing-70);
+  --mm-space-6xl: var(--spacing-99);
 
-  /* ── Radius ── */
-  --mm-radius-sm: 10px;
-  --mm-radius-md: 11px;
-  --mm-radius-base: 12px;
-  --mm-radius-lg: 13px;
-  --mm-radius-xl: 14px;
-  --mm-radius-2xl: 17px;
-  --mm-radius-3xl: 19px;
-  --mm-radius-4xl: 20px;
+  /* Radius (Cards ~14px, Badges 999px) */
+  --mm-radius-sm: var(--radius-nav);
+  --mm-radius-md: var(--radius-cards);
+  --mm-radius-base: var(--radius-cards);
+  --mm-radius-lg: var(--radius-cards);
+  --mm-radius-xl: var(--radius-cards);
+  --mm-radius-2xl: var(--radius-cards);
+  --mm-radius-3xl: var(--radius-cards);
+  --mm-radius-4xl: var(--radius-cards);
   --mm-radius-full: 50%;
-  --mm-radius-pill: 30px;
-  --mm-radius-login: 28px;
+  --mm-radius-pill: var(--radius-badges);
+  --mm-radius-login: var(--radius-cards);
 
-  /* ── Shadows ── */
-  --mm-shadow-login: 0 25px 70px rgba(24, 54, 74, 0.13);
-  --mm-shadow-toast: 0 4px 16px rgba(0, 0, 0, 0.15);
+  /* Shadows (Removed as per design spec) */
+  --mm-shadow-login: none;
+  --mm-shadow-toast: 0 4px 16px rgba(0, 0, 0, 0.10); /* Keep minimal toast shadow for accessibility layering */
 
-  /* ── Sidebar ── */
-  --mm-sidebar-width: 250px;
+  /* Sidebar */
+  --mm-sidebar-width: 280px;
 
-  /* ── Overlay ── */
-  --mm-overlay-bg: rgba(16, 33, 43, 0.53);
+  /* Overlay */
+  --mm-overlay-bg: rgba(34, 34, 34, 0.4);
 
-  /* ── Toast ── */
-  --mm-toast-bg: #17212b;
-  --mm-toast-text: #ffffff;
+  /* Toast */
+  --mm-toast-bg: var(--color-charcoal);
+  --mm-toast-text: var(--color-cream-paper);
 
-  /* ── Focus ── */
-  --mm-focus-ring: 0 0 0 3px rgba(10, 146, 127, 0.1);
-  --mm-focus-border: #0a927f;
+  /* Focus */
+  --mm-focus-ring: 0 0 0 3px rgba(15, 62, 23, 0.2);
+  --mm-focus-border: var(--color-forest-ink);
 
-  /* ── Gradients ── */
-  --mm-gradient-login-left: linear-gradient(145deg, #087f70, #0c9b89);
-  --mm-gradient-body: linear-gradient(135deg, #f7fcfb 0%, #f3f9f8 45%, #f7fafc 100%);
-  --mm-gradient-food-checker: linear-gradient(135deg, #f7fdfc, #f2f8ff);
+  /* Gradients (Removed/Simplified to match flat surfaces) */
+  --mm-gradient-login-left: var(--color-keylime-wash);
+  --mm-gradient-body: var(--color-cream-paper);
+  --mm-gradient-food-checker: var(--color-sage-mist);
 }
 
 /* ── Dark Mode ── */
 [data-theme="dark"] {
-  --mm-text-primary: #eef4f5;
+  --mm-text-primary: var(--color-charcoal);
   --mm-text-secondary: #91a2ab;
   --mm-text-tertiary: #8fa1a9;
   --mm-text-muted: #9aadb5;
@@ -157,24 +212,24 @@
   --mm-text-subtitle: #91a2ab;
   --mm-text-demo: #6e7f88;
 
-  --mm-bg-body: #0b1519;
-  --mm-bg-body-mid: #0d1a1f;
-  --mm-bg-body-end: #0f1d22;
-  --mm-bg-login: #0b1519;
-  --mm-bg-card: #111f24;
-  --mm-bg-input: #14252a;
-  --mm-bg-neutral: #202d33;
-  --mm-bg-insight: #102430;
-  --mm-bg-admin-tip: #102430;
+  --mm-bg-body: var(--color-charcoal);
+  --mm-bg-body-mid: var(--color-charcoal);
+  --mm-bg-body-end: var(--color-charcoal);
+  --mm-bg-login: var(--color-charcoal);
+  --mm-bg-card: #2f2f2f;
+  --mm-bg-input: #3a3a3a;
+  --mm-bg-neutral: #3a3a3a;
+  --mm-bg-insight: #3f4e55;
+  --mm-bg-admin-tip: #3f4e55;
 
-  --mm-border-card: #2d4149;
-  --mm-border-input: #2b3f47;
-  --mm-border-item: #2d4149;
-  --mm-border-sidebar: #1e3038;
-  --mm-border-divider: #29383f;
-  --mm-border-logout: #2b3f47;
-  --mm-border-empty: #2b3f47;
-  --mm-border-timeline: #2d4149;
+  --mm-border-card: #444;
+  --mm-border-input: #444;
+  --mm-border-item: #444;
+  --mm-border-sidebar: #333;
+  --mm-border-divider: #333;
+  --mm-border-logout: #444;
+  --mm-border-empty: #444;
+  --mm-border-timeline: #444;
   --mm-border-insight: #29475b;
   --mm-border-admin-tip: #29475b;
   --mm-border-food-checker: #28534c;
@@ -205,7 +260,7 @@
   --mm-toast-bg: #e0eaef;
   --mm-toast-text: #111f24;
 
-  --mm-gradient-body: linear-gradient(135deg, #0b1519 0%, #0d1a1f 45%, #0f1d22 100%);
-  --mm-gradient-food-checker: linear-gradient(135deg, #102825, #101d29);
-  --mm-gradient-login-left: linear-gradient(145deg, #065e53, #087f70);
+  --mm-gradient-body: var(--color-charcoal);
+  --mm-gradient-food-checker: var(--color-charcoal);
+  --mm-gradient-login-left: var(--color-charcoal);
 }

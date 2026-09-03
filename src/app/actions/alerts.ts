@@ -295,6 +295,10 @@ export async function triggerAlertReconciliation(targetPatientId?: string) {
   let patientId = targetPatientId;
   
   if (!targetPatientId) {
+    // If no target is specified, the user MUST be a patient to reconcile themselves
+    if (user.user_metadata?.role !== 'patient') {
+      return;
+    }
     // Implicitly it's a patient reconciling themselves
     patientId = user.id;
   } else {

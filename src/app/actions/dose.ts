@@ -81,6 +81,12 @@ export async function getTodayDoses(patientId?: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return []
 
+  if (!patientId) {
+    if (user.user_metadata?.role !== 'patient') {
+      return []
+    }
+  }
+
   const targetPatientId = patientId || user.id
 
   const { data: patient } = await supabase
@@ -144,4 +150,54 @@ export async function getAdherenceMetrics(patientId?: string, windowDays: number
   const rate = Math.round(((taken + late) / total) * 100)
 
   return { rate, total, taken, late, missed }
+}
+
+export async function getPatientDoseHistory(patientId: string, windowDays: number = 30) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Unauthorized')
+
+  // Derive targetPatientId
+  const targetPatientId = patientId || user.id
+  
+  // Authorization validation (only allow access if user is the patient or authorized)
+  if (targetPatientId !== user.id && user.user_metadata?.role === 'patient') {
+    throw new Error('Unauthorized cross-patient access')
+  }
+
+  const { data: patient } = await supabase
+    .from('patients')
+    .select('timezone')
+    .eq('id', targetPatientId)
+    .single()
+    
+  const timezone = patient?.timezone || 'UTC'
+  const todayStr = getPatientToday(timezone)
+  const endOfDay = localToUtc(todayStr, '23:59:59', timezone)
+  
+  // Subtract windowDays to get start
+  const endDate = new Date(endOfDay)
+  endDate.setDate(endDate.getDate() - windowDays)
+  const startOfWindow = endDate.toISOString()
+
+  const { data, error } = await supabase
+    .from('scheduled_doses')
+    .select(`
+      id,
+      scheduled_time,
+      status,
+      medication_schedules(slot_label, dose_quantity, time_of_day),
+      patient_medications(id, display_name, generic_name, dosage_amount, dosage_unit, food_relation, route)
+    `)
+    .eq('patient_id', targetPatientId)
+    .gte('scheduled_time', startOfWindow)
+    .lte('scheduled_time', endOfDay)
+    .order('scheduled_time', { ascending: false }) // Recent first
+
+  if (error) {
+    console.error('Error fetching dose history:', error)
+    throw new Error('Failed to retrieve dose history')
+  }
+
+  return data || []
 }

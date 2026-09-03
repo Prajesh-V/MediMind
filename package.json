@@ -13,9 +13,11 @@
     "@google/generative-ai": "^0.24.1",
     "@supabase/ssr": "^0.12.5",
     "@supabase/supabase-js": "^2.112.4",
+    "lucide-react": "^1.39.0",
     "next": "^15",
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "swr": "^2.5.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
