@@ -3,220 +3,386 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(circle at 10% 20%, #dff6f0 0, transparent 30%),
-    radial-gradient(circle at 90% 80%, #dcecff 0, transparent 30%),
-    var(--mm-bg-login);
-  padding: 25px;
+  background: var(--mm-bg-body);
+  padding: var(--mm-space-6);
 }
 
 .container {
   width: 100%;
-  max-width: 1100px;
-  min-height: 680px;
+  max-width: 1200px;
+  min-height: 720px;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: 1fr 1fr;
   background: var(--mm-bg-card);
-  border-radius: var(--mm-radius-login);
+  border-radius: var(--mm-radius-xl);
   overflow: hidden;
-  box-shadow: var(--mm-shadow-login);
+  box-shadow: 0 24px 50px rgba(0,0,0,0.06);
+  border: 1px solid var(--mm-border-subtle);
 }
 
-/* ── Left panel ── */
-.left {
-  padding: 55px;
-  background: var(--mm-gradient-login-left);
-  color: white;
+/* ── Left panel — Brand / Deep Forest ── */
+.leftPanel {
+  padding: var(--mm-space-12);
+  background: var(--mm-primary);
+  color: var(--mm-primary-surface);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.logo {
-  font-size: 30px;
-  font-weight: var(--mm-font-weight-black);
-  letter-spacing: -1px;
-}
-.logo span {
-  color: var(--mm-primary-logo-accent);
-}
-
-.tagline {
-  margin-top: 6px;
-  opacity: 0.9;
-  font-size: var(--mm-font-size-md);
-}
-
-.hero {
-  margin-top: 105px;
+.brandHeader {
   position: relative;
   z-index: 2;
 }
-.hero h1 {
-  font-size: var(--mm-font-size-hero);
-  line-height: 1.08;
-  margin-bottom: 20px;
+
+.logo {
+  font-family: var(--mm-font-family-display);
+  font-size: var(--mm-font-size-2xl);
+  font-weight: var(--mm-font-weight-bold);
+  letter-spacing: -0.02em;
 }
-.hero p {
-  font-size: var(--mm-font-size-lg);
-  line-height: 1.7;
-  opacity: 0.9;
-  max-width: 455px;
+
+.logoAccent {
+  color: var(--mm-primary-light);
+}
+
+.tagline {
+  margin-top: var(--mm-space-2);
+  opacity: 0.8;
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--mm-space-8);
+}
+
+.heroTitle {
+  font-family: var(--mm-font-family-display);
+  font-size: var(--mm-font-size-hero);
+  font-weight: var(--mm-font-weight-normal);
+  line-height: 1.1;
+  margin-bottom: var(--mm-space-6);
+  letter-spacing: -0.02em;
+}
+
+.heroDesc {
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-md);
+  line-height: 1.6;
+  opacity: 0.85;
+  max-width: 440px;
 }
 
 .aiBadge {
   display: inline-flex;
-  margin-top: 30px;
-  padding: 10px 16px;
-  border-radius: var(--mm-radius-pill);
-  background: rgba(255, 255, 255, 0.13);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: var(--mm-font-size-base);
-}
-
-.circle {
-  position: absolute;
-  width: 300px;
-  height: 300px;
+  align-items: center;
+  gap: var(--mm-space-2);
+  margin-top: var(--mm-space-8);
+  padding: var(--mm-space-3) var(--mm-space-4);
   border-radius: var(--mm-radius-full);
-  border: 50px solid rgba(255, 255, 255, 0.08);
-  right: -100px;
-  bottom: -80px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-medium);
 }
 
-/* ── Right panel ── */
-.right {
-  padding: 48px;
+.badgeIcon {
+  color: var(--mm-primary-light);
+}
+
+/* Subtle botanical/technical texture using CSS patterns */
+.ambientGraphic {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: 
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 40%),
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  background-position: 0 0, -1px -1px, -1px -1px;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+/* ── Right panel — Auth Form ── */
+.rightPanel {
+  padding: var(--mm-space-12) var(--mm-space-16);
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-.right h2 {
-  font-size: var(--mm-font-size-4xl);
-  margin-bottom: 8px;
+  background: transparent;
 }
 
-.subtitle {
-  color: var(--mm-text-subtitle);
-  margin-bottom: 22px;
+.formHeader {
+  margin-bottom: var(--mm-space-8);
 }
 
-.languageBox {
-  margin-bottom: 20px;
-}
-.languageBox label {
-  display: block;
-  font-size: var(--mm-font-size-base);
-  font-weight: var(--mm-font-weight-semibold);
-  margin-bottom: 7px;
-}
-.languageBox select {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid var(--mm-border-input);
-  border-radius: var(--mm-radius-base);
-  background: var(--mm-bg-input);
+.formTitle {
+  font-family: var(--mm-font-family-display);
+  font-size: var(--mm-font-size-3xl);
+  font-weight: var(--mm-font-weight-bold);
   color: var(--mm-text-primary);
+  margin-bottom: var(--mm-space-2);
+  letter-spacing: -0.01em;
 }
 
-.roleSelector {
+.formSubtitle {
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-secondary);
+}
+
+.errorAlert {
+  background: var(--mm-semantic-critical-bg-subtle);
+  border: 1px solid var(--mm-semantic-critical-border);
+  color: var(--mm-semantic-critical-text);
+  padding: var(--mm-space-3) var(--mm-space-4);
+  border-radius: var(--mm-radius-base);
+  font-size: var(--mm-font-size-sm);
+  margin-bottom: var(--mm-space-6);
+}
+
+.successAlert {
+  background: var(--mm-semantic-success-bg-subtle);
+  border: 1px solid var(--mm-semantic-success-border);
+  color: var(--mm-semantic-success-text);
+  padding: var(--mm-space-3) var(--mm-space-4);
+  border-radius: var(--mm-radius-base);
+  font-size: var(--mm-font-size-sm);
+  margin-bottom: var(--mm-space-6);
+}
+
+.roleToggleGroup {
+  display: flex;
+  background: var(--mm-bg-surface-alt);
+  border-radius: var(--mm-radius-base);
+  padding: var(--mm-space-1);
+  margin-bottom: var(--mm-space-6);
+  border: 1px solid var(--mm-border-default);
+}
+
+.roleToggle {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: var(--mm-space-2) var(--mm-space-4);
+  border-radius: calc(var(--mm-radius-base) - 2px);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-medium);
+  color: var(--mm-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roleToggleActive {
+  background: var(--mm-bg-surface);
+  color: var(--mm-text-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid var(--mm-border-default);
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-5);
+}
+
+.nameRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 22px;
-}
-
-.role {
-  border: 1px solid var(--mm-border-input);
-  padding: 17px;
-  border-radius: var(--mm-radius-xl);
-  cursor: pointer;
-  text-align: center;
-  background: var(--mm-bg-card);
-  transition: border-color 0.2s, background 0.2s;
-}
-.roleActive {
-  border-color: var(--mm-focus-border);
-  background: var(--mm-primary-bg);
-  color: var(--mm-primary);
-}
-
-.roleIcon {
-  font-size: 27px;
-  margin-bottom: 7px;
-}
-.role strong {
-  display: block;
-  font-size: var(--mm-font-size-md);
-}
-.role small {
-  color: var(--mm-text-muted);
-  font-size: var(--mm-font-size-xs);
+  gap: var(--mm-space-4);
 }
 
 .field {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-2);
 }
+
 .field label {
-  display: block;
-  font-size: var(--mm-font-size-base);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-xs);
   font-weight: var(--mm-font-weight-semibold);
-  margin-bottom: 7px;
+  color: var(--mm-text-secondary);
 }
+
 .field input {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid var(--mm-border-input);
+  height: var(--mm-control-height-md);
+  padding: 0 var(--mm-space-3);
+  border: 1px solid var(--mm-border-default);
   border-radius: var(--mm-radius-base);
-  outline: none;
   background: var(--mm-bg-input);
   color: var(--mm-text-primary);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+
 .field input:focus {
+  outline: none;
   border-color: var(--mm-focus-border);
   box-shadow: var(--mm-focus-ring);
 }
 
-.primaryBtn {
-  width: 100%;
-  border: none;
-  padding: 14px;
-  border-radius: var(--mm-radius-base);
-  color: #fff;
-  background: var(--mm-primary);
-  cursor: pointer;
-  font-weight: var(--mm-font-weight-bold);
-  font-size: var(--mm-font-size-md);
-  transition: background 0.2s, transform 0.2s;
-  margin-top: 8px;
-}
-.primaryBtn:hover {
-  background: var(--mm-primary-hover);
-  transform: translateY(-1px);
+.field input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: var(--mm-bg-neutral);
 }
 
-.demoNote {
-  margin-top: 14px;
-  text-align: center;
-  font-size: var(--mm-font-size-sm);
-  color: var(--mm-moderate-text);
+.primaryBtn {
+  height: var(--mm-control-height-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0 var(--mm-space-6);
+  border-radius: var(--mm-radius-buttons);
+  background: var(--mm-primary);
+  color: var(--mm-primary-surface);
+  font-family: var(--mm-font-family);
   font-weight: var(--mm-font-weight-semibold);
+  font-size: var(--mm-font-size-sm);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: var(--mm-space-2);
+}
+
+.primaryBtn:hover:not(:disabled) {
+  background: var(--mm-primary-hover);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--mm-border-subtle);
+  border-top-color: var(--mm-primary-surface);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.formFooter {
+  margin-top: var(--mm-space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--mm-space-4);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-secondary);
+}
+
+.textBtn {
+  background: transparent;
+  border: none;
+  color: var(--mm-primary);
+  font-weight: var(--mm-font-weight-semibold);
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.textBtn:hover {
+  text-decoration: underline;
+}
+
+.footerControls {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.langSelectWrapper {
+  position: relative;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.langSelect {
+  height: var(--mm-control-height-sm);
+  padding: 0 var(--mm-space-2);
+  border: 1px solid var(--mm-border-default);
+  border-radius: var(--mm-radius-sm);
+  background: transparent;
+  color: var(--mm-text-secondary);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-xs);
+  cursor: pointer;
+  font-weight: var(--mm-font-weight-medium);
+  text-transform: uppercase;
+}
+
+.langSelect:focus {
+  outline: none;
+  border-color: var(--mm-focus-border);
 }
 
 /* ── Responsive ── */
-@media (max-width: 950px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-  .left {
-    display: none;
+@media (max-width: 1024px) {
+  .rightPanel {
+    padding: var(--mm-space-12) var(--mm-space-10);
   }
 }
 
-@media (max-width: 700px) {
-  .roleSelector {
+@media (max-width: 900px) {
+  .container {
     grid-template-columns: 1fr;
+    max-width: 540px;
+    min-height: auto;
   }
-  .right {
-    padding: 30px 22px;
+  
+  .leftPanel {
+    padding: var(--mm-space-8) var(--mm-space-8);
+  }
+  
+  .heroTitle {
+    font-size: var(--mm-font-size-2xl);
+    margin-bottom: var(--mm-space-4);
+  }
+  
+  .rightPanel {
+    padding: var(--mm-space-8) var(--mm-space-8);
+  }
+}
+
+@media (max-width: 480px) {
+  .loginPage {
+    padding: var(--mm-space-4);
+  }
+  
+  .nameRow {
+    grid-template-columns: 1fr;
   }
 }

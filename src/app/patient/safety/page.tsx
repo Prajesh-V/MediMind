@@ -112,8 +112,8 @@ export default function SafetyPage() {
               <div key={report.id} style={{
                 padding: '16px',
                 borderRadius: 'var(--mm-radius-md)',
-                background: 'var(--mm-surface)',
-                border: '1px solid var(--mm-border)'
+                background: 'var(--mm-bg-surface)',
+                border: '1px solid var(--mm-border-default)'
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <h4 style={{ margin: '0 0 4px 0', fontSize: '16px', color: 'var(--mm-text-primary)' }}>
@@ -124,8 +124,8 @@ export default function SafetyPage() {
                     padding: '2px 8px',
                     borderRadius: '12px',
                     fontWeight: 'bold',
-                    background: report.severity === 'severe' ? 'var(--mm-error-light)' : report.severity === 'moderate' ? 'var(--mm-warning-light)' : 'var(--mm-surface-subdued)',
-                    color: report.severity === 'severe' ? 'var(--mm-error-dark)' : report.severity === 'moderate' ? 'var(--mm-warning-dark)' : 'var(--mm-text-secondary)'
+                    background: report.severity === 'severe' ? 'var(--mm-semantic-critical-bg-subtle)' : report.severity === 'moderate' ? 'var(--mm-semantic-warning-bg-subtle)' : 'var(--mm-bg-surface-alt)',
+                    color: report.severity === 'severe' ? 'var(--mm-semantic-critical-text)' : report.severity === 'moderate' ? 'var(--mm-semantic-warning-text)' : 'var(--mm-text-secondary)'
                   }}>
                     {report.severity.toUpperCase()}
                   </span>

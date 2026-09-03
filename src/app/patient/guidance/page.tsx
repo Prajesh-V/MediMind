@@ -74,8 +74,8 @@ export default function GuidancePage() {
                 <div key={med.medication_id} style={{
                   padding: '16px',
                   borderRadius: 'var(--mm-radius-md)',
-                  background: 'var(--mm-surface)',
-                  border: '1px solid var(--mm-border)'
+                  background: 'var(--mm-bg-surface)',
+                  border: '1px solid var(--mm-border-default)'
                 }}>
                   <h4 style={{ margin: '0 0 8px 0', fontSize: '16px', color: 'var(--mm-text-primary)' }}>
                     {med.display_name}
@@ -96,7 +96,7 @@ export default function GuidancePage() {
                       )}
                       
                       {med.separation_rules.map((rule) => (
-                        <li key={rule.rule_key} style={{ color: 'var(--mm-warning-dark)' }}>
+                        <li key={rule.rule_key} style={{ color: 'var(--mm-semantic-warning-text)' }}>
                           <strong>Separation Requirement:</strong> {rule.recommendation} ({rule.mechanism})
                         </li>
                       ))}

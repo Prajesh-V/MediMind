@@ -1,0 +1,153 @@
+.workspaceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-12);
+  max-width: var(--page-max-width, 1400px);
+  margin: 0 auto;
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--mm-space-6);
+  align-items: start;
+}
+
+.sectionHeading {
+  font-family: var(--mm-font-family-display);
+  font-size: var(--mm-font-size-xl);
+  font-weight: var(--mm-font-weight-normal);
+  color: var(--mm-text-primary);
+  margin-bottom: var(--mm-space-4);
+  padding-bottom: var(--mm-space-3);
+  border-bottom: 1px solid var(--mm-border-divider);
+}
+
+.clinicalList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-4);
+}
+
+.clinicalListItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-1);
+  padding-left: var(--mm-space-4);
+  border-left: 2px solid var(--mm-border-divider);
+}
+
+.clinicalListItem.medication {
+  border-left-color: var(--mm-primary);
+}
+
+.clinicalListItem.diet {
+  border-left-color: var(--mm-primary-light);
+}
+
+.clinicalItemTitle {
+  font-size: var(--mm-font-size-md);
+  font-weight: var(--mm-font-weight-semibold);
+  color: var(--mm-text-primary);
+}
+
+.clinicalItemMeta {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-secondary);
+}
+
+.symptomCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-2);
+  padding: var(--mm-space-4);
+  border-radius: var(--mm-radius-base);
+  background: var(--mm-bg-insight);
+  border: 1px solid var(--mm-border-divider);
+}
+
+.symptomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.symptomTitle {
+  font-weight: var(--mm-font-weight-semibold);
+  color: var(--mm-text-primary);
+}
+
+.symptomBadge {
+  font-size: var(--mm-font-size-xs);
+  font-weight: var(--mm-font-weight-bold);
+  text-transform: uppercase;
+  padding: var(--mm-space-1) var(--mm-space-2);
+  border-radius: var(--mm-radius-pill);
+}
+
+.symptomBadge.severe {
+  background: var(--mm-semantic-critical-bg-subtle);
+  color: var(--mm-semantic-critical-text);
+  border: 1px solid var(--mm-semantic-critical-border);
+}
+
+.symptomBadge.moderate {
+  background: var(--mm-semantic-warning-bg-subtle);
+  color: var(--mm-semantic-warning-text);
+  border: 1px solid var(--mm-semantic-warning-border);
+}
+
+.symptomBadge.mild {
+  background: var(--mm-semantic-success-bg-subtle);
+  color: var(--mm-semantic-success-text);
+  border: 1px solid var(--mm-semantic-success-border);
+}
+
+.symptomMeta {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-muted);
+}
+
+.symptomNotes {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-secondary);
+  background: var(--mm-bg-neutral);
+  padding: var(--mm-space-2);
+  border-radius: var(--mm-radius-sm);
+  margin-top: var(--mm-space-2);
+}
+
+.assessmentsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-6);
+}
+
+.emptyState {
+  color: var(--mm-text-muted);
+  font-style: italic;
+  font-size: var(--mm-font-size-sm);
+}
+
+.unreviewedBadge {
+  background: var(--mm-semantic-warning-bg-subtle);
+  color: var(--mm-semantic-warning-text);
+  border: 1px solid var(--mm-semantic-warning-border);
+  padding: var(--mm-space-2) var(--mm-space-4);
+  border-radius: var(--mm-radius-full);
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-bold);
+}
+
+.allClearBadge {
+  background: var(--mm-semantic-success-bg-subtle);
+  color: var(--mm-semantic-success-text);
+  border: 1px solid var(--mm-semantic-success-border);
+  padding: var(--mm-space-2) var(--mm-space-4);
+  border-radius: var(--mm-radius-full);
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-bold);
+}

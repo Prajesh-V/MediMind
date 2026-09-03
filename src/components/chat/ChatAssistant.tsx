@@ -94,7 +94,9 @@ export function ChatAssistant() {
       <div className={styles.messages}>
         {messages.length === 0 && (
           <div className={styles.introMessage}>
-            <p>Hi! I can help you understand your medications, doses, food history, and safety information.</p>
+            <div className={styles.welcomeBox}>
+              <p>Hi! I can help you understand your medications, doses, food history, and safety information.</p>
+            </div>
             <div className={styles.suggestedPrompts}>
               <button className={styles.suggestedPromptBtn} onClick={() => handleSend("What medications am I currently taking?")}>
                 What medications am I currently taking?
@@ -111,20 +113,23 @@ export function ChatAssistant() {
 
         {messages.map((msg, idx) => (
           msg.role !== 'system' && msg.role !== 'tool' && (
-            <div
-              key={idx}
-              className={`${styles.message} ${msg.role === 'user' ? styles.userMessage : styles.assistantMessage}`}
-            >
-              {msg.content}
+            <div key={idx} className={`${styles.messageWrapper} ${msg.role === 'user' ? styles.userMessageWrapper : styles.assistantMessageWrapper}`}>
+              <div
+                className={`${styles.message} ${msg.role === 'user' ? styles.userMessage : styles.assistantMessage}`}
+              >
+                {msg.content}
+              </div>
             </div>
           )
         ))}
 
         {isLoading && (
-          <div className={styles.loadingIndicator} aria-label="Assistant is thinking">
-            <div className={styles.loadingDot}></div>
-            <div className={styles.loadingDot}></div>
-            <div className={styles.loadingDot}></div>
+          <div className={styles.loadingWrapper}>
+            <div className={styles.loadingIndicator} aria-label="Assistant is thinking">
+              <div className={styles.loadingDot}></div>
+              <div className={styles.loadingDot}></div>
+              <div className={styles.loadingDot}></div>
+            </div>
           </div>
         )}
 
@@ -139,26 +144,30 @@ export function ChatAssistant() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className={styles.inputArea}>
-        <textarea
-          ref={inputRef}
-          className={styles.inputField}
-          value={inputValue}
-          onChange={handleInput}
-          onKeyDown={handleKeyDown}
-          placeholder="Ask a question about your medications or interactions..."
-          disabled={isLoading}
-          rows={1}
-          aria-label="Chat input"
-        />
-        <button
-          className={styles.sendBtn}
-          onClick={() => handleSend(inputValue)}
-          disabled={!inputValue.trim() || isLoading}
-          aria-label="Send message"
-        >
-          Send
-        </button>
+      <div className={styles.inputForm}>
+        <div className={styles.inputWrapper}>
+          <textarea
+            ref={inputRef}
+            className={styles.inputField}
+            value={inputValue}
+            onChange={handleInput}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask a question about your medications or interactions..."
+            disabled={isLoading}
+            rows={1}
+            aria-label="Chat input"
+          />
+          <button
+            className={styles.sendBtn}
+            onClick={() => handleSend(inputValue)}
+            disabled={!inputValue.trim() || isLoading}
+            aria-label="Send message"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

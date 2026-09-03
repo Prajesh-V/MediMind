@@ -51,11 +51,11 @@ export function SymptomReportForm({ onSuccess, onCancel, activeMedications }: Sy
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '16px', background: 'var(--mm-surface-subdued)', borderRadius: 'var(--mm-radius-md)' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '16px', background: 'var(--mm-bg-surface)', borderRadius: 'var(--mm-radius-md)' }}>
       <h3 style={{ margin: 0, fontSize: '18px', color: 'var(--mm-text-primary)' }}>Report a Symptom</h3>
       
       {error && (
-        <div style={{ color: 'var(--mm-error-dark)', background: 'var(--mm-error-light)', padding: '12px', borderRadius: '4px', fontSize: '14px' }}>
+        <div style={{ color: 'var(--mm-semantic-critical-text)', background: 'var(--mm-semantic-critical-bg-subtle)', padding: '12px', borderRadius: '4px', fontSize: '14px' }}>
           {error}
         </div>
       )}

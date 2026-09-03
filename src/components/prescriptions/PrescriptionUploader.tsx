@@ -106,7 +106,7 @@ export function PrescriptionUploader({ onExtractionComplete }: PrescriptionUploa
             value={title} 
             onChange={e => setTitle(e.target.value)} 
             placeholder="e.g. March Antibiotics, Dr. Smith"
-            style={{ display: 'block', width: '100%', padding: '8px', border: '1px solid var(--mm-border)', borderRadius: '4px' }}
+            style={{ display: 'block', width: '100%', padding: '8px', border: '1px solid var(--mm-border-divider)', borderRadius: '4px', backgroundColor: 'var(--mm-bg-body)', color: 'var(--mm-text-primary)' }}
             disabled={uploading}
           />
         </div>
@@ -116,7 +116,7 @@ export function PrescriptionUploader({ onExtractionComplete }: PrescriptionUploa
             type="date" 
             value={prescriptionDate} 
             onChange={e => setPrescriptionDate(e.target.value)} 
-            style={{ display: 'block', width: '100%', padding: '8px', border: '1px solid var(--mm-border)', borderRadius: '4px' }}
+            style={{ display: 'block', width: '100%', padding: '8px', border: '1px solid var(--mm-border-divider)', borderRadius: '4px', backgroundColor: 'var(--mm-bg-body)', color: 'var(--mm-text-primary)' }}
             disabled={uploading}
           />
         </div>

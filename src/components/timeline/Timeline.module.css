@@ -1,23 +1,23 @@
 .timeline {
   position: relative;
-  margin-left: 8px;
+  margin-left: var(--mm-space-2);
 }
 
 .event {
-  border-left: 2px solid var(--mm-border-timeline);
-  padding: 0 0 18px 18px;
+  border-left: 2px solid var(--mm-border-default);
+  padding: 0 0 var(--mm-space-5) var(--mm-space-5);
   position: relative;
 }
 
 .event::before {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: var(--mm-space-3);
+  height: var(--mm-space-3);
   border-radius: var(--mm-radius-full);
   background: var(--mm-primary);
   position: absolute;
-  left: -6px;
-  top: 3px;
+  left: -7px;
+  top: 4px;
 }
 
 .event:last-child {

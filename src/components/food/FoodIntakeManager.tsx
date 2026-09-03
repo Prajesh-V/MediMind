@@ -195,12 +195,12 @@ export function FoodIntakeManager() {
       {/* Staged Candidate Review */}
       {pendingCandidates.length > 0 && (
         <div style={{
-          background: 'var(--mm-moderate-bg, #fff8e8)',
-          border: '1px solid var(--mm-moderate-border-alt, #ffe6a7)',
+          background: 'var(--mm-semantic-warning-bg-subtle, #fff8e8)',
+          border: '1px solid var(--mm-semantic-warning-border-subtle, #ffe6a7)',
           padding: '16px',
           borderRadius: 'var(--mm-radius-md, 8px)'
         }}>
-          <h4 style={{ margin: '0 0 4px 0', color: 'var(--mm-moderate-text, #986300)', fontSize: '15px' }}>
+          <h4 style={{ margin: '0 0 4px 0', color: 'var(--mm-semantic-warning-text, #986300)', fontSize: '15px' }}>
             ⚠️ Confirm Dietary Components ({pendingCandidates.length})
           </h4>
           <p style={{ fontSize: '13px', color: 'var(--mm-text-secondary)', marginBottom: '12px' }}>
@@ -214,10 +214,10 @@ export function FoodIntakeManager() {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  background: 'var(--mm-surface, #ffffff)',
+                  background: 'var(--mm-bg-surface)',
                   padding: '12px 14px',
-                  borderRadius: '6px',
-                  border: '1px solid var(--mm-border, #e8edf1)',
+                  borderRadius: 'var(--mm-radius-md)',
+                  border: '1px solid var(--mm-border-default)',
                   flexWrap: 'wrap',
                   gap: '10px',
                 }}
@@ -232,8 +232,8 @@ export function FoodIntakeManager() {
                       fontSize: '14px',
                       padding: '6px 10px',
                       borderRadius: '4px',
-                      border: '1px solid var(--mm-border-input, #ccc)',
-                      background: 'var(--mm-bg-input, #fff)',
+                      border: '1px solid var(--mm-border-input)',
+                      background: 'var(--mm-bg-input)',
                       color: 'var(--mm-text-primary)',
                       width: '100%',
                       maxWidth: '260px',
@@ -286,9 +286,9 @@ export function FoodIntakeManager() {
                 key={r.id}
                 style={{
                   padding: '12px 14px',
-                  border: '1px solid var(--mm-border-divider, #e8edf1)',
-                  borderRadius: '6px',
-                  background: 'var(--mm-surface, #ffffff)',
+                  border: '1px solid var(--mm-border-divider)',
+                  borderRadius: 'var(--mm-radius-md)',
+                  background: 'var(--mm-bg-surface)',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',

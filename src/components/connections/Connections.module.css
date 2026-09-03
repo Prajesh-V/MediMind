@@ -57,13 +57,13 @@
 }
 
 .badgeActive {
-  background: var(--mm-moderate-bg);
-  color: var(--mm-moderate-text);
+  background: var(--mm-semantic-warning-bg-subtle);
+  color: var(--mm-semantic-warning-text);
 }
 
 .badgePending {
-  background: var(--mm-low-bg);
-  color: var(--mm-low-text);
+  background: var(--mm-semantic-success-bg-subtle);
+  color: var(--mm-semantic-success-text);
 }
 
 .actions {
@@ -97,11 +97,11 @@
 }
 
 .successText {
-  color: var(--mm-moderate-text);
+  color: var(--mm-semantic-warning-text);
   font-size: var(--mm-font-size-sm);
 }
 
 .errorText {
-  color: var(--mm-high-text);
+  color: var(--mm-semantic-critical-text);
   font-size: var(--mm-font-size-sm);
 }

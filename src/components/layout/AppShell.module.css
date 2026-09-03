@@ -1,53 +1,94 @@
 .app {
+  display: flex;
   min-height: 100vh;
+  background-color: var(--mm-bg-body);
+  transition: background-color 0.3s;
 }
 
 .main {
+  flex: 1;
   margin-left: var(--mm-sidebar-width);
-  padding: var(--mm-space-6xl);
-  background: transparent;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s cubic-bezier(0.2, 0, 0, 1);
+  min-width: 0; 
 }
 
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: var(--mm-overlay-bg);
-  z-index: 19;
+.desktopCollapsed .main {
+  margin-left: 80px;
 }
 
-.mobileDrawer {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: var(--mm-sidebar-width);
-  z-index: 20;
-}
-
-/* The sidebar inside the drawer needs to show */
-.mobileDrawer aside {
-  display: flex !important;
+.content {
+  flex: 1;
+  padding: 0 var(--mm-space-8) var(--mm-space-12);
   width: 100%;
 }
 
-/* Show close button in mobile drawer */
-.mobileDrawer button[aria-label="Close navigation"] {
-  display: block !important;
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--mm-overlay-bg);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease-out;
 }
 
-@media (max-width: 700px) {
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  width: var(--mm-sidebar-width);
+  background: var(--mm-bg-card);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 900px) {
   .main {
-    margin-left: 0;
-    padding: 18px;
+    margin-left: 0 !important;
   }
-
-  .overlay {
-    display: block;
+  
+  .content {
+    padding: 0 var(--mm-space-4) var(--mm-space-8);
   }
+}
 
-  .mobileDrawer {
-    display: block;
+/* NAVBAR MODE SPECIFIC STYLES */
+.appNavbarMode {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--mm-bg-body);
+  transition: background-color 0.3s;
+}
+
+.mainNavbarMode {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contentNavbarMode {
+  flex: 1;
+  padding: var(--mm-space-10) var(--mm-space-8) var(--mm-space-12);
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .contentNavbarMode {
+    padding: var(--mm-space-6) var(--mm-space-4) var(--mm-space-8);
   }
 }

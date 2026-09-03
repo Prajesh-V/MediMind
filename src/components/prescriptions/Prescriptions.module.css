@@ -1,39 +1,41 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--mm-space-4);
 }
 
 .candidateSection {
-  background: var(--mm-low-bg);
-  border: 1px solid var(--mm-low-text);
+  background: var(--mm-semantic-success-bg-subtle);
+  border: 1px solid var(--mm-semantic-success-border-subtle);
   border-radius: var(--mm-radius-md);
-  padding: 16px;
+  padding: var(--mm-space-4);
 }
 
 .candidateSection h4 {
   margin: 0;
-  color: var(--mm-low-text);
+  color: var(--mm-semantic-success-text);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-md);
 }
 
 .desc {
   color: var(--mm-text-muted);
   font-size: var(--mm-font-size-sm);
-  margin-top: 4px;
+  margin-top: var(--mm-space-1);
 }
 
 .candidateList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
+  gap: var(--mm-space-3);
+  margin-top: var(--mm-space-3);
 }
 
 .candidateCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px;
+  padding: var(--mm-space-3) var(--mm-space-4);
   background: var(--mm-bg-card);
   border: 1px solid var(--mm-border-divider);
   border-radius: var(--mm-radius-sm);
@@ -41,78 +43,95 @@
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: var(--mm-space-2);
 }
 
 .actionRow {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.actionRow button {
+  width: auto;
+  min-width: 200px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  background: var(--mm-bg-hover);
-  padding: 16px;
+  gap: var(--mm-space-3);
+  background: var(--mm-bg-neutral);
+  padding: var(--mm-space-4);
   border-radius: var(--mm-radius-md);
-  border: 1px solid var(--mm-border-input);
+  border: 1px solid var(--mm-border-default);
 }
 
 .form h5 {
   margin: 0;
-  font-size: 15px;
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-base);
+  color: var(--mm-text-primary);
 }
 
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
+  gap: var(--mm-space-3);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--mm-space-1);
 }
 
 .field label {
-  font-size: 12px;
-  font-weight: bold;
+  font-size: var(--mm-font-size-xs);
+  font-weight: var(--mm-font-weight-semibold);
   color: var(--mm-text-secondary);
 }
 
 .input {
-  padding: 8px 12px;
-  border: 1px solid var(--mm-border-input);
-  border-radius: var(--mm-radius-sm);
+  height: var(--mm-control-height-md);
+  padding: 0 var(--mm-space-3);
+  border: 1px solid var(--mm-border-default);
+  border-radius: var(--mm-radius-base);
   background: var(--mm-bg-input);
   color: var(--mm-text-primary);
-  font-size: 13px;
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--mm-focus-border);
+  box-shadow: var(--mm-focus-ring);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+  gap: var(--mm-space-3);
+  margin-top: var(--mm-space-3);
 }
 
 .prescriptionItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  border: 1px solid var(--mm-border-divider);
+  padding: var(--mm-space-3) var(--mm-space-4);
+  border: 1px solid var(--mm-border-item);
   border-radius: var(--mm-radius-md);
   background: var(--mm-bg-card);
 }
 
 .tag {
-  font-size: 11px;
-  padding: 2px 6px;
-  background: var(--mm-bg-hover);
-  border-radius: 4px;
-  margin-left: 8px;
+  font-size: var(--mm-font-size-xs);
+  padding: 2px var(--mm-space-2);
+  background: var(--mm-bg-neutral);
+  border: 1px solid var(--mm-border-default);
+  border-radius: var(--mm-radius-sm);
+  margin-left: var(--mm-space-2);
   color: var(--mm-text-secondary);
 }

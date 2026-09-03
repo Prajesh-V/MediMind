@@ -40,7 +40,7 @@ export function ProfessionalRedemption() {
           placeholder="e.g. A1B2C3"
           className={styles.input}
         />
-        <Button variant="primary" onClick={handleRedeem} disabled={loading || code.length < 6} style={{ width: 'auto' }}>
+        <Button variant="primary" onClick={handleRedeem} disabled={loading || code.length < 6}>
           {loading ? 'Redeeming...' : 'Redeem Code'}
         </Button>
       </div>

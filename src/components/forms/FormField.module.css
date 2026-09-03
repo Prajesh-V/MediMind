@@ -1,26 +1,49 @@
 .field {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-2);
+  margin-bottom: var(--mm-space-4);
 }
 
 .label {
-  display: block;
-  font-size: var(--mm-font-size-base);
-  font-weight: var(--mm-font-weight-semibold);
-  margin-bottom: 7px;
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-medium);
+  color: var(--mm-text-primary);
 }
 
 .input {
   width: 100%;
-  padding: 13px 14px;
-  border: 1px solid var(--mm-border-input);
+  height: var(--mm-control-height-md);
+  padding: 0 var(--mm-space-3);
+  border: 1px solid var(--mm-border-default);
   border-radius: var(--mm-radius-base);
   outline: none;
   background: var(--mm-bg-input);
   color: var(--mm-text-primary);
-  font-size: var(--mm-font-size-md);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--mm-text-muted);
 }
 
 .input:focus {
   border-color: var(--mm-focus-border);
   box-shadow: var(--mm-focus-ring);
+}
+
+.input:disabled {
+  background: var(--mm-bg-neutral);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Adjust textarea specifically since it shouldn't be locked to 40px height */
+textarea.input {
+  height: auto;
+  min-height: 80px;
+  padding: var(--mm-space-3);
 }

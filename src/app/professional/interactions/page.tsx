@@ -116,8 +116,8 @@ export default function ProfessionalInteractionsPage() {
                 style={{
                   padding: '8px 12px',
                   borderRadius: '6px',
-                  border: '1px solid var(--mm-border, #ccc)',
-                  background: 'var(--mm-surface, #fff)',
+                  border: '1px solid var(--mm-border-default)',
+                  background: 'var(--mm-bg-surface)',
                   fontSize: '14px',
                   fontWeight: 500,
                   minWidth: '220px',

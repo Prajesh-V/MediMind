@@ -1,0 +1,219 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-4);
+  width: 100%;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--mm-space-2);
+}
+
+.navButton {
+  background: var(--mm-bg-surface-alt);
+  border: 1px solid var(--mm-border-divider);
+  color: var(--mm-text-primary);
+  border-radius: var(--mm-radius-sm);
+  padding: var(--mm-space-2) var(--mm-space-4);
+  cursor: pointer;
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  transition: background-color 0.2s ease;
+}
+
+.navButton:hover {
+  background: var(--mm-bg-elevated);
+}
+
+.monthLabel {
+  font-size: var(--mm-font-size-lg);
+  font-weight: var(--mm-font-weight-bold);
+  color: var(--mm-text-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--mm-space-2);
+}
+
+.dayOfWeek {
+  text-align: center;
+  font-size: var(--mm-font-size-xs);
+  color: var(--mm-text-muted);
+  text-transform: uppercase;
+  font-weight: var(--mm-font-weight-bold);
+  padding-bottom: var(--mm-space-2);
+}
+
+.cell {
+  aspect-ratio: 1;
+  background: var(--mm-bg-surface);
+  border: 1px solid var(--mm-border-divider);
+  border-radius: var(--mm-radius-sm);
+  padding: var(--mm-space-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cell:hover:not(.empty) {
+  background: var(--mm-bg-surface-alt);
+}
+
+.cell.empty {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cell.selected {
+  border: 2px solid var(--mm-primary);
+  background: var(--mm-bg-surface-alt);
+}
+
+.dateLabel {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-primary);
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: auto;
+}
+
+.statusAllTaken {
+  background: var(--mm-semantic-success-text);
+  box-shadow: 0 0 4px var(--mm-semantic-success-border-subtle);
+}
+
+.statusMissed {
+  background: var(--mm-semantic-error-text);
+  box-shadow: 0 0 4px var(--mm-semantic-error-border-subtle);
+}
+
+.statusMixed {
+  background: var(--mm-semantic-warning-text);
+  box-shadow: 0 0 4px var(--mm-semantic-warning-border-subtle);
+}
+
+.statusPending {
+  background: var(--mm-text-muted);
+}
+
+.statusNone {
+  background: transparent;
+}
+
+/* Detail Panel */
+.detailPanel {
+  margin-top: var(--mm-space-4);
+  padding: var(--mm-space-4);
+  background: var(--mm-bg-surface-alt);
+  border: 1px solid var(--mm-border-divider);
+  border-radius: var(--mm-radius-md);
+}
+
+.detailHeader {
+  font-size: var(--mm-font-size-md);
+  font-weight: var(--mm-font-weight-bold);
+  color: var(--mm-text-primary);
+  margin-bottom: var(--mm-space-4);
+  padding-bottom: var(--mm-space-2);
+  border-bottom: 1px solid var(--mm-border-divider);
+}
+
+.detailList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.doseItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--mm-space-3);
+  background: var(--mm-bg-surface);
+  border: 1px solid var(--mm-border-divider);
+  border-radius: var(--mm-radius-sm);
+}
+
+.doseInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-1);
+}
+
+.medName {
+  font-size: var(--mm-font-size-md);
+  font-weight: var(--mm-font-weight-bold);
+  color: var(--mm-text-primary);
+}
+
+.doseTime {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-secondary);
+}
+
+.doseBadge {
+  font-size: var(--mm-font-size-xs);
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  font-weight: var(--mm-font-weight-bold);
+}
+
+.badgeTaken {
+  background: var(--mm-semantic-success-bg-subtle);
+  color: var(--mm-semantic-success-text);
+  border: 1px solid var(--mm-semantic-success-border-subtle);
+}
+
+.badgeMissed {
+  background: var(--mm-semantic-error-bg-subtle);
+  color: var(--mm-semantic-error-text);
+  border: 1px solid var(--mm-semantic-error-border-subtle);
+}
+
+.badgeSkipped {
+  background: var(--mm-semantic-warning-bg-subtle);
+  color: var(--mm-semantic-warning-text);
+  border: 1px solid var(--mm-semantic-warning-border-subtle);
+}
+
+.badgePending {
+  background: var(--mm-bg-base);
+  color: var(--mm-text-muted);
+  border: 1px solid var(--mm-border-divider);
+}
+
+.emptyState {
+  color: var(--mm-text-muted);
+  font-size: var(--mm-font-size-sm);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cell {
+    padding: var(--mm-space-1);
+  }
+  .dateLabel {
+    font-size: var(--mm-font-size-xs);
+  }
+  .indicator {
+    width: 6px;
+    height: 6px;
+  }
+}

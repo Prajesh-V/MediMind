@@ -3,6 +3,10 @@ import { getPatientSymptomReports } from '@/app/actions/symptoms';
 import { InteractionCard } from '@/components/interactions/InteractionCard';
 import { triggerAlertReconciliation } from '@/app/actions/alerts';
 import { redirect } from 'next/navigation';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { Surface } from '@/components/ui/Surface';
+import { AdherenceCalendar } from '@/components/professional/AdherenceCalendar';
+import styles from './page.module.css';
 
 export default async function PatientWorkspacePage({ params }: { params: Promise<{ patientId: string }> }) {
   const { patientId } = await params;
@@ -20,10 +24,12 @@ export default async function PatientWorkspacePage({ params }: { params: Promise
     }
   } catch (err: any) {
     return (
-      <div className="p-8">
-        <h1 className="text-2xl text-red-600">Access Denied</h1>
-        <p>{err.message}</p>
-      </div>
+      <section className={styles.workspaceContainer}>
+        <PageHeader title="Access Denied" />
+        <Surface variant="subtle">
+          <p>{err.message}</p>
+        </Surface>
+      </section>
     );
   }
 
@@ -39,102 +45,119 @@ export default async function PatientWorkspacePage({ params }: { params: Promise
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8">
-      <header className="border-b pb-6 flex justify-between items-end">
+    <section className={styles.workspaceContainer}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderBottom: '1px solid var(--mm-border-divider)', paddingBottom: 'var(--mm-space-6)' }}>
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Clinical Workspace</h1>
-          <h2 className="text-xl text-gray-600 mt-2">Patient: {patient_name}</h2>
+          <h1 style={{ fontFamily: 'var(--mm-font-family-display)', fontSize: 'var(--mm-font-size-3xl)', fontWeight: 'normal', color: 'var(--mm-text-primary)', margin: 0 }}>
+            Patient Workspace
+          </h1>
+          <h2 style={{ fontSize: 'var(--mm-font-size-xl)', color: 'var(--mm-text-secondary)', marginTop: 'var(--mm-space-2)', fontWeight: 'normal' }}>
+            {patient_name}
+          </h2>
         </div>
-        <div className="text-right">
-          <span className={`px-3 py-1 rounded-full text-sm font-bold ${unreviewedCount > 0 ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'}`}>
+        <div>
+          <span className={unreviewedCount > 0 ? styles.unreviewedBadge : styles.allClearBadge}>
             {unreviewedCount > 0 ? `${unreviewedCount} Action(s) Required` : 'All Clear'}
           </span>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <section className="bg-white p-6 rounded shadow-sm border">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Canonical Medications</h3>
+      <div className={styles.overviewGrid}>
+        {/* Medication Adherence Calendar */}
+        <Surface padding="lg">
+          <h3 className={styles.sectionHeading}>Medication Adherence</h3>
+          <AdherenceCalendar patientId={patientId} />
+        </Surface>
+
+        {/* Canonical Medications */}
+        <Surface padding="lg">
+          <h3 className={styles.sectionHeading}>Canonical Medications</h3>
           {medications.length === 0 ? (
-            <p className="text-gray-500 italic">No active medications.</p>
+            <p className={styles.emptyState}>No active medications.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className={styles.clinicalList}>
               {medications.map(m => (
-                <li key={m.id} className="border-l-4 border-blue-500 pl-3">
-                  <p className="font-semibold text-gray-800">{m.display_name}</p>
-                  <p className="text-sm text-gray-500">Food Relation: {m.food_relation.replace('_', ' ')}</p>
+                <li key={m.id} className={`${styles.clinicalListItem} ${styles.medication}`}>
+                  <span className={styles.clinicalItemTitle}>{m.display_name}</span>
+                  <span className={styles.clinicalItemMeta}>Food Relation: {m.food_relation.replace('_', ' ')}</span>
                   {m.schedules && m.schedules.length > 0 && (
-                    <div className="mt-1 text-sm text-gray-600">
+                    <span className={styles.clinicalItemMeta}>
                       Schedules: {m.schedules.map((s: any) => s.time_of_day).join(', ')}
-                    </div>
+                    </span>
                   )}
                 </li>
               ))}
             </ul>
           )}
-        </section>
+        </Surface>
 
-        <section className="bg-white p-6 rounded shadow-sm border">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Canonical Dietary Intake</h3>
+        {/* Canonical Dietary Intake */}
+        <Surface padding="lg">
+          <h3 className={styles.sectionHeading}>Canonical Dietary Intake</h3>
           {!dietary_records || dietary_records.length === 0 ? (
-            <p className="text-gray-500 italic">No dietary records.</p>
+            <p className={styles.emptyState}>No dietary records.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className={styles.clinicalList}>
               {dietary_records.map(d => (
-                <li key={d.id} className="border-l-4 border-green-500 pl-3">
-                  <p className="font-semibold text-gray-800 capitalize">{d.component_name}</p>
+                <li key={d.id} className={`${styles.clinicalListItem} ${styles.diet}`}>
+                  <span className={styles.clinicalItemTitle} style={{ textTransform: 'capitalize' }}>
+                    {d.component_name}
+                  </span>
                 </li>
               ))}
             </ul>
           )}
-        </section>
+        </Surface>
+
+        {/* Patient-Reported Symptoms */}
+        <Surface padding="lg">
+          <h3 className={styles.sectionHeading}>Patient-Reported Symptoms</h3>
+          {!symptomReports || symptomReports.length === 0 ? (
+            <p className={styles.emptyState}>No symptoms reported by patient.</p>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--mm-space-4)' }}>
+              {symptomReports.map((report) => (
+                <div key={report.id} className={styles.symptomCard}>
+                  <div className={styles.symptomHeader}>
+                    <span className={styles.symptomTitle}>{report.symptom}</span>
+                    <span className={`${styles.symptomBadge} ${styles[report.severity]}`}>
+                      {report.severity}
+                    </span>
+                  </div>
+                  <div className={styles.symptomMeta}>
+                    Onset: {new Date(report.onset_at).toLocaleString()}
+                  </div>
+                  {report.related_medication_id && (
+                    <div className={styles.symptomMeta}>
+                      Related to: {medications.find((m: any) => m.id === report.related_medication_id)?.display_name || 'Unknown Medication'}
+                    </div>
+                  )}
+                  {report.notes && (
+                    <div className={styles.symptomNotes}>{report.notes}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </Surface>
       </div>
 
-      <section className="mt-10">
-        <h3 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Patient-Reported Symptoms</h3>
-        {!symptomReports || symptomReports.length === 0 ? (
-          <p className="text-gray-600 italic">No symptoms reported by patient.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {symptomReports.map((report) => (
-              <div key={report.id} className="bg-white p-4 rounded shadow-sm border border-l-4" style={{
-                borderLeftColor: report.severity === 'severe' ? '#ef4444' : report.severity === 'moderate' ? '#f59e0b' : '#3b82f6'
-              }}>
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-bold text-gray-800">{report.symptom}</h4>
-                  <span className={`text-xs px-2 py-1 rounded-full uppercase font-bold ${
-                    report.severity === 'severe' ? 'bg-red-100 text-red-800' :
-                    report.severity === 'moderate' ? 'bg-orange-100 text-orange-800' :
-                    'bg-blue-100 text-blue-800'
-                  }`}>
-                    {report.severity}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 mb-1">
-                  <strong>Onset:</strong> {new Date(report.onset_at).toLocaleString()}
-                </p>
-                {report.related_medication_id && (
-                  <p className="text-sm text-gray-600 mb-1">
-                    <strong>Related to:</strong> {medications.find((m: any) => m.id === report.related_medication_id)?.display_name || 'Unknown Medication'}
-                  </p>
-                )}
-                {report.notes && (
-                  <p className="mt-2 text-sm text-gray-700 bg-gray-50 p-2 rounded whitespace-pre-wrap">
-                    {report.notes}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+      <section className={styles.assessmentsSection}>
+        <header style={{ marginBottom: 'var(--mm-space-6)', borderBottom: '1px solid var(--mm-border-divider)', paddingBottom: 'var(--mm-space-3)' }}>
+          <h3 style={{ fontFamily: 'var(--mm-font-family-display)', fontSize: 'var(--mm-font-size-2xl)', fontWeight: 'normal', color: 'var(--mm-text-primary)', margin: 0 }}>
+            Deterministic Clinical Assessments
+          </h3>
+          <p style={{ color: 'var(--mm-text-muted)', fontSize: 'var(--mm-font-size-sm)', marginTop: 'var(--mm-space-2)' }}>
+            System-determined clinical findings requiring review. M7 AI explanations can be generated on demand.
+          </p>
+        </header>
 
-      <section className="mt-10">
-        <h3 className="text-2xl font-bold mb-6 text-gray-800">Deterministic Assessments</h3>
         {assessments.length === 0 ? (
-          <p className="text-gray-600">No interaction assessments found.</p>
+          <Surface variant="subtle" padding="lg">
+            <p className={styles.emptyState}>No interaction assessments found.</p>
+          </Surface>
         ) : (
-          <div className="space-y-6">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--mm-space-6)' }}>
             {assessments.map(a => (
               <InteractionCard 
                 key={a.assessment_id} 
@@ -146,6 +169,6 @@ export default async function PatientWorkspacePage({ params }: { params: Promise
           </div>
         )}
       </section>
-    </div>
+    </section>
   );
 }

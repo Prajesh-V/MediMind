@@ -116,7 +116,7 @@ export function InteractionCard({
             {assessment.interaction_type === 'medication-timing' && 'Administration Timing Conflict'}
           </span>
           {'review_state' in assessment && assessment.review_state === 'SUPERSEDED' && (
-            <span style={{ marginLeft: '0.5rem', padding: '0.2rem 0.5rem', backgroundColor: '#fff3cd', color: '#856404', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
+            <span style={{ marginLeft: '0.5rem', padding: '0.2rem 0.5rem', backgroundColor: 'var(--mm-semantic-warning-bg-subtle)', color: 'var(--mm-semantic-warning-text)', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold' }}>
               SUPERSEDED (DATA CHANGED)
             </span>
           )}
@@ -154,7 +154,7 @@ export function InteractionCard({
 
         <div className={styles.explanationSection} style={{ marginTop: '16px', padding: '12px', background: 'var(--mm-bg-alt)', borderRadius: '8px' }}>
           {!explanation && !explaining && !explanationError && (
-            <Button variant="secondary" onClick={handleExplain} style={{ fontSize: '13px' }}>
+            <Button variant="secondary" onClick={handleExplain}>
               {isProfessional ? 'Generate Clinical Summary' : 'Explain this warning'}
             </Button>
           )}
@@ -242,7 +242,6 @@ export function InteractionCard({
                 type="button"
                 onClick={handleAck}
                 disabled={acknowledging}
-                style={{ padding: '6px 14px', fontSize: '13px' }}
               >
                 {acknowledging ? 'Logging...' : 'Mark Reviewed & Acknowledge'}
               </Button>
@@ -251,7 +250,7 @@ export function InteractionCard({
         )}
 
         {/* M8 Trace UI */}
-        <div className={styles.traceSection} style={{ marginTop: '16px', borderTop: '1px solid var(--mm-border)', paddingTop: '12px' }}>
+        <div className={styles.traceSection} style={{ marginTop: 'var(--mm-space-4)', borderTop: '1px solid var(--mm-border-divider)', paddingTop: 'var(--mm-space-3)' }}>
           <button
             type="button"
             className={styles.toggleBtn}
@@ -262,30 +261,30 @@ export function InteractionCard({
           </button>
           
           {traceError && (
-            <div style={{ color: 'var(--mm-danger)', fontSize: '12px', marginTop: '4px' }}>{traceError}</div>
+            <div style={{ color: 'var(--mm-semantic-error-text)', fontSize: '12px', marginTop: 'var(--mm-space-1)' }}>{traceError}</div>
           )}
 
           {showTrace && (
-            <div style={{ marginTop: '12px', fontSize: '13px', background: 'var(--mm-bg-main)', padding: '12px', borderRadius: '6px', border: '1px solid var(--mm-border)' }}>
-              <div style={{ fontWeight: 600, marginBottom: '8px' }}>Assessment Event Trace</div>
+            <div style={{ marginTop: 'var(--mm-space-3)', fontSize: '13px', background: 'var(--mm-bg-surface-alt)', padding: 'var(--mm-space-3)', borderRadius: 'var(--mm-radius-md)', border: '1px solid var(--mm-border-divider)' }}>
+              <div style={{ fontWeight: 600, marginBottom: 'var(--mm-space-2)' }}>Assessment Event Trace</div>
               {traces.length === 0 ? (
                 <div style={{ color: 'var(--mm-text-muted)' }}>No events recorded for this assessment yet.</div>
               ) : (
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {traces.map((trace) => (
-                    <li key={trace.id} style={{ marginBottom: '12px', borderBottom: '1px dotted var(--mm-border)', paddingBottom: '8px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                        <strong>{trace.event_type}</strong>
+                    <li key={trace.id} style={{ marginBottom: 'var(--mm-space-2)', borderBottom: '1px dotted var(--mm-border-divider)', paddingBottom: 'var(--mm-space-2)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--mm-space-1)' }}>
+                        <strong style={{ color: trace.event_type === 'EXPLANATION_FAILED' ? 'var(--mm-semantic-error-text)' : 'inherit' }}>{trace.event_type}</strong>
                         <span style={{ color: 'var(--mm-text-muted)', fontSize: '11px' }}>
                           {new Date(trace.event_timestamp).toLocaleString()}
                         </span>
                       </div>
-                      <div style={{ fontSize: '12px' }}>
+                      <div style={{ fontSize: '12px', display: 'flex', gap: 'var(--mm-space-2)' }}>
                         <span style={{ color: 'var(--mm-text-muted)' }}>Actor:</span> {trace.actor_type}
-                        {isProfessional && trace.actor_id && <span> ({trace.actor_id.substring(0, 8)}...)</span>}
+                        {isProfessional && trace.actor_id && <span style={{ color: 'var(--mm-text-muted)' }}> ({trace.actor_id.substring(0, 8)}...)</span>}
                       </div>
                       {isProfessional && (
-                        <div style={{ fontSize: '11px', color: 'var(--mm-text-muted)', marginTop: '4px', wordBreak: 'break-all' }}>
+                        <div style={{ fontSize: '11px', color: 'var(--mm-text-muted)', marginTop: '2px', wordBreak: 'break-all' }}>
                           Hash: {trace.event_hash}
                         </div>
                       )}

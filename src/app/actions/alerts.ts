@@ -322,7 +322,15 @@ export async function triggerAlertReconciliation(targetPatientId?: string) {
 
   // Run the safe deterministic materializer
   await recalculatePatientAlerts(patientId).catch(err => {
-    console.error("Reconciliation failed:", err);
+    // Expected OCC race (harmless, another request won the race)
+    if (err.message && (err.message.includes('Stale generation') || err.message.includes('Concurrency error'))) {
+      console.warn(`[OCC] Safe concurrency abort during reconciliation for ${patientId}: ${err.message}`);
+      return;
+    }
+    
+    // Unexpected errors should not be silently swallowed
+    console.error("Reconciliation failed with unexpected error:", err);
+    throw err;
   });
 }
 

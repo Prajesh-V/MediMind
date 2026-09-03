@@ -60,7 +60,7 @@ export function PatientConnections() {
           <h4>Healthcare Professionals</h4>
           <p className={styles.desc}>Manage who has access to your medical data.</p>
         </div>
-        <Button variant="secondary" onClick={handleGenerate} disabled={loading} style={{ width: 'auto' }}>
+        <Button variant="secondary" onClick={handleGenerate} disabled={loading}>
           {loading ? 'Generating...' : 'Generate Code'}
         </Button>
       </div>
@@ -84,11 +84,11 @@ export function PatientConnections() {
               </div>
               <div className={styles.actions}>
                 {c.status === 'pending' && (
-                  <Button variant="primary" onClick={() => handleApprove(c.id)} style={{ padding: '8px 12px', width: 'auto' }}>
+                  <Button variant="primary" onClick={() => handleApprove(c.id)}>
                     Approve
                   </Button>
                 )}
-                <Button variant="danger" onClick={() => handleRevoke(c.id)} style={{ width: 'auto' }}>
+                <Button variant="danger" onClick={() => handleRevoke(c.id)}>
                   Revoke
                 </Button>
               </div>

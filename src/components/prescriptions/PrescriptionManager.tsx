@@ -255,7 +255,7 @@ export function PrescriptionManager() {
               <div key={c.id} className={styles.candidateCard}>
                 <div>
                   <strong style={{ fontSize: '15px' }}>{c.suggested_name || c.raw_name}</strong>
-                  {isOCR && <span style={{ marginLeft: '8px', fontSize: '11px', background: 'var(--mm-primary)', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>Extracted via {c.extraction_runs?.service_provider?.includes('ollama') ? 'Ollama AI' : 'Gemini AI'}</span>}
+                  {isOCR && <span style={{ marginLeft: '8px', fontSize: '11px', background: 'var(--mm-primary)', color: 'var(--mm-primary-surface)', padding: '2px 6px', borderRadius: '4px' }}>Extracted via {c.extraction_runs?.service_provider?.includes('ollama') ? 'Ollama AI' : 'Gemini AI'}</span>}
                   
                   {hasWarnings && (
                     <div style={{ fontSize: '12px', color: 'var(--mm-warning)', marginTop: '4px', background: 'var(--mm-warning-subtle)', padding: '4px 8px', borderRadius: '4px' }}>
@@ -277,14 +277,12 @@ export function PrescriptionManager() {
                   <Button
                     variant="primary"
                     onClick={() => handleConfirm(c)}
-                    style={{ width: 'auto', padding: '6px 12px', fontSize: '12px' }}
                   >
                     ✓ Confirm &amp; Add to Regimen
                   </Button>
                   <Button
                     variant="danger"
                     onClick={() => handleReject(c.id)}
-                    style={{ width: 'auto', padding: '6px 10px', fontSize: '12px' }}
                   >
                     ✕ Reject
                   </Button>
@@ -297,7 +295,7 @@ export function PrescriptionManager() {
 
       {/* Manual / Upload Entry Section */}
       <div className={styles.actionRow}>
-        <Button variant="secondary" onClick={() => setFormOpen(!formOpen)} style={{ width: 'auto' }}>
+        <Button variant="secondary" onClick={() => setFormOpen(!formOpen)}>
           {formOpen ? 'Close Form' : '+ Record Prescription Manually'}
         </Button>
       </div>
@@ -383,7 +381,7 @@ export function PrescriptionManager() {
 
               {/* Suggestions Dropdown */}
               {showDropdown && !searching && (
-                <ul style={{ position: 'absolute', zIndex: 10, background: 'white', border: '1px solid var(--mm-border)', width: '100%', maxHeight: '200px', overflowY: 'auto', listStyle: 'none', padding: 0, margin: '4px 0 0 0', borderRadius: '4px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} role="listbox">
+                <ul style={{ position: 'absolute', zIndex: 10, background: 'var(--mm-bg-card)', border: '1px solid var(--mm-border-subtle)', width: '100%', maxHeight: '200px', overflowY: 'auto', listStyle: 'none', padding: 0, margin: '4px 0 0 0', borderRadius: '4px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} role="listbox">
                   {suggestions.length > 0 ? (
                     suggestions.map((s, idx) => (
                       <li
@@ -462,7 +460,7 @@ export function PrescriptionManager() {
             />
           </div>
 
-          <Button variant="primary" type="submit" disabled={submitting} style={{ alignSelf: 'flex-start' }}>
+          <Button variant="primary" type="submit" disabled={submitting}>
             {submitting ? 'Submitting...' : 'Save for Review'}
           </Button>
         </form>
@@ -510,21 +508,7 @@ export function PrescriptionManager() {
                       </div>
                     )}
                     
-                    <details style={{ marginTop: '8px' }}>
-                      <summary style={{ fontSize: '13px', cursor: 'pointer', color: 'var(--mm-primary)' }}>View Details</summary>
-                      <div style={{ marginTop: '8px', paddingLeft: '12px', borderLeft: '2px solid var(--mm-border)' }}>
-                        {p.prescription_candidates?.map((c: any) => (
-                          <div key={c.id} style={{ fontSize: '13px', marginBottom: '8px' }}>
-                            <strong>{c.medication_name || c.raw_name}</strong>
-                            <div style={{ color: 'var(--mm-text-muted)' }}>
-                              Dosage: {c.dosage || c.raw_dosage || '-'} | Freq: {c.frequency || c.raw_frequency || '-'}
-                            </div>
-                            <div style={{ color: 'var(--mm-text-muted)' }}>Status: {c.status}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </details>
-                    
+
                     <div className={styles.desc} style={{ marginTop: '8px' }}>Date: {displayDate}</div>
                     {p.notes && <div className={styles.desc}>Notes: {p.notes}</div>}
                   </div>

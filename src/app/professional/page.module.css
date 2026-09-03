@@ -1,17 +1,17 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-bottom: 22px;
+  gap: var(--mm-space-6);
+  margin-bottom: var(--mm-space-6);
 }
 
 .sectionGrid {
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
-  gap: 22px;
+  gap: var(--mm-space-6);
 }
 
-@media (max-width: 950px) {
+@media (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -20,7 +20,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
   }

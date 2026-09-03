@@ -1,266 +1,248 @@
 /*
  * MediMind Design Tokens
- * Extracted from reference-artifacts/MediMind(1).html
- * Do not redesign — preserve the prototype's visual identity.
+ * Premium Personal Health Workspace (Corrective Pass)
  */
 
 :root {
-  /* ── 1. CORE DESIGN REFERENCE TOKENS (Botanical Greenhouse) ── */
-  /* Colors */
-  --color-forest-ink: #0f3e17;
-  --color-sage-mist: #b1dbb8;
-  --color-keylime-wash: #e1f4df;
-  --color-mint-veil: #cfe7d3;
-  --color-slate-hush: #b6ced5;
-  --color-cream-paper: #fffefc;
-  --color-charcoal: #222222;
-  --color-border-mist: #efeeeb;
-  --color-forest-shadow: #0c2f10;
+  /* ── 1. CORE COLOR PRIMITIVES (Light/Base) ── */
+  --color-canvas: #F5F3ED;
+  --color-white: #FFFFFF;
+  
+  --color-forest: #315B43;
+  --color-forest-dark: #1D3024;
+  --color-forest-deep: #132219;
+  --color-forest-ink: #0F1A13; /* Near-black for primary text */
+  --color-forest-void: #07100B;
+  
+  --color-sage: #8FBE9D;
+  --color-teal: #6FA8A0;
+  --color-soft: #DCE8DC;
+  --color-botanical: #D5B982;
 
-  /* Typography Fallbacks */
-  --font-faire-octave: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-suisse-intl: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-border-mist: #EAE6DB;
+  --color-gray-text: #5A6B62;
 
-  /* Spacing Scale */
-  --spacing-4: 4px;
-  --spacing-7: 7px;
-  --spacing-9: 9px;
-  --spacing-11: 11px;
-  --spacing-14: 14px;
-  --spacing-18: 18px;
-  --spacing-21: 21px;
-  --spacing-28: 28px;
-  --spacing-35: 35px;
-  --spacing-42: 42px;
-  --spacing-49: 49px;
-  --spacing-56: 56px;
-  --spacing-70: 70px;
-  --spacing-76: 76px;
-  --spacing-99: 99px;
-  --spacing-156: 156px;
-
-  /* Border Radius */
-  --radius-nav: 7px;
-  --radius-cards: 14px;
-  --radius-badges: 999px;
-  --radius-buttons: 14px;
-  --radius-sections: 9999px;
-
-  /* Semantic Medical Colors (Muted Rust/Coral for Critical) */
+  /* Semantic Core */
   --color-semantic-critical: #8c3838;
   --color-semantic-critical-bg: #faebeb;
   --color-semantic-warning: #9e7a2c;
   --color-semantic-warning-bg: #fcf6e8;
-  --color-semantic-success: var(--color-forest-ink);
-  --color-semantic-success-bg: var(--color-keylime-wash);
-  --color-semantic-info: #2d556e;
-  --color-semantic-info-bg: var(--color-slate-hush);
+  --color-semantic-success: var(--color-forest);
+  --color-semantic-success-bg: #EDF3EF;
 
+  /* Accent Tokens */
+  --mm-accent-sage: var(--color-sage);
+  --mm-accent-teal: var(--color-teal);
+  --mm-accent-gold: var(--color-botanical);
+  --mm-accent-forest: var(--color-forest);
 
-  /* ── 2. MAPPED MEDIMIND TOKENS (Preserving backward compatibility) ── */
-  
-  /* Primary (mapped to Forest Ink) */
-  --mm-primary: var(--color-forest-ink);
-  --mm-primary-hover: var(--color-forest-shadow);
-  --mm-primary-light: var(--color-sage-mist);
-  --mm-primary-accent: var(--color-mint-veil);
-  --mm-primary-bg: var(--color-keylime-wash);
-  --mm-primary-bg-alt: var(--color-mint-veil);
-  --mm-primary-bg-subtle: var(--color-cream-paper);
-  --mm-primary-surface: var(--color-keylime-wash);
-  --mm-primary-surface-alt: var(--color-mint-veil);
-  --mm-primary-border: var(--color-sage-mist);
-  --mm-primary-muted: var(--color-sage-mist);
-  --mm-primary-logo-accent: var(--color-sage-mist);
+  /* ── 2. TYPOGRAPHY ── */
+  --font-faire-octave: 'Faire Octave', ui-serif, Playfair Display, Merriweather, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-suisse-intl: 'Suisse Intl', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  /* Severity: High (mapped to Semantic Critical) */
-  --mm-high-bg: var(--color-semantic-critical-bg);
-  --mm-high-bg-alt: #f5dfdf;
-  --mm-high-border: var(--color-semantic-critical);
-  --mm-high-border-alt: #e3b6b6;
-  --mm-high-text: var(--color-semantic-critical);
-  --mm-high-text-alt: #752929;
+  --mm-font-family: var(--font-faire-octave);
+  --mm-font-family-display: var(--font-faire-octave);
 
-  /* Severity: Moderate (mapped to Semantic Warning) */
-  --mm-moderate-bg: var(--color-semantic-warning-bg);
-  --mm-moderate-bg-alt: #f5ebd5;
-  --mm-moderate-border: var(--color-semantic-warning);
-  --mm-moderate-border-alt: #e8d097;
-  --mm-moderate-text: var(--color-semantic-warning);
-
-  /* Severity: Low (mapped to Semantic Success) */
-  --mm-low-bg: var(--color-semantic-success-bg);
-  --mm-low-bg-alt: var(--color-mint-veil);
-  --mm-low-border: var(--color-semantic-success);
-  --mm-low-border-alt: var(--color-sage-mist);
-  --mm-low-text: var(--color-semantic-success);
-
-  /* Neutrals (mapped to Charcoal / Slate) */
-  --mm-text-primary: var(--color-charcoal);
-  --mm-text-secondary: #5a5a5a;
-  --mm-text-tertiary: #757575;
-  --mm-text-muted: #8e8e8e;
-  --mm-text-faint: #a6a6a6;
-  --mm-text-sidebar: var(--color-charcoal);
-  --mm-text-sidebar-role: var(--color-forest-ink);
-  --mm-text-logout: #5a5a5a;
-  --mm-text-subtitle: #5a5a5a;
-  --mm-text-demo: #757575;
-
-  /* Backgrounds */
-  --mm-bg-body: var(--color-cream-paper);
-  --mm-bg-body-mid: var(--color-cream-paper);
-  --mm-bg-body-end: var(--color-cream-paper);
-  --mm-bg-login: var(--color-cream-paper);
-  --mm-bg-card: var(--color-cream-paper);
-  --mm-bg-input: var(--color-cream-paper);
-  --mm-bg-neutral: var(--color-border-mist);
-  --mm-bg-insight: var(--color-slate-hush); /* M7 AI Insight panel */
-  --mm-bg-admin-tip: var(--color-slate-hush);
-
-  /* Borders (subtle borders for depth instead of shadows) */
-  --mm-border-card: var(--color-border-mist);
-  --mm-border-input: var(--color-border-mist);
-  --mm-border-item: var(--color-border-mist);
-  --mm-border-sidebar: var(--color-border-mist);
-  --mm-border-divider: var(--color-border-mist);
-  --mm-border-logout: var(--color-border-mist);
-  --mm-border-empty: var(--color-border-mist);
-  --mm-border-timeline: var(--color-sage-mist);
-  --mm-border-insight: var(--color-slate-hush);
-  --mm-border-admin-tip: var(--color-slate-hush);
-  --mm-border-food-checker: var(--color-mint-veil);
-
-  /* Typography */
-  --mm-font-family: var(--font-suisse-intl); /* Default to Body */
-  --mm-font-family-display: var(--font-faire-octave); /* New token for M6 Headers */
-  --mm-font-size-xs: 10px;
-  --mm-font-size-sm: 12px;
-  --mm-font-size-base: 14px; /* text-body */
-  --mm-font-size-md: 14px;
-  --mm-font-size-lg: 18px; /* text-subheading */
-  --mm-font-size-xl: 23px; /* text-heading-sm */
+  --mm-font-size-xs: 11px;
+  --mm-font-size-sm: 13px;
+  --mm-font-size-base: 15px;
+  --mm-font-size-md: 16px;
+  --mm-font-size-lg: 18px;
+  --mm-font-size-xl: 22px;
   --mm-font-size-2xl: 28px;
-  --mm-font-size-3xl: 40px; /* text-heading */
-  --mm-font-size-4xl: 56px; /* text-heading-lg */
-  --mm-font-size-hero: 74px; /* text-display */
-  --mm-font-weight-normal: 300;
-  --mm-font-weight-semibold: 400;
-  --mm-font-weight-bold: 600;
-  --mm-font-weight-extrabold: 600;
-  --mm-font-weight-black: 600;
+  --mm-font-size-3xl: 36px;
+  --mm-font-size-4xl: 48px;
+  --mm-font-size-hero: 56px;
 
-  /* Spacing */
-  --mm-space-xs: var(--spacing-4);
-  --mm-space-sm: var(--spacing-9);
-  --mm-space-md: var(--spacing-14);
-  --mm-space-lg: var(--spacing-21);
-  --mm-space-xl: var(--spacing-28);
-  --mm-space-2xl: var(--spacing-42);
-  --mm-space-3xl: var(--spacing-49);
-  --mm-space-4xl: var(--spacing-56);
-  --mm-space-5xl: var(--spacing-70);
-  --mm-space-6xl: var(--spacing-99);
+  --mm-font-weight-normal: 400;
+  --mm-font-weight-medium: 500;
+  --mm-font-weight-semibold: 600;
+  --mm-font-weight-bold: 700;
 
-  /* Radius (Cards ~14px, Badges 999px) */
-  --mm-radius-sm: var(--radius-nav);
-  --mm-radius-md: var(--radius-cards);
-  --mm-radius-base: var(--radius-cards);
-  --mm-radius-lg: var(--radius-cards);
-  --mm-radius-xl: var(--radius-cards);
-  --mm-radius-2xl: var(--radius-cards);
-  --mm-radius-3xl: var(--radius-cards);
-  --mm-radius-4xl: var(--radius-cards);
+  /* ── 3. SPACING (Strict discipline) ── */
+  --mm-space-1: 4px;
+  --mm-space-2: 8px;
+  --mm-space-3: 12px;
+  --mm-space-4: 16px;
+  --mm-space-5: 20px;
+  --mm-space-6: 24px;
+  --mm-space-8: 32px;
+  --mm-space-10: 40px;
+  --mm-space-12: 48px;
+  --mm-space-14: 56px;
+  --mm-space-16: 64px;
+  --mm-space-20: 80px;
+
+  /* ── 4. RADII (Restrained) ── */
+  --mm-radius-sm: 4px;
+  --mm-radius-base: 6px;
+  --mm-radius-md: 8px;
+  --mm-radius-lg: 10px;
+  --mm-radius-xl: 12px;
+  --mm-radius-2xl: 12px;
   --mm-radius-full: 50%;
-  --mm-radius-pill: var(--radius-badges);
-  --mm-radius-login: var(--radius-cards);
+  --mm-radius-pill: 9999px;
 
-  /* Shadows (Removed as per design spec) */
-  --mm-shadow-login: none;
-  --mm-shadow-toast: 0 4px 16px rgba(0, 0, 0, 0.10); /* Keep minimal toast shadow for accessibility layering */
+  --mm-radius-cards: var(--mm-radius-xl);
+  --mm-radius-buttons: var(--mm-radius-base);
+  --mm-radius-nav: var(--mm-radius-base);
 
-  /* Sidebar */
-  --mm-sidebar-width: 280px;
+  /* ── 5. LIGHT MODE (Primary canvas) ── */
+  --mm-primary: var(--color-forest);
+  --mm-primary-hover: var(--color-forest-dark);
+  --mm-primary-light: var(--color-sage);
+  --mm-primary-accent: var(--color-botanical);
+  
+  --mm-primary-bg: #EDF3EF;
+  --mm-primary-bg-alt: var(--color-soft);
+  --mm-primary-bg-subtle: var(--color-white);
+  --mm-primary-surface: #EDF3EF;
+  --mm-primary-surface-alt: var(--color-soft);
+  --mm-primary-border: var(--color-sage);
 
-  /* Overlay */
-  --mm-overlay-bg: rgba(34, 34, 34, 0.4);
+  /* Neutrals */
+  --mm-text-primary: var(--color-forest-ink);
+  --mm-text-secondary: var(--color-forest-deep);
+  --mm-text-tertiary: var(--color-forest);
+  --mm-text-muted: var(--color-gray-text);
+  --mm-text-sidebar: var(--color-forest-deep);
+  --mm-text-sidebar-role: var(--color-forest);
 
-  /* Toast */
-  --mm-toast-bg: var(--color-charcoal);
-  --mm-toast-text: var(--color-cream-paper);
+  /* Surfaces & Backgrounds */
+  --mm-bg-body: #F5F3ED; /* Canvas */
+  --mm-bg-base: #EBE8DF; /* Deepest structural */
+  
+  /* Elevational surfaces */
+  --mm-bg-card: #FAF9F5; /* Floating panels */
+  --mm-bg-surface: #F0EEE7; /* Primary nested */
+  --mm-bg-surface-alt: #E8E5DC; /* Secondary nested / hover */
+  --mm-bg-feature: #102017; /* Strong callout */
+  
+  --mm-bg-input: var(--mm-bg-surface);
+  --mm-bg-neutral: var(--mm-bg-surface-alt);
+  --mm-bg-insight: #F0F4F2; 
 
-  /* Focus */
-  --mm-focus-ring: 0 0 0 3px rgba(15, 62, 23, 0.2);
-  --mm-focus-border: var(--color-forest-ink);
+  /* Glassmorphism Primitives (Restrained) */
+  --mm-surface-glass: rgba(245, 243, 237, 0.85);
+  --mm-surface-glass-border: rgba(0, 0, 0, 0.04);
+  --mm-surface-glass-blur: blur(8px);
 
-  /* Gradients (Removed/Simplified to match flat surfaces) */
-  --mm-gradient-login-left: var(--color-keylime-wash);
-  --mm-gradient-body: var(--color-cream-paper);
-  --mm-gradient-food-checker: var(--color-sage-mist);
+  /* Borders System */
+  --mm-border-subtle: rgba(15, 26, 19, 0.08);
+  --mm-border-default: rgba(15, 26, 19, 0.14);
+  --mm-border-strong: rgba(15, 26, 19, 0.22);
+  
+  --mm-border-card: var(--mm-border-subtle);
+  --mm-border-input: var(--mm-border-default);
+  --mm-border-item: var(--mm-border-subtle);
+  --mm-border-sidebar: var(--mm-border-subtle);
+  --mm-border-divider: var(--mm-border-subtle);
+  
+  /* Focus System (Light Mode) */
+  --mm-focus-ring: 0 0 0 3px rgba(143, 190, 157, 0.4);
+  --mm-focus-border: var(--color-sage);
+
+  /* Control Sizing System */
+  --mm-control-height-sm: 32px;
+  --mm-control-height-md: 40px;
+  --mm-control-height-lg: 48px;
+  
+  /* Semantic */
+  --mm-semantic-critical-text: var(--color-semantic-critical);
+  --mm-semantic-critical-border: #d49898;
+  --mm-semantic-critical-border-subtle: #f0cece;
+  --mm-semantic-critical-bg-subtle: var(--color-semantic-critical-bg);
+
+  --mm-semantic-warning-text: var(--color-semantic-warning);
+  --mm-semantic-warning-border: #d3b474;
+  --mm-semantic-warning-border-subtle: #eaddb6;
+  --mm-semantic-warning-bg-subtle: var(--color-semantic-warning-bg);
+
+  --mm-semantic-success-text: var(--mm-semantic-success);
+  --mm-semantic-success-border: var(--color-sage);
+  --mm-semantic-success-border-subtle: #EDF3EF;
+  --mm-semantic-success-bg-subtle: var(--color-semantic-success-bg);
+
+  /* Layout */
+  --mm-sidebar-width: 240px;
+  --mm-overlay-bg: rgba(7, 16, 11, 0.2);
 }
 
-/* ── Dark Mode ── */
+/* ── 6. DARK MODE (Primary Identity) ── */
 [data-theme="dark"] {
-  --mm-text-primary: var(--color-charcoal);
-  --mm-text-secondary: #91a2ab;
-  --mm-text-tertiary: #8fa1a9;
-  --mm-text-muted: #9aadb5;
-  --mm-text-faint: #8fa1a9;
-  --mm-text-sidebar: #a3b3bc;
-  --mm-text-sidebar-role: #9aadb5;
-  --mm-text-logout: #91a2ab;
-  --mm-text-subtitle: #91a2ab;
-  --mm-text-demo: #6e7f88;
+  /* Base Backgrounds */
+  --mm-bg-body: #07100B;
+  --mm-bg-base: #0A140E;
+  
+  /* Elevated Surfaces */
+  --mm-bg-card: #0F1B14;
+  --mm-bg-surface: #132219;
+  --mm-bg-surface-alt: #182A20;
+  --mm-bg-feature: #1D3327;
 
-  --mm-bg-body: var(--color-charcoal);
-  --mm-bg-body-mid: var(--color-charcoal);
-  --mm-bg-body-end: var(--color-charcoal);
-  --mm-bg-login: var(--color-charcoal);
-  --mm-bg-card: #2f2f2f;
-  --mm-bg-input: #3a3a3a;
-  --mm-bg-neutral: #3a3a3a;
-  --mm-bg-insight: #3f4e55;
-  --mm-bg-admin-tip: #3f4e55;
+  --mm-bg-input: var(--mm-bg-surface); 
+  --mm-bg-neutral: var(--mm-bg-surface-alt); 
+  --mm-bg-insight: var(--mm-bg-card);
 
-  --mm-border-card: #444;
-  --mm-border-input: #444;
-  --mm-border-item: #444;
-  --mm-border-sidebar: #333;
-  --mm-border-divider: #333;
-  --mm-border-logout: #444;
-  --mm-border-empty: #444;
-  --mm-border-timeline: #444;
-  --mm-border-insight: #29475b;
-  --mm-border-admin-tip: #29475b;
-  --mm-border-food-checker: #28534c;
+  /* Accent Tokens */
+  --mm-accent-sage: #8FBE9D;
+  --mm-accent-teal: #6FA8A0;
+  --mm-accent-gold: #D6BA7C;
+  --mm-accent-forest: #9BC6A8;
 
-  --mm-primary-bg: #143a35;
-  --mm-primary-bg-alt: #102825;
-  --mm-primary-bg-subtle: #143a35;
-  --mm-primary-surface: #132328;
-  --mm-primary-surface-alt: #16282d;
-  --mm-primary-muted: #1a3a35;
+  /* Primary Theme Adjustments */
+  --mm-primary: var(--mm-accent-sage);
+  --mm-primary-hover: var(--color-soft);
+  --mm-primary-light: var(--mm-accent-forest);
+  --mm-primary-bg: var(--mm-bg-feature);
+  --mm-primary-bg-alt: var(--mm-bg-surface-alt);
+  --mm-primary-bg-subtle: var(--mm-bg-card);
+  --mm-primary-surface: var(--mm-bg-feature);
+  --mm-primary-surface-alt: var(--mm-bg-surface-alt);
 
-  --mm-high-bg: #2a1515;
-  --mm-high-bg-alt: #2d1a1a;
-  --mm-high-border: #8b3535;
-  --mm-high-border-alt: #5c2828;
-  --mm-high-text: #e88a8a;
+  /* Glassmorphism Dark (Restrained) */
+  --mm-surface-glass: rgba(7, 16, 11, 0.85);
+  --mm-surface-glass-border: rgba(143, 190, 157, 0.06);
+  --mm-surface-glass-blur: blur(8px);
 
-  --mm-moderate-bg: #342b19;
-  --mm-moderate-bg-alt: #2e2515;
-  --mm-moderate-border: #6b5525;
-  --mm-moderate-text: #e2c47a;
+  /* Typography (High contrast editorial) */
+  --mm-text-primary: #E5ECE5;
+  --mm-text-secondary: #B4C2B7;
+  --mm-text-tertiary: var(--mm-accent-teal);
+  --mm-text-muted: #8FA296;
+  --mm-text-sidebar: #B4C2B7;
+  --mm-text-sidebar-role: var(--mm-accent-forest);
 
-  --mm-low-bg: #102825;
-  --mm-low-bg-alt: #143a35;
-  --mm-low-text: #69d5c2;
+  /* Semantic Adjustments for Dark Mode */
+  --mm-semantic-critical-text: #E5A8A8;
+  --mm-semantic-critical-border: #8c3838;
+  --mm-semantic-critical-border-subtle: #5c2424;
+  --mm-semantic-critical-bg-subtle: #291515;
 
-  --mm-overlay-bg: rgba(5, 12, 16, 0.7);
-  --mm-toast-bg: #e0eaef;
-  --mm-toast-text: #111f24;
+  /* Warning uses Botanical Accent */
+  --mm-semantic-warning-text: var(--mm-accent-gold);
+  --mm-semantic-warning-border: #8c784e;
+  --mm-semantic-warning-border-subtle: #5c4e31;
+  --mm-semantic-warning-bg-subtle: #292215;
 
-  --mm-gradient-body: var(--color-charcoal);
-  --mm-gradient-food-checker: var(--color-charcoal);
-  --mm-gradient-login-left: var(--color-charcoal);
+  --mm-semantic-success-text: var(--mm-accent-sage);
+  --mm-semantic-success-border: var(--mm-accent-forest);
+  --mm-semantic-success-border-subtle: #17271D;
+  --mm-semantic-success-bg-subtle: #0D1711;
+
+  /* Borders System (Dark Mode) */
+  --mm-border-subtle: rgba(220, 235, 225, 0.08);
+  --mm-border-default: rgba(220, 235, 225, 0.14);
+  --mm-border-strong: rgba(220, 235, 225, 0.22);
+
+  --mm-border-card: var(--mm-border-subtle);
+  --mm-border-input: var(--mm-border-default);
+  --mm-border-item: var(--mm-border-subtle);
+  --mm-border-sidebar: var(--mm-border-subtle);
+  --mm-border-divider: var(--mm-border-subtle);
+
+  /* Focus & Overlays */
+  --mm-focus-ring: 0 0 0 3px rgba(143, 190, 157, 0.2);
+  --mm-focus-border: var(--mm-accent-sage);
+  --mm-overlay-bg: rgba(7, 16, 11, 0.8);
 }

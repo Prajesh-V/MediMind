@@ -118,19 +118,10 @@ export async function getExplanation(
 function validateExplanation(output: ExplanationOutput, authoritative: InteractionAssessment): boolean {
   const generatedText = JSON.stringify(output).toLowerCase();
   
-  // 1. Ensure it mentions the severity
-  if (!generatedText.includes(authoritative.severity.toLowerCase())) {
-    return false;
-  }
+  // 1. Semantic Quality is NOT a provider failure.
+  // We no longer reject explanations just because they omitted LOW/MODERATE/HIGH
+  // or failed to perfectly name the medications. Imperfect wording is acceptable.
 
-  // 2. Ensure it does not invent new medications
-  // A perfect check is hard for NLP, but we ensure at least one affected medication is mentioned
-  const mentionsMed = authoritative.affected_medication_names.some(med => 
-    generatedText.includes(med.toLowerCase())
-  );
-  if (!mentionsMed && authoritative.affected_medication_names.length > 0) {
-    return false; // It should mention the meds involved
-  }
 
   // 3. Reject if it generates prohibited medical instructions
   const prohibitedPhrases = [

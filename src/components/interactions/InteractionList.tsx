@@ -31,7 +31,7 @@ export function InteractionList({
     <div className={styles.container}>
       {highSeverity.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <h5 style={{ color: 'var(--mm-high-text, #b62e2e)', margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700 }}>
+          <h5 style={{ color: 'var(--mm-semantic-critical-text, #b62e2e)', margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700 }}>
             🚨 High Severity Alerts ({highSeverity.length})
           </h5>
           {highSeverity.map((assessment) => (
@@ -47,7 +47,7 @@ export function InteractionList({
 
       {moderateSeverity.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: highSeverity.length > 0 ? '12px' : '0' }}>
-          <h5 style={{ color: 'var(--mm-moderate-text, #986300)', margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700 }}>
+          <h5 style={{ color: 'var(--mm-semantic-warning-text, #986300)', margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700 }}>
             ⚠️ Moderate Interactions ({moderateSeverity.length})
           </h5>
           {moderateSeverity.map((assessment) => (
@@ -63,7 +63,7 @@ export function InteractionList({
 
       {lowSeverity.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: (highSeverity.length > 0 || moderateSeverity.length > 0) ? '12px' : '0' }}>
-          <h5 style={{ color: 'var(--mm-low-text, #087f70)', margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700 }}>
+          <h5 style={{ color: 'var(--mm-semantic-success-text, #087f70)', margin: '0 0 4px 0', fontSize: '14px', fontWeight: 700 }}>
             ℹ️ Low Severity &amp; Advisory ({lowSeverity.length})
           </h5>
           {lowSeverity.map((assessment) => (

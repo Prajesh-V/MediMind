@@ -1,0 +1,97 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-6);
+  max-width: var(--page-max-width, 1400px);
+  margin: 0 auto;
+}
+
+.errorState {
+  color: var(--mm-semantic-critical-text);
+  background: var(--mm-semantic-critical-bg-subtle);
+  border: 1px solid var(--mm-semantic-critical-border);
+  padding: var(--mm-space-6);
+  border-radius: var(--mm-radius-lg);
+  margin-top: var(--mm-space-4);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mm-space-12) var(--mm-space-6);
+  text-align: center;
+  color: var(--mm-text-secondary);
+}
+
+.emptyIcon {
+  font-size: var(--mm-space-8);
+  margin-bottom: var(--mm-space-4);
+  opacity: 0.7;
+}
+
+.patientList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-4);
+}
+
+.patientCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--mm-space-4);
+}
+
+.patientInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mm-space-1);
+}
+
+.patientName {
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-lg);
+  font-weight: var(--mm-font-weight-bold);
+  color: var(--mm-text-primary);
+}
+
+.patientMeta {
+  font-size: var(--mm-font-size-sm);
+  color: var(--mm-text-secondary);
+}
+
+.workspaceBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mm-primary);
+  color: var(--mm-bg-body);
+  height: var(--mm-control-height-md);
+  padding: 0 var(--mm-space-4);
+  border-radius: var(--mm-radius-buttons);
+  font-family: var(--mm-font-family);
+  font-size: var(--mm-font-size-sm);
+  font-weight: var(--mm-font-weight-medium);
+  text-decoration: none;
+  transition: opacity 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.workspaceBtn:hover {
+  background: var(--mm-primary-hover);
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .patientCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .workspaceBtn {
+    width: 100%;
+    margin-top: var(--mm-space-2);
+  }
+}

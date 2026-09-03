@@ -1,22 +1,27 @@
 .stat {
+  display: flex;
+  flex-direction: column;
   background: var(--mm-bg-card);
-  border-radius: var(--mm-radius-2xl);
-  padding: 21px;
+  border-radius: var(--mm-radius-xl);
+  padding: var(--mm-space-6);
   border: 1px solid var(--mm-border-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .icon {
-  font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: var(--mm-space-3);
+  color: var(--mm-primary);
 }
 
 .value {
+  font-family: var(--mm-font-family);
   font-size: var(--mm-font-size-2xl);
-  font-weight: var(--mm-font-weight-extrabold);
+  font-weight: var(--mm-font-weight-bold);
+  color: var(--mm-text-primary);
 }
 
 .label {
-  color: var(--mm-text-tertiary);
-  font-size: var(--mm-font-size-base);
-  margin-top: 4px;
+  color: var(--mm-text-secondary);
+  font-size: var(--mm-font-size-sm);
+  margin-top: var(--mm-space-1);
 }

@@ -201,3 +201,13 @@ export async function getPatientDoseHistory(patientId: string, windowDays: numbe
 
   return data || []
 }
+
+export async function getPatientTimezone(patientId: string): Promise<string> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('patients')
+    .select('timezone')
+    .eq('id', patientId)
+    .single()
+  return data?.timezone || 'UTC'
+}

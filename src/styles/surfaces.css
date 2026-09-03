@@ -1,48 +1,45 @@
 /*
  * MediMind Surface System
- * Layered tinted surfaces for depth without shadows.
- * Cream → Keylime → Mint → Sage → Slate
- *
- * Usage: Apply .mm-surface-cream, .mm-surface-keylime, etc. to containers.
- * Or use the --color-* tokens directly in CSS modules.
+ * Phase A - Design Foundation
  */
 
 /* ── Base Surface (Cream Paper) ── */
-/* Default page/card background — warm off-white */
 .mm-surface-cream {
   background-color: var(--color-cream-paper);
 }
 
 /* ── Level 1 (Keylime Wash) ── */
-/* Primary tinted panel — hero areas, light feature blocks */
 .mm-surface-keylime {
   background-color: var(--color-keylime-wash);
 }
 
 /* ── Level 2 (Mint Veil) ── */
-/* Mid-tone section surface between keylime and sage */
 .mm-surface-mint {
   background-color: var(--color-mint-veil);
 }
 
 /* ── Level 3 (Sage Mist) ── */
-/* Heavier tinted panels — feature highlights, active states */
 .mm-surface-sage {
   background-color: var(--color-sage-mist);
 }
 
 /* ── Level 4 (Slate Hush) ── */
-/* Cool counter-panel — M7 AI explanations, insight areas */
 .mm-surface-slate {
   background-color: var(--color-slate-hush);
 }
 
-/* ── Card Variants ── */
-/* All cards share: 14px radius, no shadow, generous padding */
+/* ── Glassmorphism ── */
+.mm-surface-glass {
+  background-color: var(--mm-surface-glass);
+  backdrop-filter: var(--mm-surface-glass-blur);
+  -webkit-backdrop-filter: var(--mm-surface-glass-blur);
+  border: 1px solid var(--mm-surface-glass-border);
+}
 
+/* ── Card Variants ── */
 .mm-card {
-  border-radius: var(--radius-cards);
-  padding: var(--spacing-28);
+  border-radius: var(--mm-radius-cards);
+  padding: var(--mm-space-xl);
   border: none;
   box-shadow: none;
 }
@@ -68,44 +65,45 @@
   background-color: var(--color-slate-hush);
 }
 
-/* ── Semantic Status Surfaces ── */
-/* For clinical alerts: critical, warning, success, informational */
-
+/* ── Semantic Status Surfaces (No Traffic Lights) ── */
+/* Critical: No red block, just neutral background, red border, and red text handled by components */
 .mm-surface-critical {
-  background-color: var(--color-semantic-critical-bg);
-  border-left: 3px solid var(--color-semantic-critical);
+  background-color: var(--mm-bg-card);
+  border: 1px solid var(--mm-semantic-critical-border);
+  border-left: 4px solid var(--mm-semantic-critical-border);
 }
 
 .mm-surface-warning {
-  background-color: var(--color-semantic-warning-bg);
-  border-left: 3px solid var(--color-semantic-warning);
+  background-color: var(--mm-bg-card);
+  border: 1px solid var(--mm-semantic-warning-border);
+  border-left: 4px solid var(--mm-semantic-warning-border);
 }
 
 .mm-surface-success {
-  background-color: var(--color-semantic-success-bg);
-  border-left: 3px solid var(--color-semantic-success);
+  background-color: var(--mm-bg-card);
+  border: 1px solid var(--mm-semantic-success-border);
+  border-left: 4px solid var(--mm-semantic-success-border);
 }
 
 .mm-surface-info {
-  background-color: var(--color-semantic-info-bg);
-  border-left: 3px solid var(--color-semantic-info);
+  background-color: var(--mm-bg-card);
+  border: 1px solid var(--color-slate-hush);
+  border-left: 4px solid var(--color-semantic-info);
 }
 
 /* ── M6/M7 Visual Hierarchy ── */
-/* M6 AUTHORITATIVE cards: warm cream/forest — printed medical record feel */
 .mm-m6-surface {
-  background-color: var(--color-cream-paper);
-  border: 1px solid var(--color-border-mist);
-  border-radius: var(--radius-cards);
-  padding: var(--spacing-28);
+  background-color: var(--mm-bg-card);
+  border: 1px solid var(--mm-border-card);
+  border-radius: var(--mm-radius-cards);
+  padding: var(--mm-space-xl);
   box-shadow: none;
 }
 
-/* M7 AI EXPLANATION cards: cool slate — visually distinct from M6 */
 .mm-m7-surface {
-  background-color: var(--color-slate-hush);
-  border: none;
-  border-radius: var(--radius-cards);
-  padding: var(--spacing-28);
+  background-color: var(--mm-bg-insight);
+  border: 1px solid var(--mm-border-insight);
+  border-radius: var(--mm-radius-cards);
+  padding: var(--mm-space-xl);
   box-shadow: none;
 }

@@ -13,36 +13,36 @@
   flex-direction: column;
   gap: 12px;
   transition: box-shadow 0.2s ease;
-  background: var(--mm-surface, #ffffff);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background: var(--mm-bg-card);
+  border: 1px solid var(--mm-border-card);
 }
 
 .card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 8px var(--mm-primary-surface);
 }
 
 .high {
-  background-color: var(--mm-high-bg, #fff0f0);
-  border-left-color: var(--mm-high-border, #c83b3b);
-  border-top: 1px solid var(--mm-high-border-alt, #ffd3d3);
-  border-right: 1px solid var(--mm-high-border-alt, #ffd3d3);
-  border-bottom: 1px solid var(--mm-high-border-alt, #ffd3d3);
+  background-color: var(--mm-semantic-critical-bg-subtle, #fff0f0);
+  border-left-color: var(--mm-semantic-critical-border, #d49898);
+  border-top: 1px solid var(--mm-semantic-critical-border-subtle, #ffd3d3);
+  border-right: 1px solid var(--mm-semantic-critical-border-subtle, #ffd3d3);
+  border-bottom: 1px solid var(--mm-semantic-critical-border-subtle, #ffd3d3);
 }
 
 .moderate {
-  background-color: var(--mm-moderate-bg, #fff8e8);
-  border-left-color: var(--mm-moderate-border, #e8a62d);
-  border-top: 1px solid var(--mm-moderate-border-alt, #ffe6a7);
-  border-right: 1px solid var(--mm-moderate-border-alt, #ffe6a7);
-  border-bottom: 1px solid var(--mm-moderate-border-alt, #ffe6a7);
+  background-color: var(--mm-semantic-warning-bg-subtle, #fff8e8);
+  border-left-color: var(--mm-semantic-warning-border, #d3b474);
+  border-top: 1px solid var(--mm-semantic-warning-border-subtle, #ffe6a7);
+  border-right: 1px solid var(--mm-semantic-warning-border-subtle, #ffe6a7);
+  border-bottom: 1px solid var(--mm-semantic-warning-border-subtle, #ffe6a7);
 }
 
 .low {
-  background-color: var(--mm-low-bg, #edf9f6);
-  border-left-color: var(--mm-low-border, #15977f);
-  border-top: 1px solid var(--mm-low-border-alt, #cceee4);
-  border-right: 1px solid var(--mm-low-border-alt, #cceee4);
-  border-bottom: 1px solid var(--mm-low-border-alt, #cceee4);
+  background-color: var(--mm-semantic-success-bg-subtle, #edf9f6);
+  border-left-color: var(--mm-semantic-success-border, #15977f);
+  border-top: 1px solid var(--mm-semantic-success-border-subtle, #cceee4);
+  border-right: 1px solid var(--mm-semantic-success-border-subtle, #cceee4);
+  border-bottom: 1px solid var(--mm-semantic-success-border-subtle, #cceee4);
 }
 
 .header {
@@ -77,24 +77,24 @@
 }
 
 .badgeHigh {
-  background-color: var(--mm-high-text, #b62e2e);
-  color: #ffffff;
+  background-color: var(--mm-semantic-critical-text, #b62e2e);
+  color: var(--mm-bg-body);
 }
 
 .badgeModerate {
-  background-color: var(--mm-moderate-border, #e8a62d);
-  color: #ffffff;
+  background-color: var(--mm-semantic-warning-border, #e8a62d);
+  color: var(--mm-bg-body);
 }
 
 .badgeLow {
-  background-color: var(--mm-low-border, #15977f);
-  color: #ffffff;
+  background-color: var(--mm-semantic-success-border, #15977f);
+  color: var(--mm-bg-body);
 }
 
 .typeTag {
   font-size: 12px;
   color: var(--mm-text-secondary, #778690);
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--mm-bg-surface-alt);
   padding: 3px 8px;
   border-radius: 4px;
   font-weight: 500;
@@ -103,8 +103,8 @@
 .reviewRequiredBanner {
   font-size: 12px;
   font-weight: 600;
-  color: var(--mm-high-text, #b62e2e);
-  background: rgba(182, 46, 46, 0.08);
+  color: var(--mm-semantic-critical-text, #b62e2e);
+  background: var(--mm-semantic-critical-bg-subtle);
   padding: 6px 10px;
   border-radius: 4px;
   display: flex;
@@ -142,14 +142,14 @@
   margin-top: 4px;
   padding: 10px 12px;
   border-radius: 6px;
-  background: rgba(0, 0, 0, 0.03);
+  background: var(--mm-bg-surface);
   border-left: 3px solid var(--mm-primary, #087f70);
   font-weight: 500;
 }
 
 .evidenceSection {
   margin-top: 8px;
-  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+  border-top: 1px dashed var(--mm-border-subtle);
   padding-top: 10px;
 }
 
@@ -176,10 +176,10 @@
 .evidenceItem {
   font-size: 12px;
   color: var(--mm-text-secondary, #778690);
-  background: rgba(0, 0, 0, 0.02);
+  background: var(--mm-bg-surface);
   padding: 8px 10px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--mm-border-subtle);
 }
 
 .jurisdictionDisclaimer {

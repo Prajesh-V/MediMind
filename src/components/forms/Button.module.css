@@ -1,43 +1,70 @@
 .btn {
-  border: none;
-  padding: 14px;
-  border-radius: var(--mm-radius-base);
-  font-weight: var(--mm-font-weight-bold);
-  transition: background 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mm-space-2);
+  height: var(--mm-control-height-md);
+  padding: 0 var(--mm-space-4);
+  border-radius: var(--mm-radius-buttons);
+  font-family: var(--mm-font-family);
+  font-weight: var(--mm-font-weight-medium);
+  font-size: var(--mm-font-size-sm);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
-  font-size: var(--mm-font-size-md);
-  text-align: center;
+  outline: none;
+  border: 1px solid transparent;
+  width: 100%;
 }
 
+.btn:focus-visible {
+  box-shadow: var(--mm-focus-ring);
+  border-color: var(--mm-focus-border);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary */
 .primary {
-  width: 100%;
-  color: #fff;
+  color: var(--mm-bg-body);
   background: var(--mm-primary);
 }
-.primary:hover {
+
+.primary:hover:not(:disabled) {
   background: var(--mm-primary-hover);
-  transform: translateY(-1px);
 }
 
+/* Secondary */
 .secondary {
-  border: 1px solid var(--mm-border-input);
-  padding: 11px 15px;
-  border-radius: var(--mm-radius-sm);
-  background: var(--mm-bg-card);
-  color: var(--mm-text-sidebar);
-  font-weight: var(--mm-font-weight-semibold);
-}
-.secondary:hover {
-  border-color: var(--mm-primary-border);
+  background: var(--mm-bg-surface);
+  color: var(--mm-text-primary);
+  border-color: var(--mm-border-default);
 }
 
-.danger {
-  border: 1px solid var(--mm-high-border-alt);
-  background: var(--mm-high-bg);
-  color: var(--mm-high-text-alt);
-  padding: 10px 13px;
-  border-radius: var(--mm-radius-sm);
+.secondary:hover:not(:disabled) {
+  background: var(--mm-bg-surface-alt);
 }
-.danger:hover {
-  background: var(--mm-high-bg-alt);
+
+/* Ghost */
+.ghost {
+  background: transparent;
+  color: var(--mm-text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--mm-bg-surface-alt);
+  color: var(--mm-text-primary);
+}
+
+/* Danger */
+.danger {
+  border-color: var(--mm-semantic-critical-border);
+  background: transparent;
+  color: var(--mm-semantic-critical-text);
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--mm-semantic-critical-bg-subtle);
 }

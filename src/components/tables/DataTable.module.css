@@ -9,14 +9,18 @@
 
 .table th,
 .table td {
-  padding: 11px 9px;
+  padding: var(--mm-space-3) var(--mm-space-2);
   border-bottom: 1px solid var(--mm-border-divider);
   text-align: left;
+  font-family: var(--mm-font-family);
   font-size: var(--mm-font-size-sm);
   white-space: nowrap;
 }
 
 .table th {
-  color: var(--mm-text-tertiary);
-  font-weight: var(--mm-font-weight-semibold);
+  color: var(--mm-text-secondary);
+  font-weight: var(--mm-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: var(--mm-font-size-xs);
 }
